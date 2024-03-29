@@ -124,6 +124,16 @@ export const GridOptions: Component = () => {
               );
             }}
           />
+          <SliderInput
+            name="colSize"
+            label="Straight Col"
+            value={stadiumState().colSize}
+            min={1}
+            max={100}
+            onInput={(e) => {
+              setStadiumProp("colSize", e.currentTarget.value);
+            }}
+          />
           {/*<SliderInput*/}
           {/*  name="sharpenX"*/}
           {/*  label="Short Extension"*/}

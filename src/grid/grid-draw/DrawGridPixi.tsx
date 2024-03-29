@@ -122,13 +122,13 @@ export const DrawGridPixi: Component = () => {
         resizeTo: ref,
         resolution: 1,
         antialias: true,
-        eventMode: "dynamic",
+        eventMode: "static",
         eventFeatures: {
-          move: true,
+          move: false,
           /** disables the global move events which can be very expensive in large scenes */
           globalMove: false,
           click: true,
-          wheel: true,
+          wheel: false,
         },
       });
 

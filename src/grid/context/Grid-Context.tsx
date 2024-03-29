@@ -13,7 +13,6 @@ import {
   CellLines,
   CenterLines,
   GridCell,
-  SimpleLine,
   StadiumState,
 } from "../types/types";
 import { Pt } from "pts";
@@ -30,13 +29,14 @@ import {
 } from "../grid-calculations";
 
 const initialState: StadiumState = {
-  longSide: new Pt(60, 120),
+  longSide: new Pt(60, 140),
   shortSide: new Pt(60, 60),
   innerCornerShape: new Pt(0, 0),
   sharpen: new Pt(0, 0),
   bezierValue: BEZIER_CIRCLE,
   angleAmount: 3,
   rowAmount: 16,
+  colSize: 5,
   t1AngleOffset: 0,
   t2AngleOffset: 0,
 };
@@ -73,10 +73,10 @@ export const makeGridContext = (initialState: StadiumState) => {
   }> = createMemo(() => makeCurveAreasLines(centerLines, curves));
 
   const straightAreasLines: Accessor<{
-    top: SimpleLine[];
-    left: SimpleLine[];
-    bottom: SimpleLine[];
-    right: SimpleLine[];
+    top: CellLines[][];
+    left: CellLines[][];
+    bottom: CellLines[][];
+    right: CellLines[][];
   }> = createMemo(() =>
     makeStraightAreasLines(stadiumState, cornerDimensions, centerLines),
   );

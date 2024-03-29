@@ -7,7 +7,6 @@ import {
   CellLines,
   Corner,
   GridCell,
-  SimpleLine,
   StadiumState,
 } from "../types/types";
 import {
@@ -62,10 +61,10 @@ export const stadiumLines = (
     topRight: CellLines[][];
   }>,
   straightAreasLines: Accessor<{
-    top: SimpleLine[];
-    left: SimpleLine[];
-    bottom: SimpleLine[];
-    right: SimpleLine[];
+    top: CellLines[][];
+    left: CellLines[][];
+    bottom: CellLines[][];
+    right: CellLines[][];
   }>,
 ) => {
   return {
@@ -124,7 +123,7 @@ const rowsWithCellsFromArea = (
   data: AreaDefinition,
   belongsTo: AreaPosition,
 ): GridCell[][] => {
-  if (data.type === "corner") {
+  if (data.type === "corner" || data.type === "straight") {
     const cornerData = data.data as Corner;
     return cornerData.map((row) => {
       return row
@@ -141,25 +140,6 @@ const rowsWithCellsFromArea = (
           };
         });
     });
-  } else if (data.type === "straight") {
-    const straightData = data.data as SimpleLine[]; // only rows so far
-    const straightDataRows = straightData.length;
-    return straightData
-      .reverse()
-      .filter((_, index) => index < straightDataRows - 1)
-      .map((curr, rowIndexLocal) => {
-        return [
-          {
-            belongsTo,
-            bottomLeft: curr[0].clone(),
-            vectorToRight: curr[1].$subtract(curr[0]),
-            vectorToTop: straightData[rowIndexLocal + 1][0].$subtract(curr[0]),
-            vectorDiagonal: straightData[rowIndexLocal + 1][1].$subtract(
-              curr[0],
-            ),
-          },
-        ] as GridCell[];
-      });
   } else {
     return [[]];
   }

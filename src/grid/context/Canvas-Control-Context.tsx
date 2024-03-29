@@ -10,9 +10,9 @@ import { CanvasControl } from "../types/types";
 const initialState: CanvasControl = {
   el: null,
   view: {
-    x: -100,
-    y: -100,
-    zoom: 4,
+    x: 30,
+    y: 30,
+    zoom: 3,
     width: 0,
     height: 0,
   },

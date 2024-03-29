@@ -1,11 +1,5 @@
 import { Accessor } from "solid-js";
-import {
-  AreaDict,
-  CellLines,
-  CenterLines,
-  SimpleLine,
-  StadiumState,
-} from "../types/types";
+import { AreaDict, CellLines, CenterLines, StadiumState } from "../types/types";
 import { Pt } from "pts";
 import {
   curveAreasLines,
@@ -57,10 +51,10 @@ export const makeStadiumLines = (
     topRight: CellLines[][];
   }>,
   straightAreasLines: Accessor<{
-    top: SimpleLine[];
-    left: SimpleLine[];
-    bottom: SimpleLine[];
-    right: SimpleLine[];
+    top: CellLines[][];
+    left: CellLines[][];
+    bottom: CellLines[][];
+    right: CellLines[][];
   }>,
 ) => stadiumLines(curveAreasLines, straightAreasLines);
 

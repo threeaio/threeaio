@@ -28,6 +28,7 @@ export interface StadiumState {
   bezierValue: number;
   angleAmount: number;
   rowAmount: number;
+  colSize: number; // determines how many cols on straight so far
   t1AngleOffset: number;
   t2AngleOffset: number;
 }
@@ -51,8 +52,8 @@ export type CenterLines = {
 
 // TODO Remove/Refactor !
 export type CornerElement = {
-  lineToTop: SimpleLine; // TODO as Pts.Line ?
-  lineRight: SimpleLine; // TODO as Pts.Line ?
+  lineToTop: SimpleLine;
+  lineRight: SimpleLine;
 };
 
 export type CornerElementRow = CornerElement[];
