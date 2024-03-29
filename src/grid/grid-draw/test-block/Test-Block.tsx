@@ -100,7 +100,7 @@ export const Block: (
       blockTransform
         .set(1, 0, 0, 1, 0, 0)
         .translate(-1 * container.width, container.height * -1)
-        // .prepend(skewRightMatrix)
+        .prepend(skewRightMatrix)
         .rotate(angle)
         .translate(
           gridCell.bottomLeft.x + gridCell.vectorToRight.x,

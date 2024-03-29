@@ -3,13 +3,15 @@ import { useGrid } from "../context/Grid-Context";
 import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application, Container, Graphics } from "pixi.js";
 import { Block, BlockType, SeatSprite } from "./test-block/Test-Block";
-import { block6, block7 } from "./test-block/Test-Data";
+import { block5, block6, block7 } from "./test-block/Test-Data";
 
 export const DrawGridPixi: Component = () => {
   const [{ stadiumGrid, stadiumDimensions }] = useGrid();
   const [{ controlState }, { setupControls }] = useCanvasControl();
 
   const contextOwner = getOwner(); // what the heck is this ??? A reactive version of THIS ???
+
+  let currentBlockIndex = 0;
 
   const scaleFactor = createMemo(() => {
     const xFactor = controlState().view.width / stadiumDimensions().x;
@@ -135,11 +137,13 @@ export const DrawGridPixi: Component = () => {
       const stage = app.stage;
       const block1 = Block(app, block7, "left");
       const block2 = Block(app, block6, "right");
+      const block3 = Block(app, block5, "left");
 
       blocks.push(block1);
       blocks.push(block2);
+      blocks.push(block3);
 
-      currentBlock = block1;
+      currentBlock = blocks[currentBlockIndex];
 
       console.log("block.height", currentBlock.container.height);
       console.log("block.width", currentBlock.container.width);
@@ -183,7 +187,11 @@ export const DrawGridPixi: Component = () => {
         <button
           class="absolute bottom-5 left-5 text-gray-400"
           onClick={() => {
-            currentBlock = blocks[1];
+            currentBlockIndex++;
+            if (currentBlockIndex === blocks.length) {
+              currentBlockIndex = 0;
+            }
+            currentBlock = blocks[currentBlockIndex];
           }}
         >
           Next

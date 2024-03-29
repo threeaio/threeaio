@@ -32,11 +32,11 @@ import {
 const initialState: StadiumState = {
   longSide: new Pt(60, 120),
   shortSide: new Pt(60, 60),
-  innerCornerShape: new Pt(10, 10),
+  innerCornerShape: new Pt(0, 0),
   sharpen: new Pt(0, 0),
   bezierValue: BEZIER_CIRCLE,
   angleAmount: 3,
-  rowAmount: 6,
+  rowAmount: 16,
   t1AngleOffset: 0,
   t2AngleOffset: 0,
 };
