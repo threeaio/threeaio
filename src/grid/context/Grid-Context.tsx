@@ -2,7 +2,6 @@ import {
   Accessor,
   createContext,
   createMemo,
-  createSignal,
   JSX,
   ParentComponent,
   useContext,
@@ -17,6 +16,7 @@ import {
 } from "../types/types";
 import { Pt } from "pts";
 import {
+  makeArbitCurves,
   makeCenterLines,
   makeCornerDimensions,
   makeCurveAreasLines,
@@ -27,23 +27,26 @@ import {
   makeStadiumLines,
   makeStraightAreasLines,
 } from "../grid-calculations";
+import { createStore } from "solid-js/store";
 
 const initialState: StadiumState = {
   longSide: new Pt(60, 140),
   shortSide: new Pt(60, 60),
-  innerCornerShape: new Pt(0, 0),
+  innerCornerShape: new Pt(20, 20),
   sharpen: new Pt(0, 0),
   bezierValue: BEZIER_CIRCLE,
-  angleAmount: 3,
+  angleAmount: 1,
   rowAmount: 16,
-  colSize: 5,
+  colSize: 50,
   t1AngleOffset: 0,
   t2AngleOffset: 0,
+  arbitCorners: true,
+  arbitCornerLines: [[new Pt(100, 234), new Pt(0, 0), 10]],
 };
 
 export const makeGridContext = (initialState: StadiumState) => {
   const [stadiumState, setStadiumState] =
-    createSignal<StadiumState>(initialState);
+    createStore<StadiumState>(initialState);
 
   const stadiumDimensions: Accessor<Pt> = createMemo(() =>
     makeStadiumDimensions(stadiumState),
@@ -65,12 +68,21 @@ export const makeGridContext = (initialState: StadiumState) => {
     makeCurves(stadiumState, curvesRaw),
   );
 
+  const arbitCurves: Accessor<{
+    curves: Accessor<Pt[][]>;
+    hittingArbits: Accessor<Pt[][]>;
+  }> = createMemo(() => makeArbitCurves(stadiumState, cornerDimensions));
+
   const curveAreasLines: Accessor<{
     bottomLeft: CellLines[][];
     bottomRight: CellLines[][];
     topLeft: CellLines[][];
     topRight: CellLines[][];
-  }> = createMemo(() => makeCurveAreasLines(centerLines, curves));
+  }> = createMemo(() =>
+    stadiumState.arbitCorners
+      ? makeCurveAreasLines(centerLines, arbitCurves().curves)
+      : makeCurveAreasLines(centerLines, curves),
+  );
 
   const straightAreasLines: Accessor<{
     top: CellLines[][];
@@ -100,6 +112,7 @@ export const makeGridContext = (initialState: StadiumState) => {
       stadiumState,
       stadiumDimensions,
       stadiumGrid,
+      arbitCurves: arbitCurves,
     },
     { setStadiumState, resetStadiumState },
   ] as const;

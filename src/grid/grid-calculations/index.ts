@@ -13,24 +13,30 @@ import {
   cornerDimensions,
   stadiumDimensions,
 } from "./stadium.state.service";
+import { arbitCurves } from "./calculate-arbit-corner.state.service";
 
-export const makeStadiumDimensions = (state: Accessor<StadiumState>) =>
+export const makeStadiumDimensions = (state: StadiumState) =>
   stadiumDimensions(state);
 
 export const makeCenterLines = (state: Accessor<Pt>) => centerLines(state);
 
-export const makeCornerDimensions = (state: Accessor<StadiumState>) =>
+export const makeCornerDimensions = (state: StadiumState) =>
   cornerDimensions(state);
 
 export const makeCurvesRaw = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   cornerDimensions: Accessor<Pt>,
 ) => curvesRaw(stadiumState, cornerDimensions);
 
 export const makeCurves = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   curvesRaw: Accessor<[Pt, Pt, Pt, Pt][]>,
 ) => curves(stadiumState, curvesRaw);
+
+export const makeArbitCurves = (
+  stadiumState: StadiumState,
+  cornerDimensions: Accessor<Pt>,
+) => arbitCurves(stadiumState, cornerDimensions);
 
 export const makeCurveAreasLines = (
   centerLines: Accessor<CenterLines>,
@@ -38,7 +44,7 @@ export const makeCurveAreasLines = (
 ) => curveAreasLines(centerLines, curves);
 
 export const makeStraightAreasLines = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   cornerDimensions: Accessor<Pt>,
   centerLines: Accessor<CenterLines>,
 ) => straightAreasLines(stadiumState, cornerDimensions, centerLines);
@@ -59,6 +65,6 @@ export const makeStadiumLines = (
 ) => stadiumLines(curveAreasLines, straightAreasLines);
 
 export const makeStadiumGrid = (
-  state: Accessor<StadiumState>,
+  state: StadiumState,
   areas: Accessor<AreaDict>,
 ) => stadiumGrid(state, areas);

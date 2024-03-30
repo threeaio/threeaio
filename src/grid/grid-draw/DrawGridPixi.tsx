@@ -4,12 +4,15 @@ import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application, Container, Graphics } from "pixi.js";
 import { Block, BlockType, SeatSprite } from "./test-block/Test-Block";
 import { block5, block6, block7 } from "./test-block/Test-Data";
+import { ArbitLines } from "./test-block/Test-Arbit-Line";
 
 export const DrawGridPixi: Component = () => {
-  const [{ stadiumGrid, stadiumDimensions }] = useGrid();
+  const [{ stadiumGrid, stadiumDimensions, arbitCurves }] = useGrid();
   const [{ controlState }, { setupControls }] = useCanvasControl();
 
   const contextOwner = getOwner(); // what the heck is this ??? A reactive version of THIS ???
+
+  const arbitLine = ArbitLines();
 
   let currentBlockIndex = 0;
 
@@ -22,24 +25,27 @@ export const DrawGridPixi: Component = () => {
   const transformedStadiumGrid = createMemo(() => {
     const xOffset = 0; //scaleFactor() * stadiumDimensions().x) / 2;
     const yOffset = 0; // (scaleFactor() * stadiumDimensions().y) / 2;
+
+    const scaleFactor = 1;
+
     return stadiumGrid().map((gridCell, _index) => {
       const pt1_raw = gridCell.bottomLeft;
 
       const pt1 = gridCell.bottomLeft
-        .$multiply(scaleFactor())
+        .$multiply(scaleFactor)
         .subtract([xOffset, yOffset]);
 
       const pt2 = pt1_raw
         .$add(gridCell.vectorToRight)
-        .multiply(scaleFactor())
+        .multiply(scaleFactor)
         .subtract([xOffset, yOffset]);
       const pt3 = pt1_raw
         .$add(gridCell.vectorToTop)
-        .multiply(scaleFactor())
+        .multiply(scaleFactor)
         .subtract([xOffset, yOffset]);
       const pt4 = pt1_raw
         .$add(gridCell.vectorDiagonal)
-        .multiply(scaleFactor())
+        .multiply(scaleFactor)
         .subtract([xOffset, yOffset]);
 
       return { pt1, pt2, pt3, pt4, gridCell };
@@ -49,7 +55,6 @@ export const DrawGridPixi: Component = () => {
   const drawStadium = createMemo(() => {
     const xAdd = 0;
     const yAdd = 0;
-
     return transformedStadiumGrid().map((gridCell, _index) => {
       const { pt1, pt2, pt3, pt4 } = gridCell;
       const graphic = new Graphics()
@@ -59,16 +64,18 @@ export const DrawGridPixi: Component = () => {
         .lineTo(pt3.x, pt3.y)
         // .lineTo(pt1.x, pt1.y)
         .fill("rgba(255,255,255,0)")
-        .stroke({ width: 1, color: "rgba(0, 255, 200,1)" })
-        .on("pointerdown", (event) => {
+        .stroke({ width: 0.2, color: "rgba(0, 255, 200,1)" })
+        .on("pointertap", (event) => {
+          console.log("event", event);
           if (currentBlock) {
-            currentBlock.setBlockTransform(gridCell, scaleFactor());
+            currentBlock.setBlockTransform(gridCell, 1);
           }
-
-          // TODO conflict with drag
-          event.preventDefault();
-          event.stopImmediatePropagation();
         });
+      //
+      //   // TODO conflict with drag
+      //   event.preventDefault();
+      //   event.stopImmediatePropagation();
+      // });
 
       return new Container().addChild(graphic);
     });
@@ -79,54 +86,57 @@ export const DrawGridPixi: Component = () => {
 
   createEffect(
     on(scaleFactor, () => {
-      const grid = transformedStadiumGrid();
-      blocks.forEach((block) => {
-        const indexes = block.getConnectedGridCellIndexes();
-        if (indexes !== null) {
-          const connectedGridCell = grid.find(
-            (g) =>
-              g.gridCell.xIndex === indexes.x &&
-              g.gridCell.yIndex === indexes.y,
-          );
-          if (connectedGridCell) {
-            block.setBlockTransform(connectedGridCell, scaleFactor());
-          }
-        }
-      });
+      // const grid = transformedStadiumGrid();
+      //
+      // blocks.forEach((block) => {
+      //   const indexes = block.getConnectedGridCellIndexes();
+      //   if (indexes !== null) {
+      //     const connectedGridCell = grid.find(
+      //       (g) =>
+      //         g.gridCell.xIndex === indexes.x &&
+      //         g.gridCell.yIndex === indexes.y,
+      //     );
+      //     if (connectedGridCell) {
+      //       block.setBlockTransform(connectedGridCell, 1);
+      //     }
+      //   }
+      // });
     }),
   );
 
-  createEffect(() => {
-    const grid = transformedStadiumGrid();
-    blocks.forEach((block) => {
-      const indexes = block.getConnectedGridCellIndexes();
-      if (indexes !== null) {
-        const connectedGridCell = grid.find(
-          (g) =>
-            g.gridCell.xIndex === indexes.x && g.gridCell.yIndex === indexes.y,
-        );
-        if (connectedGridCell) {
-          block.setBlockTransform(connectedGridCell, scaleFactor());
-        }
-      }
-    });
-  });
+  // createEffect(() => {
+  //   const grid = transformedStadiumGrid();
+  //   blocks.forEach((block) => {
+  //     const indexes = block.getConnectedGridCellIndexes();
+  //     if (indexes !== null) {
+  //       const connectedGridCell = grid.find(
+  //         (g) =>
+  //           g.gridCell.xIndex === indexes.x && g.gridCell.yIndex === indexes.y,
+  //       );
+  //       if (connectedGridCell) {
+  //         block.setBlockTransform(connectedGridCell, scaleFactor());
+  //       }
+  //     }
+  //   });
+  // });
 
   const createSketch = (ref: HTMLDivElement) => {
     setupControls(ref);
+
+    const resolution = 1;
 
     setTimeout(async () => {
       const app = new Application();
       await app.init({
         backgroundAlpha: 0,
         resizeTo: ref,
-        resolution: 1,
+        resolution: resolution,
         antialias: true,
         eventMode: "static",
         eventFeatures: {
-          move: false,
+          move: true,
           /** disables the global move events which can be very expensive in large scenes */
-          globalMove: false,
+          globalMove: true,
           click: true,
           wheel: false,
         },
@@ -150,11 +160,16 @@ export const DrawGridPixi: Component = () => {
 
       console.log("blocks", blocks);
 
-      app.ticker.add((time) => {
-        stage.scale = controlState().view.zoom;
-        stage.position = { x: controlState().view.x, y: controlState().view.y };
+      arbitLine.updateWorld(app.stage);
 
+      app.ticker.add((ticker) => {
         stage.removeChildren();
+
+        stage.scale = (scaleFactor() * controlState().view.zoom) / resolution;
+        stage.position = {
+          x: controlState().view.x / resolution,
+          y: controlState().view.y / resolution,
+        };
 
         if (drawStadium().length) {
           stage.addChild(...drawStadium());
@@ -176,13 +191,31 @@ export const DrawGridPixi: Component = () => {
 
           stage.addChild(b.container);
         });
+
+        // arbit line test
+
+        if (arbitCurves().hittingArbits()[0]) {
+          const line1 = new Graphics();
+          const hitting = arbitCurves().hittingArbits()[0];
+          line1
+            .moveTo(hitting[0].x, hitting[0].y)
+            .lineTo(hitting[3].x, hitting[3].y)
+            .stroke({ width: 0.5, color: 0xffffff });
+
+          stage.addChild(line1);
+        }
+
+        stage.addChild(arbitLine.container);
       });
     }, 0);
   };
 
   return (
     <>
-      <div class="h-full max-w-full" ref={(el) => createSketch(el)}></div>
+      <div
+        class="h-full w-full max-w-full absolute"
+        ref={(el) => createSketch(el)}
+      ></div>
       <div>
         <button
           class="absolute bottom-5 left-5 text-gray-400"

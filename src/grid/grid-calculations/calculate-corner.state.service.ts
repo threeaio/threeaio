@@ -31,14 +31,14 @@ export const cornerLines = (stadiumState: Accessor<StadiumState>) => {
 };
 
 export const curvesRaw: (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   cornerDimensions: Accessor<Pt>,
 ) => [Pt, Pt, Pt, Pt][] = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   cornerDimensions: Accessor<Pt>,
 ) => {
   // const lines = cornerLines();
-  const _stadiumState = stadiumState();
+  const _stadiumState = stadiumState;
   const fullWidth = cornerDimensions().x;
   const fullHeight = cornerDimensions().y;
 
@@ -107,10 +107,10 @@ export const curvesRaw: (
 
 // manipulate by t
 export const curves = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   curvesRaw: Accessor<[Pt, Pt, Pt, Pt][]>,
 ) => {
-  const steps = stadiumState().angleAmount;
+  const steps = stadiumState.angleAmount;
 
   return curvesRaw().map((bezier) => {
     const _bezierHere = Curve.bezier(bezier, steps);
@@ -118,9 +118,9 @@ export const curves = (
       // TODO
       const tOffset =
         index === 1
-          ? stadiumState().t1AngleOffset
+          ? stadiumState.t1AngleOffset
           : index === 2
-            ? stadiumState().t2AngleOffset
+            ? stadiumState.t2AngleOffset
             : 0;
       if (index === _bezierHere.length - 1 || tOffset === 0) {
         return pt;
@@ -131,13 +131,12 @@ export const curves = (
       // TODO
       const tWithOffsetBefore =
         (index === 2
-          ? tBefore + stadiumState().t1AngleOffset / steps
+          ? tBefore + stadiumState.t1AngleOffset / steps
           : tBefore) || 0;
       // TODO
       const tWithOffsetAfter =
-        (index === 1
-          ? tAfter + stadiumState().t2AngleOffset / steps
-          : tAfter) || 1;
+        (index === 1 ? tAfter + stadiumState.t2AngleOffset / steps : tAfter) ||
+        1;
 
       const sorted = [tWithOffsetBefore, tWithOffsetAfter].sort(
         (a, b) => a - b,

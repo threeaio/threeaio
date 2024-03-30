@@ -1,4 +1,4 @@
-import { Component, onMount } from "solid-js";
+import { Component, onMount, Show } from "solid-js";
 import { StadiumState } from "../types/types";
 import { Pt } from "pts";
 
@@ -32,16 +32,14 @@ export const GridOptions: Component = () => {
       numValue = value ? parseFloat(parseFloat(value).toFixed(4)) : 0;
     }
     if (!isNaN(numValue) || isPt) {
-      if (!ptProp && stadiumState()[prop] !== numValue) {
+      if (!ptProp && stadiumState[prop] !== numValue) {
         setStadiumState({
-          ...stadiumState(),
           [prop]: isPt ? value : numValue,
         });
       } else if (ptProp === "x" || ptProp === "y") {
-        const updated = (stadiumState()[prop] as Pt).clone();
+        const updated = (stadiumState[prop] as Pt).clone();
         updated[ptProp] = numValue;
         setStadiumState({
-          ...stadiumState(),
           [prop]: updated,
         });
       }
@@ -55,7 +53,7 @@ export const GridOptions: Component = () => {
           <SliderInput
             name="longSideY"
             label="Long Side"
-            value={stadiumState().longSide.y}
+            value={stadiumState.longSide.y}
             min={0}
             max={500}
             onInput={(e) =>
@@ -65,7 +63,7 @@ export const GridOptions: Component = () => {
           <SliderInput
             name="shortSideX"
             label="Short Side"
-            value={stadiumState().shortSide.x}
+            value={stadiumState.shortSide.x}
             min={0}
             max={500}
             onInput={(e) =>
@@ -77,7 +75,7 @@ export const GridOptions: Component = () => {
           <SliderInput
             name="shortSideY"
             label="Width"
-            value={stadiumState().longSide.x}
+            value={stadiumState.longSide.x}
             min={0}
             max={500}
             onInput={(e) => {
@@ -85,72 +83,22 @@ export const GridOptions: Component = () => {
               setStadiumProp("shortSide", e.currentTarget.value, "y");
             }}
           />
-        </div>
-        <div class="flex gap-3 mb-6">
-          <SliderInput
-            name="angleAmount"
-            label="Angle Count"
-            value={stadiumState().angleAmount}
-            min={1}
-            max={50}
-            onInput={(e) =>
-              setStadiumProp("angleAmount", e.currentTarget.value)
-            }
-          />
-          <SliderInput
-            name="rowAmount"
-            label="Rows"
-            value={stadiumState().rowAmount}
-            min={1}
-            max={50}
-            onInput={(e) => setStadiumProp("rowAmount", e.currentTarget.value)}
-          />
-        </div>
-
-        <div class="flex gap-3 mb-6">
-          <SliderInput
-            name="sharpenY"
-            label="Long Extension"
-            value={stadiumState().sharpen.y}
-            min={0}
-            max={100}
-            onInput={(e) => {
-              setStadiumProp(
-                "sharpen",
-                new Pt(
-                  parseFloat(e.currentTarget.value),
-                  parseFloat(e.currentTarget.value),
-                ),
-              );
-            }}
-          />
           <SliderInput
             name="colSize"
             label="Straight Col"
-            value={stadiumState().colSize}
+            value={stadiumState.colSize}
             min={1}
             max={100}
             onInput={(e) => {
               setStadiumProp("colSize", e.currentTarget.value);
             }}
           />
-          {/*<SliderInput*/}
-          {/*  name="sharpenX"*/}
-          {/*  label="Short Extension"*/}
-          {/*  value={stadiumState().sharpen.x}*/}
-          {/*  min={0}*/}
-          {/*  max={100}*/}
-          {/*  onInput={(e) =>*/}
-          {/*    setStadiumProp("sharpen", e.currentTarget.value, "x")*/}
-          {/*  }*/}
-          {/*/>*/}
         </div>
-
         <div class="flex gap-3 mb-6">
           <SliderInput
             name="innerCornerShapeY"
             label="Inner Corner"
-            value={stadiumState().innerCornerShape.y}
+            value={stadiumState.innerCornerShape.y}
             min={0}
             max={500}
             onInput={(e) => {
@@ -163,43 +111,91 @@ export const GridOptions: Component = () => {
               );
             }}
           />
+
           <SliderInput
-            name="bezierValue"
-            label="Bezier Strength"
-            value={stadiumState().bezierValue}
-            min={0}
-            max={1}
-            step={0.001}
-            onInput={(e) => {
-              setStadiumProp("bezierValue", e.currentTarget.value);
-            }}
+            name="rowAmount"
+            label="Rows"
+            value={stadiumState.rowAmount}
+            min={1}
+            max={50}
+            onInput={(e) => setStadiumProp("rowAmount", e.currentTarget.value)}
           />
         </div>
 
-        <div class="flex  gap-3 mb-6">
+        <div class="flex gap-3 mb-6">
           <SliderInput
-            name="t1AngleOffset"
-            label="t1AngleOffset"
-            value={stadiumState().t1AngleOffset}
-            min={-1}
-            max={1}
-            step={0.001}
+            name="sharpenY"
+            label="Long Extension"
+            value={stadiumState.sharpen.y}
+            min={0}
+            max={100}
             onInput={(e) => {
-              setStadiumProp("t1AngleOffset", e.currentTarget.value);
+              setStadiumProp("sharpen", e.currentTarget.value, "y");
             }}
           />
+
           <SliderInput
-            name="t2AngleOffset"
-            label="t2AngleOffset"
-            value={stadiumState().t2AngleOffset}
-            min={-1}
-            max={1}
-            step={0.001}
-            onInput={(e) => {
-              setStadiumProp("t2AngleOffset", e.currentTarget.value);
-            }}
+            name="sharpenX"
+            label="Short Extension"
+            value={stadiumState.sharpen.x}
+            min={0}
+            max={100}
+            onInput={(e) =>
+              setStadiumProp("sharpen", e.currentTarget.value, "x")
+            }
           />
         </div>
+
+        <Show when={!stadiumState.arbitCorners}>
+          <div class="flex gap-3 mb-6">
+            <SliderInput
+              name="angleAmount"
+              label="Angle Count"
+              value={stadiumState.angleAmount}
+              min={1}
+              max={50}
+              onInput={(e) =>
+                setStadiumProp("angleAmount", e.currentTarget.value)
+              }
+            />
+            <SliderInput
+              name="bezierValue"
+              label="Bezier Strength"
+              value={stadiumState.bezierValue}
+              min={0}
+              max={1}
+              step={0.001}
+              onInput={(e) => {
+                setStadiumProp("bezierValue", e.currentTarget.value);
+              }}
+            />
+          </div>
+
+          <div class="flex  gap-3 mb-6">
+            <SliderInput
+              name="t1AngleOffset"
+              label="t1AngleOffset"
+              value={stadiumState.t1AngleOffset}
+              min={-1}
+              max={1}
+              step={0.001}
+              onInput={(e) => {
+                setStadiumProp("t1AngleOffset", e.currentTarget.value);
+              }}
+            />
+            <SliderInput
+              name="t2AngleOffset"
+              label="t2AngleOffset"
+              value={stadiumState.t2AngleOffset}
+              min={-1}
+              max={1}
+              step={0.001}
+              onInput={(e) => {
+                setStadiumProp("t2AngleOffset", e.currentTarget.value);
+              }}
+            />
+          </div>
+        </Show>
 
         <button
           type="button"

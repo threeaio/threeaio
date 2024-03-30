@@ -20,7 +20,11 @@ export type CanvasControl = {
   };
 };
 
+export type ArbitLine = [Pt, Pt, number];
+
 export interface StadiumState {
+  arbitCorners: boolean;
+  arbitCornerLines: ArbitLine[];
   longSide: Pt;
   shortSide: Pt;
   sharpen: Pt; // TODO wording

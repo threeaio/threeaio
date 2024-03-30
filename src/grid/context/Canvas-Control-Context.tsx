@@ -10,9 +10,9 @@ import { CanvasControl } from "../types/types";
 const initialState: CanvasControl = {
   el: null,
   view: {
-    x: 30,
-    y: 30,
-    zoom: 3,
+    x: 0,
+    y: 0,
+    zoom: 1,
     width: 0,
     height: 0,
   },
@@ -85,9 +85,9 @@ export const makeControlContext = (initialState: CanvasControl) => {
       ...controlState(),
       view: {
         ...controlState().view,
-        zoom: controlState().view.zoom + zoom,
+        zoom: Math.max(controlState().view.zoom + zoom, 0.2),
         x: controlState().view.x - wx * controlState().view.width * zoom,
-        y: controlState().view.y - wx * controlState().view.height * zoom,
+        y: controlState().view.y - wy * controlState().view.height * zoom,
       },
     });
     e.preventDefault();
@@ -114,6 +114,7 @@ export const makeControlContext = (initialState: CanvasControl) => {
     if (!isDragging) {
       return;
     }
+
     const pos = { x: e.clientX, y: e.clientY };
     const dx = pos.x - (prevX || 0); // distance X
     const dy = pos.y - (prevY || 0); // distance Y

@@ -140,5 +140,7 @@ export const DrawGrid3D: Component = () => {
     }, 0);
   };
 
-  return <div class="max-w-full h-full" ref={(el) => createSketch(el)} />;
+  return (
+    <div class="max-w-full w-full h-full" ref={(el) => createSketch(el)} />
+  );
 };

@@ -146,16 +146,18 @@ const rowsWithCellsFromArea = (
 };
 
 export const stadiumGrid = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   areas: Accessor<AreaDict>,
 ): GridCell[] => {
   const areaDict = areas();
 
+  // console.log("stadiumGrid");
+  
   if (!areaDict.topRight.data || !areaDict.topRight.data.length) {
     console.log("Should abort");
     return [];
   }
-  const numRows = stadiumState().rowAmount;
+  const numRows = stadiumState.rowAmount;
 
   const withCells: AreaDictWithCells = getObjectKeys(areaDict).reduce(
     (prev: AreaDict, curr: keyof AreaDict): AreaDictWithCells => {

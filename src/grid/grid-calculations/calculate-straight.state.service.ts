@@ -9,27 +9,30 @@ import {
 import { Accessor } from "solid-js";
 
 export const straightAreasLines = (
-  stadiumState: Accessor<StadiumState>,
+  stadiumState: StadiumState,
   cornerDimensions: Accessor<Pt>,
   centerLines: Accessor<CenterLines>,
 ) => {
-  const colSize = stadiumState().colSize;
+  const colSize = stadiumState.colSize;
 
-  const longSide = stadiumState().longSide;
-  const shortSide = stadiumState().shortSide;
+  const longSide = stadiumState.longSide;
+  const shortSide = stadiumState.shortSide;
 
-  const numRows = stadiumState().rowAmount;
+  const numRows = stadiumState.rowAmount;
 
-  const numColsLong = Math.ceil(Math.round(longSide.y) / colSize);
-  const numColsShort = Math.ceil(Math.round(shortSide.x) / colSize);
+  const numColsLong = Math.max(Math.floor(Math.round(longSide.y) / colSize), 1);
+  const numColsShort = Math.max(
+    Math.ceil(Math.round(shortSide.x) / colSize),
+    1,
+  );
 
   const longSideColWidth = longSide.y / numColsLong;
   const shortSideColWidth = shortSide.x / numColsShort;
   const longSideRowWidth = longSide.x / numRows;
   const shortSideRowWidth = shortSide.y / numRows;
 
-  const extendShort = Math.min(stadiumState().sharpen.x, longSide.x);
-  const extendLong = Math.min(stadiumState().sharpen.y, shortSide.y);
+  const extendShort = Math.min(stadiumState.sharpen.x, longSide.x);
+  const extendLong = Math.min(stadiumState.sharpen.y, shortSide.y);
 
   const longSideRowLengthModifier = extendLong / numRows;
   const shortSideRowLengthModifier = extendShort / numRows;
@@ -99,7 +102,7 @@ export const straightAreasLines = (
           if (colIndex === 0) {
             return new Pt(
               cornerDimensions().x -
-                stadiumState().innerCornerShape.x -
+                stadiumState.innerCornerShape.x -
                 longSideRowWidth * rowIndex,
               longSide.y +
                 cornerDimensions().y +
@@ -109,14 +112,14 @@ export const straightAreasLines = (
             const movedColHere = longSideColWidth * Math.max(colIndex - 2, 0);
             return new Pt(
               cornerDimensions().x -
-                stadiumState().innerCornerShape.x -
+                stadiumState.innerCornerShape.x -
                 longSideRowWidth * rowIndex,
               cornerDimensions().y - longSideRowLengthModifier * rowIndex,
             );
           } else {
             return new Pt(
               cornerDimensions().x -
-                stadiumState().innerCornerShape.x -
+                stadiumState.innerCornerShape.x -
                 longSideRowWidth * rowIndex,
               longSide.y + cornerDimensions().y - movedCol,
             );
