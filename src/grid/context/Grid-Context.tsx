@@ -29,19 +29,23 @@ import {
 } from "../grid-calculations";
 import { createStore } from "solid-js/store";
 
+const w = 60;
 const initialState: StadiumState = {
-  longSide: new Pt(60, 140),
-  shortSide: new Pt(60, 60),
-  innerCornerShape: new Pt(20, 20),
+  longSide: new Pt(w, 140),
+  shortSide: new Pt(55, w),
+  innerCornerShape: new Pt(30, 30),
   sharpen: new Pt(0, 0),
   bezierValue: BEZIER_CIRCLE,
   angleAmount: 1,
   rowAmount: 16,
-  colSize: 50,
+  colSize: 60,
   t1AngleOffset: 0,
   t2AngleOffset: 0,
   arbitCorners: true,
-  arbitCornerLines: [[new Pt(100, 234), new Pt(0, 0), 10]],
+  arbitCornerLines: [
+    [new Pt(w, 70), new Pt(0, 36)],
+    [new Pt(68, 65), new Pt(45, 5)],
+  ],
 };
 
 export const makeGridContext = (initialState: StadiumState) => {

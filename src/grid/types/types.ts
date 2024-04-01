@@ -20,7 +20,7 @@ export type CanvasControl = {
   };
 };
 
-export type ArbitLine = [Pt, Pt, number];
+export type ArbitLine = [Pt, Pt];
 
 export interface StadiumState {
   arbitCorners: boolean;

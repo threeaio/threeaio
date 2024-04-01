@@ -151,7 +151,7 @@ export const stadiumGrid = (
 ): GridCell[] => {
   const areaDict = areas();
 
-  // console.log("stadiumGrid");
+  console.log("stadiumGrid");
   
   if (!areaDict.topRight.data || !areaDict.topRight.data.length) {
     console.log("Should abort");

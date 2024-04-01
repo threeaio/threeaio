@@ -1,4 +1,4 @@
-import { Component, createEffect, createMemo, getOwner, on } from "solid-js";
+import { Component, createEffect, createMemo, getOwner } from "solid-js";
 import { useGrid } from "../context/Grid-Context";
 import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application, Container, Graphics } from "pixi.js";
@@ -84,41 +84,21 @@ export const DrawGridPixi: Component = () => {
   const blocks: BlockType[] = [];
   let currentBlock: BlockType | undefined;
 
-  createEffect(
-    on(scaleFactor, () => {
-      // const grid = transformedStadiumGrid();
-      //
-      // blocks.forEach((block) => {
-      //   const indexes = block.getConnectedGridCellIndexes();
-      //   if (indexes !== null) {
-      //     const connectedGridCell = grid.find(
-      //       (g) =>
-      //         g.gridCell.xIndex === indexes.x &&
-      //         g.gridCell.yIndex === indexes.y,
-      //     );
-      //     if (connectedGridCell) {
-      //       block.setBlockTransform(connectedGridCell, 1);
-      //     }
-      //   }
-      // });
-    }),
-  );
-
-  // createEffect(() => {
-  //   const grid = transformedStadiumGrid();
-  //   blocks.forEach((block) => {
-  //     const indexes = block.getConnectedGridCellIndexes();
-  //     if (indexes !== null) {
-  //       const connectedGridCell = grid.find(
-  //         (g) =>
-  //           g.gridCell.xIndex === indexes.x && g.gridCell.yIndex === indexes.y,
-  //       );
-  //       if (connectedGridCell) {
-  //         block.setBlockTransform(connectedGridCell, scaleFactor());
-  //       }
-  //     }
-  //   });
-  // });
+  createEffect(() => {
+    const grid = transformedStadiumGrid();
+    blocks.forEach((block) => {
+      const indexes = block.getConnectedGridCellIndexes();
+      if (indexes !== null) {
+        const connectedGridCell = grid.find(
+          (g) =>
+            g.gridCell.xIndex === indexes.x && g.gridCell.yIndex === indexes.y,
+        );
+        if (connectedGridCell) {
+          block.setBlockTransform(connectedGridCell);
+        }
+      }
+    });
+  });
 
   const createSketch = (ref: HTMLDivElement) => {
     setupControls(ref);
@@ -194,16 +174,23 @@ export const DrawGridPixi: Component = () => {
 
         // arbit line test
 
-        if (arbitCurves().hittingArbits()[0]) {
-          const line1 = new Graphics();
-          const hitting = arbitCurves().hittingArbits()[0];
-          line1
-            .moveTo(hitting[0].x, hitting[0].y)
-            .lineTo(hitting[3].x, hitting[3].y)
-            .stroke({ width: 0.5, color: 0xffffff });
-
-          stage.addChild(line1);
-        }
+        // if (arbitCurves().hittingArbits().length) {
+        //   arbitCurves()
+        //     .hittingArbits()
+        //     .forEach((line) => {
+        //       const line1 = new Graphics();
+        //       const hitting = line;
+        //       line1
+        //         .moveTo(hitting[0].x, hitting[0].y)
+        //         .lineTo(hitting[1].x, hitting[1].y)
+        //         .stroke({ width: 0.5, color: 0xffffff })
+        //         .moveTo(hitting[2].x, hitting[2].y)
+        //         .lineTo(hitting[3].x, hitting[3].y)
+        //         .stroke({ width: 0.5, color: 0xffffff });
+        //
+        //       stage.addChild(line1);
+        //     });
+        // }
 
         stage.addChild(arbitLine.container);
       });

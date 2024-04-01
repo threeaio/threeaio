@@ -19,10 +19,7 @@ export class SeatSprite extends Sprite {
 
 export type BlockType = {
   container: Container;
-  setBlockTransform: (
-    { gridCell }: { gridCell: GridCell },
-    scaleFactor: number,
-  ) => void;
+  setBlockTransform: ({ gridCell }: { gridCell: GridCell }) => void;
   blockTransform: Matrix;
   getConnectedGridCellIndexes: () => Pt | null;
 };
@@ -51,10 +48,7 @@ export const Block: (
   // const blockSelfTransform: Matrix = new Matrix(1, 0, 0, 1, 0, 0);
   const blockTransform = new Matrix(1, 0, 0, 1, 0, 0);
 
-  const setBlockTransform = (
-    { gridCell }: { gridCell: GridCell },
-    scaleFactor: number,
-  ) => {
+  const setBlockTransform = ({ gridCell }: { gridCell: GridCell }) => {
     connectedGridCellIndexes = new Pt(
       gridCell.xIndex as number,
       gridCell.yIndex as number,
@@ -92,21 +86,21 @@ export const Block: (
       blockTransform
         .set(1, 0, 0, 1, 0, 0)
         .translate(0, container.height * -1)
-        .prepend(skewLeftMatrix)
+        // .prepend(skewLeftMatrix)
         .rotate(angle)
-        .translate(gridCell.bottomLeft.x, gridCell.bottomLeft.y)
-        .scale(scaleFactor, scaleFactor);
+        .translate(gridCell.bottomLeft.x, gridCell.bottomLeft.y);
+      // .scale(scaleFactor, scaleFactor);
     } else {
       blockTransform
         .set(1, 0, 0, 1, 0, 0)
         .translate(-1 * container.width, container.height * -1)
-        .prepend(skewRightMatrix)
+        // .prepend(skewRightMatrix)
         .rotate(angle)
         .translate(
           gridCell.bottomLeft.x + gridCell.vectorToRight.x,
           gridCell.bottomLeft.y + gridCell.vectorToRight.y,
-        )
-        .scale(scaleFactor, scaleFactor);
+        );
+      // .scale(scaleFactor, scaleFactor);
     }
   };
 
@@ -134,12 +128,12 @@ export const Block: (
     shapes[i] = shape;
 
     shape.origX = data[i].localX - 1; // TODO: what is real center ?
-    shape.origY = data[i].localY - 1;
+    shape.origY = (data[i].localY - 1) * 1.5;
 
     shape.anchor.set(0, 0);
     shape.scale = 1 / upScale / 8;
     shape.position.x = data[i].localX - 1;
-    shape.position.y = data[i].localY - 1;
+    shape.position.y = (data[i].localY - 1) * 1.5;
 
     shape.tint = 0xffffff;
   }

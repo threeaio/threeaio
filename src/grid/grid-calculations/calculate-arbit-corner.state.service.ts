@@ -51,9 +51,6 @@ export const arbitCurves = (
     const offsetXBySharpness = Num.lerp(0, sharpenWidth, lerpValue);
     const offsetYBySharpness = Num.lerp(0, sharpenHeight, lerpValue);
 
-    const newXWithSharpness = newX + offsetXBySharpness;
-    const newYWithSharpness = newY + offsetYBySharpness;
-
     return [
       new Pt(newX, fullCornerHeight - offsetYBySharpness),
       new Pt(fullCornerWidth - offsetXBySharpness, newY),
@@ -62,20 +59,68 @@ export const arbitCurves = (
 
   const hittingArbits = stadiumState.arbitCornerLines.reduce((prev, curr) => {
     const currLine = new Group(curr[0], curr[1]);
-    const firstRow = withoutArbit[0];
-    const lastRow = withoutArbit[withoutArbit.length - 1];
-    const crossStartPt = Line.intersectLine2D(firstRow, currLine);
-    const crossEndtPt = Line.intersectLine2D(lastRow, currLine);
+    // todo make tests if in allowed areas
+    // const firstRow = withoutArbit[0];
+    // const lastRow = withoutArbit[withoutArbit.length - 1];
+    // const crossStartPt = Line.intersectLine2D(firstRow, currLine);
+    // const crossEndtPt = Line.intersectLine2D(lastRow, currLine);
     // console.log("crossStartPt", crossStartPt);
     // console.log("crossEndtPt", crossEndtPt);
-    if (crossStartPt && crossEndtPt) {
-      return [...prev, [currLine[0], crossStartPt, crossEndtPt, currLine[1]]];
-    }
+    return [...prev, [currLine[0], new Pt(0, 0), new Pt(0, 0), currLine[1]]];
     return prev;
   }, [] as Pt[][]);
 
+  // todo: sort arbits
+  let withArbits;
+  if (hittingArbits.length) {
+    const arbitSubPoints = hittingArbits.map((arbit) => {
+      return [
+        arbit[0],
+        ...Line.subpoints([arbit[0], arbit[3]], rows.length - 2),
+        arbit[3],
+      ];
+    });
+
+    withArbits = withoutArbit.map((row, rowIndex) => {
+      const start = row[0];
+      const end = row[1];
+
+      return hittingArbits.reduce(
+        (prev, curr, currentIndex) => {
+          const divideInMiddle = hittingArbits.map((arbit) => {
+            return Line.subpoints(
+              [prev.at(-1)!, arbitSubPoints[currentIndex][rowIndex]],
+              1,
+            );
+          });
+          const middle = divideInMiddle[0][0];
+
+          if (currentIndex === hittingArbits.length - 1) {
+            const divideInMiddleLast = hittingArbits.map((arbit) => {
+              return Line.subpoints(
+                [arbitSubPoints[currentIndex][rowIndex], end],
+                1,
+              );
+            });
+            const middleLast = divideInMiddleLast[0][0];
+            return [
+              ...prev,
+              middle,
+              arbitSubPoints[currentIndex][rowIndex],
+              middleLast,
+              end,
+            ];
+          }
+          return [...prev, middle, arbitSubPoints[currentIndex][rowIndex]];
+        },
+        [start],
+      );
+    });
+  } else {
+    withArbits = withoutArbit;
+  }
   return {
-    curves: createMemo(() => withoutArbit),
+    curves: createMemo(() => withArbits),
     hittingArbits: createMemo(() => hittingArbits),
   };
 };
