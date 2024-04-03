@@ -12,7 +12,7 @@ const initialState: CanvasControl = {
   view: {
     x: 0,
     y: 0,
-    zoom: 1,
+    zoom: 6,
     width: 0,
     height: 0,
   },

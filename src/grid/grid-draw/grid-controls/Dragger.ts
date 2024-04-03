@@ -5,8 +5,9 @@ export const Dragger = (props: {
   pt: Pt;
   stage: Container;
   update: (pt: Pt) => void;
+  direction: "x" | "y" | "xy";
 }) => {
-  const radius = 4;
+  const radius = 1;
   const strokeWidth = 0.5;
   const strokeStyle = { width: strokeWidth, color: 0xffffff };
 
@@ -35,8 +36,10 @@ export const Dragger = (props: {
 
       dragging = true;
       dragPoint = event.getLocalPosition(props.stage);
+
       dragPoint.x -= handleContainer.x;
       dragPoint.y -= handleContainer.y;
+
       console.log("stage", props.stage.listenerCount("globalpointermove"));
       props.stage.on("globalpointermove", onDragMove);
       props.stage.on("pointerup", onDragStop);
@@ -50,14 +53,12 @@ export const Dragger = (props: {
       event.stopPropagation();
       const newPoint = event.getLocalPosition(props.stage);
 
-      // simulate one axis move
-      // if (currentIndex !== 0) {
-      //   dragging.x = newPoint.x - dragPoint.x;
-      // }
-      // dragging.y = newPoint.y - dragPoint.y;
-
-      handleContainer.x = newPoint.x - dragPoint.x;
-      handleContainer.y = newPoint.y - dragPoint.y;
+      if (props.direction !== "y") {
+        handleContainer.x = newPoint.x - dragPoint.x;
+      }
+      if (props.direction !== "x") {
+        handleContainer.y = newPoint.y - dragPoint.y;
+      }
 
       props.update(new Pt(newPoint.x, newPoint.y));
     }

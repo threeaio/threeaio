@@ -1,5 +1,5 @@
 import { Container, Graphics } from "pixi.js";
-import { Pt } from "pts";
+import { Group, Pt } from "pts";
 import { useGridNew } from "../../context/Grid-Context-New";
 import { Dragger } from "./Dragger";
 import { createEffect } from "solid-js";
@@ -8,45 +8,69 @@ type GriddlerProps = {
   stage: Container;
   start: Pt;
   end: Pt;
-  dir: 0 | 1;
+  dir: 1 | -1;
   linesAt: number[];
   handleEndUpdate: (pt: Pt) => void;
 };
 
-const radius = 1;
 const strokeWidth = 0.5;
 const strokeStyle = { width: strokeWidth, color: 0xffffff };
+const strokeStyleSupport = { width: strokeWidth / 2, color: 0xffffff };
 
 const Griddler = (props: GriddlerProps) => {
+  const griddlerDistance = 10; // separate controls from the actual line
   const mainContainer = new Container();
-
-  // to IF
-  const onHandleEndUpdate = (pt: Pt) => {
-    props.handleEndUpdate(pt);
-  };
-
   const mainLine = new Graphics();
-
-  const handle1 = Dragger({
-    pt: props.end,
-    stage: props.stage,
-    update: onHandleEndUpdate,
-  });
+  const leftSupportLine = new Graphics();
+  const rightSupportLine = new Graphics();
   mainContainer.addChild(mainLine);
-  mainContainer.addChild(handle1);
+  mainContainer.addChild(leftSupportLine);
+  mainContainer.addChild(rightSupportLine);
 
-  let startX = props.start.x;
-  let startY = props.start.y;
-  let endX = props.end.x;
-  let endY = props.end.y;
+  if (props.handleEndUpdate) {
+    const onHandleEndUpdate = (pt: Pt) => {
+      const ptHere = pt.$subtract(2, griddlerDistance / -2);
+      props.handleEndUpdate(ptHere);
+    };
+    const endDragger = Dragger({
+      pt: props.end.$add(2, griddlerDistance / -2),
+      stage: props.stage,
+      update: onHandleEndUpdate,
+      direction: "x",
+    });
+    mainContainer.addChild(endDragger);
+  }
+
+  const line = new Group(
+    new Pt(props.start.x, props.start.y),
+    new Pt(props.end.x, props.end.y),
+  );
 
   const draw = () => {
-    mainLine.moveTo(startX, startY).lineTo(endX, endY).stroke(strokeStyle);
+    const lineTransformed = line
+      .clone()
+      .add({ x: 0, y: griddlerDistance * props.dir });
+    mainLine
+      .moveTo(lineTransformed[0].x, lineTransformed[0].y)
+      .lineTo(lineTransformed[1].x, lineTransformed[1].y)
+      .stroke(strokeStyle);
+
+    leftSupportLine
+      .moveTo(lineTransformed[0].x, lineTransformed[0].y)
+      .lineTo(line[0].x, line[0].y)
+      .stroke(strokeStyleSupport);
+
+    rightSupportLine
+      .moveTo(lineTransformed[1].x, lineTransformed[1].y)
+      .lineTo(line[1].x, line[1].y)
+      .stroke(strokeStyleSupport);
   };
 
   const updateWidth = (x: number) => {
     mainLine.clear();
-    endX = x;
+    leftSupportLine.clear();
+    rightSupportLine.clear();
+    line[1].x = x;
   };
 
   return {
@@ -84,7 +108,7 @@ export const CornerBottomGriddler = () => {
       start,
       end,
       linesAt,
-      dir: 0,
+      dir: -1,
       handleEndUpdate,
     });
 
