@@ -1,9 +1,16 @@
 import { createContext, JSX, ParentComponent, useContext } from "solid-js";
 import { StadiumStateNew } from "../types/types";
 import { createStore } from "solid-js/store";
+import { Pt } from "pts";
+import { Container } from "pixi.js";
 
 const w = 60;
-const initialState: StadiumStateNew = {};
+const initialState: StadiumStateNew = {
+  mainStage: null,
+  numRows: 50,
+  cutOut: new Pt(15, 15),
+  rowLinesAt: [],
+};
 
 export const makeGridContextNew = (initialState: StadiumStateNew) => {
   const [stadiumState, setStadiumState] =
@@ -15,11 +22,35 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
     });
   };
 
+  const setMainStage = (stage: Container) => {
+    setStadiumState("mainStage", stage);
+  };
+
+  const setStadiumNumRows = (numRows: number) => {
+    // ... process
+
+    setStadiumState("numRows", Math.round(numRows));
+  };
+
+  const setStadiumCutOutX = (newValue: number) => {
+    const newPt = stadiumState.cutOut.clone();
+    newPt.x = newValue;
+    // ... process
+    setStadiumState("cutOut", newPt);
+  };
+
+  const setStadiumCutOutY = (newValue: number) => {
+    const newPt = stadiumState.cutOut.clone();
+    newPt.y = newValue;
+    // ... process
+    setStadiumState("cutOut", newPt);
+  };
+
   return [
     {
       stadiumState,
     },
-    {},
+    { setMainStage, setStadiumNumRows, setStadiumCutOutX, setStadiumCutOutY },
   ] as const;
 };
 

@@ -1,4 +1,5 @@
 import { Pt } from "pts";
+import { Container } from "pixi.js";
 
 export type Subset<K, T extends K> = T;
 
@@ -38,7 +39,12 @@ export interface StadiumState {
   t2AngleOffset: number;
 }
 
-export interface StadiumStateNew {}
+export interface StadiumStateNew {
+  mainStage: Container | null;
+  numRows: number; // number od max Rows
+  cutOut: Pt;
+  rowLinesAt: number[];
+}
 
 export type AreaPosition =
   | "topLeft"

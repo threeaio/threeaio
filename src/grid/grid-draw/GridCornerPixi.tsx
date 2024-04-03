@@ -1,10 +1,14 @@
 import { Component, createEffect } from "solid-js";
 import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application } from "pixi.js";
+import { useGridNew } from "../context/Grid-Context-New";
+import { CornerBottomGriddler } from "./grid-controls/Griddler";
 
 export const DrawGridCorner: Component = () => {
+  const [{ stadiumState }, { setMainStage }] = useGridNew();
   const [{ controlState }, { setupControls }] = useCanvasControl();
-
+  // has to be constructed after stage is set in Store. What TODO
+  const bottomGriddler = CornerBottomGriddler();
   createEffect(() => {});
 
   const createSketch = (ref: HTMLDivElement) => {
@@ -33,12 +37,19 @@ export const DrawGridCorner: Component = () => {
 
       const stage = app.stage;
 
+      setMainStage(stage);
+
+      const bottomG = bottomGriddler.setup();
+      stage.addChild(bottomG.container);
+
       app.ticker.add((ticker) => {
         stage.scale = controlState().view.zoom / resolution;
         stage.position = {
           x: controlState().view.x / resolution,
           y: controlState().view.y / resolution,
         };
+
+        bottomG.draw();
       });
     }, 0);
   };
