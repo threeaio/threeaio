@@ -25,7 +25,7 @@ const makeAreaDefinitionWithCells = (
   };
 };
 
-const getWithMaxAtProp = <T>(list: T[], prop: keyof T): T => {
+export const getWithMaxAtProp = <T>(list: T[], prop: keyof T): T => {
   return list.reduce(
     (prevItem, listItem) =>
       listItem[prop] > prevItem[prop] ? listItem : prevItem,
@@ -33,11 +33,11 @@ const getWithMaxAtProp = <T>(list: T[], prop: keyof T): T => {
   );
 };
 
-const pickSameX = (cell: GridCell, row: GridCell[]): GridCell => {
+export const pickSameX = (cell: GridCell, row: GridCell[]): GridCell => {
   return row.find((_cell) => _cell.xIndex === cell.xIndex)!;
 };
 
-const pickRight = (cell: GridCell, row: GridCell[]): GridCell => {
+export const pickRight = (cell: GridCell, row: GridCell[]): GridCell => {
   if (cell.xIndex === getWithMaxAtProp(row, "xIndex").xIndex) {
     return row[0];
   } else {
@@ -45,7 +45,7 @@ const pickRight = (cell: GridCell, row: GridCell[]): GridCell => {
   }
 };
 
-const pickLeft = (cell: GridCell, row: GridCell[]): GridCell => {
+export const pickLeft = (cell: GridCell, row: GridCell[]): GridCell => {
   if (cell.xIndex === 0) {
     return getWithMaxAtProp(row, "xIndex");
   } else {
@@ -152,7 +152,7 @@ export const stadiumGrid = (
   const areaDict = areas();
 
   console.log("stadiumGrid");
-  
+
   if (!areaDict.topRight.data || !areaDict.topRight.data.length) {
     console.log("Should abort");
     return [];

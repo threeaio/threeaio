@@ -25,6 +25,7 @@ export type ArbitLine = [Pt, Pt];
 export interface StadiumState {
   arbitCorners: boolean;
   arbitCornerLines: ArbitLine[];
+  arbitAdditionalSplit: { atIndex: number; offset: number }[];
   longSide: Pt;
   shortSide: Pt;
   sharpen: Pt; // TODO wording
@@ -36,6 +37,8 @@ export interface StadiumState {
   t1AngleOffset: number;
   t2AngleOffset: number;
 }
+
+export interface StadiumStateNew {}
 
 export type AreaPosition =
   | "topLeft"

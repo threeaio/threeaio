@@ -7,9 +7,7 @@ import {
   useContext,
 } from "solid-js";
 import {
-  AreaDict,
   BEZIER_CIRCLE,
-  CellLines,
   CenterLines,
   GridCell,
   StadiumState,
@@ -19,21 +17,21 @@ import {
   makeArbitCurves,
   makeCenterLines,
   makeCornerDimensions,
-  makeCurveAreasLines,
-  makeCurves,
-  makeCurvesRaw,
   makeStadiumDimensions,
-  makeStadiumGrid,
-  makeStadiumLines,
-  makeStraightAreasLines,
 } from "../grid-calculations";
 import { createStore } from "solid-js/store";
+import { makeGroups, mapCornerToDirectedLines } from "../_util/pts-utilities";
+import {
+  pickLeft,
+  pickRight,
+  pickSameX,
+} from "../grid-calculations/calculate-full-grid.service";
 
 const w = 60;
 const initialState: StadiumState = {
   longSide: new Pt(w, 140),
   shortSide: new Pt(55, w),
-  innerCornerShape: new Pt(30, 30),
+  innerCornerShape: new Pt(15, 30),
   sharpen: new Pt(0, 0),
   bezierValue: BEZIER_CIRCLE,
   angleAmount: 1,
@@ -45,6 +43,10 @@ const initialState: StadiumState = {
   arbitCornerLines: [
     [new Pt(w, 70), new Pt(0, 36)],
     [new Pt(68, 65), new Pt(45, 5)],
+  ],
+  arbitAdditionalSplit: [
+    { atIndex: 0, offset: 5 },
+    { atIndex: 1, offset: 8 },
   ],
 };
 
@@ -64,45 +66,56 @@ export const makeGridContext = (initialState: StadiumState) => {
     makeCornerDimensions(stadiumState),
   );
 
-  const curvesRaw: Accessor<[Pt, Pt, Pt, Pt][]> = createMemo(() =>
-    makeCurvesRaw(stadiumState, cornerDimensions),
-  );
-
-  const curves: Accessor<Pt[][]> = createMemo(() =>
-    makeCurves(stadiumState, curvesRaw),
-  );
-
   const arbitCurves: Accessor<{
     curves: Accessor<Pt[][]>;
     hittingArbits: Accessor<Pt[][]>;
   }> = createMemo(() => makeArbitCurves(stadiumState, cornerDimensions));
 
-  const curveAreasLines: Accessor<{
-    bottomLeft: CellLines[][];
-    bottomRight: CellLines[][];
-    topLeft: CellLines[][];
-    topRight: CellLines[][];
-  }> = createMemo(() =>
-    stadiumState.arbitCorners
-      ? makeCurveAreasLines(centerLines, arbitCurves().curves)
-      : makeCurveAreasLines(centerLines, curves),
-  );
-
-  const straightAreasLines: Accessor<{
-    top: CellLines[][];
-    left: CellLines[][];
-    bottom: CellLines[][];
-    right: CellLines[][];
-  }> = createMemo(() =>
-    makeStraightAreasLines(stadiumState, cornerDimensions, centerLines),
-  );
-
-  const stadiumLines: Accessor<AreaDict> = createMemo(() =>
-    makeStadiumLines(curveAreasLines, straightAreasLines),
-  );
-
-  const stadiumGrid: Accessor<GridCell[]> = createMemo(() =>
-    makeStadiumGrid(stadiumState, stadiumLines),
+  const stadium = createMemo(() =>
+    mapCornerToDirectedLines(makeGroups(arbitCurves().curves()))
+      .map((row): GridCell[] => {
+        return row
+          .filter((el) => !!el.lineRight && !!el.lineToTop)
+          .map((el, colIndexLocal): GridCell => {
+            const lineRight = el.lineRight!;
+            const lineToTop = el.lineToTop!;
+            return {
+              belongsTo: "topLeft",
+              bottomLeft: lineRight[0].clone(),
+              vectorToRight: lineRight[1].$subtract(lineRight[0]),
+              vectorToTop: lineToTop[1].$subtract(lineRight[0]),
+              vectorDiagonal: row[colIndexLocal + 1]?.lineToTop![1].$subtract(
+                lineToTop[0] || null,
+              ),
+            };
+          });
+      })
+      .map((row, rowIndex): GridCell[] => {
+        return row.map((cell, index) => {
+          return {
+            ...cell,
+            xIndex: index,
+            yIndex: rowIndex,
+          };
+        });
+      })
+      .map((row, rowIndex, allRows) => {
+        const allRowsFlat = allRows.flatMap((e) => e);
+        return row.map((cell) => {
+          return {
+            ...cell,
+            leftCell: pickLeft(cell, row),
+            rightCell: pickRight(cell, row),
+            topCell:
+              rowIndex < allRows.length - 1
+                ? pickSameX(cell, allRows[rowIndex + 1])
+                : null,
+            bottomCell:
+              rowIndex > 0 ? pickSameX(cell, allRows[rowIndex - 1]) : null,
+          };
+        });
+      })
+      .flatMap((e) => e),
   );
 
   const resetStadiumState = () => {
@@ -115,7 +128,8 @@ export const makeGridContext = (initialState: StadiumState) => {
     {
       stadiumState,
       stadiumDimensions,
-      stadiumGrid,
+      cornerDimensions,
+      stadiumGrid: stadium,
       arbitCurves: arbitCurves,
     },
     { setStadiumState, resetStadiumState },

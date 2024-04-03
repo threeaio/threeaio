@@ -67,11 +67,11 @@ export const arbitCurves = (
     // console.log("crossStartPt", crossStartPt);
     // console.log("crossEndtPt", crossEndtPt);
     return [...prev, [currLine[0], new Pt(0, 0), new Pt(0, 0), currLine[1]]];
-    return prev;
   }, [] as Pt[][]);
 
   // todo: sort arbits
   let withArbits;
+
   if (hittingArbits.length) {
     const arbitSubPoints = hittingArbits.map((arbit) => {
       return [
@@ -81,7 +81,11 @@ export const arbitCurves = (
       ];
     });
 
-    withArbits = withoutArbit.map((row, rowIndex) => {
+    const withMiddle = (
+      row: Pt[],
+      rowIndex: number,
+      stuff: { atIndex: number; line: [Pt, Pt] }[] | undefined = undefined,
+    ) => {
       const start = row[0];
       const end = row[1];
 
@@ -93,7 +97,25 @@ export const arbitCurves = (
               1,
             );
           });
-          const middle = divideInMiddle[0][0];
+          let middle = divideInMiddle[0][0];
+
+          const stuffHere = stuff
+            ? stuff.find((s) => s.atIndex === currentIndex)
+            : undefined;
+          if (stuffHere) {
+            const otherMiddle = Line.intersectRay2D(stuffHere.line, [
+              prev.at(-1)!,
+              arbitSubPoints[currentIndex][rowIndex],
+            ]);
+            // if (currentIndex === 1) {
+            //   console.log("stuffHere", stuffHere, otherMiddle);
+            // }
+            if (otherMiddle) {
+              middle = otherMiddle;
+            }
+
+            // console.log("otherMiddle", otherMiddle);
+          }
 
           if (currentIndex === hittingArbits.length - 1) {
             const divideInMiddleLast = hittingArbits.map((arbit) => {
@@ -115,6 +137,28 @@ export const arbitCurves = (
         },
         [start],
       );
+    };
+
+    const rowZero = withMiddle(withoutArbit[0], 0);
+
+    const stuff = stadiumState.arbitAdditionalSplit.map((data) => {
+      // if (rowZero[data.atIndex]) {
+      const startPt = rowZero[data.atIndex + 1];
+      const endPt = rowZero[data.atIndex + 2];
+      const unit = endPt.$subtract(startPt).unit();
+      const pt = startPt.$add(unit.$multiply(data.offset));
+      return {
+        atIndex: data.atIndex,
+        line: [pt, pt.$add(unit.rotate2D(Math.PI / -2).$multiply(200))] as [
+          Pt,
+          Pt,
+        ],
+      };
+      // }
+    });
+
+    withArbits = withoutArbit.map((row, rowIndex) => {
+      return withMiddle(row, rowIndex, stuff);
     });
   } else {
     withArbits = withoutArbit;

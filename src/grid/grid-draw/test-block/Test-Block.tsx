@@ -83,9 +83,10 @@ export const Block: (
     );
 
     if (tranformDir === "left") {
+      //  - 0.25 => ADD SOME DISTANCE TO KEEP DISTANCE BETWEEN SEATS
       blockTransform
         .set(1, 0, 0, 1, 0, 0)
-        .translate(0, container.height * -1)
+        .translate(0.25, container.height * -1)
         // .prepend(skewLeftMatrix)
         .rotate(angle)
         .translate(gridCell.bottomLeft.x, gridCell.bottomLeft.y);
@@ -93,7 +94,7 @@ export const Block: (
     } else {
       blockTransform
         .set(1, 0, 0, 1, 0, 0)
-        .translate(-1 * container.width, container.height * -1)
+        .translate(-1 * container.width - 0.25, container.height * -1)
         // .prepend(skewRightMatrix)
         .rotate(angle)
         .translate(
@@ -131,7 +132,7 @@ export const Block: (
     shape.origY = (data[i].localY - 1) * 1.5;
 
     shape.anchor.set(0, 0);
-    shape.scale = 1 / upScale / 8;
+    shape.scale = 1 / upScale / 4;
     shape.position.x = data[i].localX - 1;
     shape.position.y = (data[i].localY - 1) * 1.5;
 

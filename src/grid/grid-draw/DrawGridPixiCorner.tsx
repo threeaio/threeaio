@@ -5,14 +5,16 @@ import { Application, Container, Graphics } from "pixi.js";
 import { Block, BlockType, SeatSprite } from "./test-block/Test-Block";
 import { block5, block6, block7 } from "./test-block/Test-Data";
 import { ArbitLines } from "./test-block/Test-Arbit-Line";
+import { ArbitAreas } from "./test-block/Arbit-Areas";
 
-export const DrawGridPixi: Component = () => {
+export const DrawGridPixiCorner: Component = () => {
   const [{ stadiumGrid, stadiumDimensions, arbitCurves }] = useGrid();
   const [{ controlState }, { setupControls }] = useCanvasControl();
 
   const contextOwner = getOwner(); // what the heck is this ??? A reactive version of THIS ???
 
   const arbitLine = ArbitLines();
+  const arbitAreas = ArbitAreas();
 
   let currentBlockIndex = 0;
 
@@ -37,8 +39,6 @@ export const DrawGridPixi: Component = () => {
   });
 
   const drawStadium = createMemo(() => {
-    const xAdd = 0;
-    const yAdd = 0;
     return transformedStadiumGrid().map((gridCell, _index) => {
       const { pt1, pt2, pt3, pt4 } = gridCell;
       const graphic = new Graphics()
@@ -55,11 +55,6 @@ export const DrawGridPixi: Component = () => {
             currentBlock.setBlockTransform(gridCell, 1);
           }
         });
-      //
-      //   // TODO conflict with drag
-      //   event.preventDefault();
-      //   event.stopImmediatePropagation();
-      // });
 
       return new Container().addChild(graphic);
     });
@@ -119,11 +114,6 @@ export const DrawGridPixi: Component = () => {
 
       currentBlock = blocks[currentBlockIndex];
 
-      console.log("block.height", currentBlock.container.height);
-      console.log("block.width", currentBlock.container.width);
-
-      console.log("blocks", blocks);
-
       arbitLine.updateWorld(app.stage);
 
       app.ticker.add((ticker) => {
@@ -134,6 +124,9 @@ export const DrawGridPixi: Component = () => {
           x: controlState().view.x / resolution,
           y: controlState().view.y / resolution,
         };
+
+        // stage.addChild(arbitAreas.container);
+        // arbitAreas.createLines();
 
         if (drawStadium().length) {
           stage.addChild(...drawStadium());

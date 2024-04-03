@@ -51,6 +51,34 @@ export const GridOptions: Component = () => {
       <RighDrawer title="Settings">
         <div class="flex gap-3 mb-6">
           <SliderInput
+            name="arbitAdditionalSplit_0"
+            label="A line"
+            value={stadiumState.arbitAdditionalSplit[0].offset}
+            min={0}
+            max={15}
+            onInput={(e) =>
+              setStadiumState("arbitAdditionalSplit", 0, (v) => ({
+                ...v,
+                offset: parseFloat(e.currentTarget.value),
+              }))
+            }
+          />
+          <SliderInput
+            name="arbitAdditionalSplit_0"
+            label="B line"
+            value={stadiumState.arbitAdditionalSplit[1].offset}
+            min={0}
+            max={15}
+            onInput={(e) =>
+              setStadiumState("arbitAdditionalSplit", 1, (v) => ({
+                ...v,
+                offset: parseFloat(e.currentTarget.value),
+              }))
+            }
+          />
+        </div>
+        <div class="flex gap-3 mb-6">
+          <SliderInput
             name="longSideY"
             label="Long Side"
             value={stadiumState.longSide.y}
@@ -102,13 +130,18 @@ export const GridOptions: Component = () => {
             min={0}
             max={500}
             onInput={(e) => {
-              setStadiumProp(
-                "innerCornerShape",
-                new Pt(
-                  parseFloat(e.currentTarget.value),
-                  parseFloat(e.currentTarget.value),
-                ),
-              );
+              setStadiumProp("innerCornerShape", e.currentTarget.value, "y");
+            }}
+          />
+
+          <SliderInput
+            name="innerCornerShapeX"
+            label="Inner Corner"
+            value={stadiumState.innerCornerShape.x}
+            min={0}
+            max={500}
+            onInput={(e) => {
+              setStadiumProp("innerCornerShape", e.currentTarget.value, "x");
             }}
           />
 
