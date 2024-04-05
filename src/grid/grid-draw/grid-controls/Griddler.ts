@@ -7,6 +7,7 @@ import {
   HorizontalLine,
   LineDraggerDistance,
   PlusIcon,
+  PlusIconDistance,
   PlusIconSize,
   StrokeStyleSupport,
   VerticalLine,
@@ -105,7 +106,7 @@ export const Griddler = (props: GriddlerProps) => {
   const draw = () => {
     // probably remove ?
     const scale = mainContainer.parent.scale.x;
-    const griddlerDistanceScaled = GriddlerDistance / 1;
+    GriddlerDistance;
 
     if (state.isHovered) {
       state.currentAlpha = 1;
@@ -116,12 +117,12 @@ export const Griddler = (props: GriddlerProps) => {
 
     const lineTransformed = line
       .clone()
-      .add({ x: 0, y: griddlerDistanceScaled * props.dir });
+      .add({ x: 0, y: GriddlerDistance * props.dir });
 
     const topLeft = { x: lineTransformed[0].x, y: lineTransformed[0].y };
     const topRight = { x: lineTransformed[1].x, y: lineTransformed[1].y };
     const width = lineTransformed[1].x - lineTransformed[0].x;
-    const height = griddlerDistanceScaled;
+    const height = GriddlerDistance / scale;
 
     const interActiveArea = new Rectangle(
       topLeft.x,
@@ -169,13 +170,13 @@ export const Griddler = (props: GriddlerProps) => {
       y: 1 / scale,
     };
     addIconContainer.x = topLeft.x + width / 2 - PlusIconSize / scale / 2;
-    addIconContainer.y = topLeft.y + height + 2;
+    addIconContainer.y = topLeft.y + height + PlusIconDistance / scale;
 
     if (endDragger) {
       // add update prop
 
       endDragger.x = topRight.x + DraggerRadius / scale;
-      endDragger.children[0].x = LineDraggerDistance * scale;
+      endDragger.children[0].x = LineDraggerDistance;
       endDragger.y = topRight.y + height / 2;
       endDragger.scale = 1 / scale;
     }
@@ -184,8 +185,7 @@ export const Griddler = (props: GriddlerProps) => {
         // add update prop
         line.x = topLeft.x + lines[index];
         line.y = topRight.y;
-        line.children[0].scale = { x: 1, y: scale };
-        line.children[1].y = DraggerRadius + LineDraggerDistance * scale;
+        line.children[1].y = DraggerRadius + LineDraggerDistance;
         line.scale = 1 / scale;
       });
     }
@@ -218,8 +218,8 @@ export const Griddler = (props: GriddlerProps) => {
   if (typeof props.handleEndUpdate !== "undefined") {
     const onHandleEndUpdate = (pt: Pt) => {
       const scale = mainContainer.parent.scale.x;
-      const griddlerDistanceScaled = GriddlerDistance / 1;
-      const ptHere = pt.$subtract(LineDraggerDistance, 0);
+      const griddlerDistanceScaled = LineDraggerDistance / scale;
+      const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
       props.handleEndUpdate!(ptHere.x);
     };
 
