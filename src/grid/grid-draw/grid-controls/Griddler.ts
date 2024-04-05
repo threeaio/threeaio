@@ -1,16 +1,16 @@
-import { Container, Graphics, Rectangle } from "pixi.js";
+import { Container, Rectangle } from "pixi.js";
 import { Group, Pt } from "pts";
-import { Dragger } from "./Dragger";
 import {
   DraggerRadius,
   GriddlerDistance,
   LineDraggerDistance,
-  PlusIcon,
   PlusIconDistance,
   PlusIconSize,
 } from "./Constants";
 import { GridLines } from "./GridLines";
 import { SupportLines } from "./SupportLines";
+import { AddButton } from "./AddButton";
+import { GriddlerEndDrag } from "./GriddlerEndDrag";
 // import {createLines} from "./GridLines";
 
 type GriddlerProps = {
@@ -25,6 +25,11 @@ type GriddlerProps = {
 };
 
 export const Griddler = (props: GriddlerProps) => {
+  const state = {
+    isHovered: false,
+    currentAlpha: 1,
+  };
+
   const mainContainer = new Container({
     alpha: 1,
     isRenderGroup: true,
@@ -50,36 +55,28 @@ export const Griddler = (props: GriddlerProps) => {
     },
   );
 
-  mainContainer.addChild(supportLines);
+  const endDragger = props.handleEndUpdate
+    ? new GriddlerEndDrag(props.stage, (pt: Pt) => {
+        const scale = mainContainer.parent.scale.x;
+        const griddlerDistanceScaled =
+          (LineDraggerDistance * 2 + DraggerRadius) / scale;
+        const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
+        props.handleEndUpdate!(ptHere.x);
+      })
+    : undefined;
 
-  let endDragger: Container | undefined;
-
-  const hoverContainer = new Container({ interactive: true, alpha: 0 });
-  const hoverContainerGraphic = new Graphics();
-
-  mainContainer.addChild(hoverContainer);
-  hoverContainerGraphic.rect(0, 0, 1, 1).fill();
-  hoverContainer.addChild(hoverContainerGraphic);
-
-  const addIconContainer = new Container({
-    cursor: "pointer",
-    interactive: true,
-    hitArea: new Rectangle(0, 0, PlusIconSize, PlusIconSize),
+  const addButton = new AddButton({
     onclick: (e) => {
       props.handleAddElement!();
     },
   });
 
-  const addIconContainerGraphic = PlusIcon();
-  addIconContainer.addChild(addIconContainerGraphic);
-
-  mainContainer.addChild(addIconContainer);
+  mainContainer.addChild(supportLines);
   mainContainer.addChild(gridLines);
-
-  const state = {
-    isHovered: false,
-    currentAlpha: 1,
-  };
+  mainContainer.addChild(addButton);
+  if (endDragger) {
+    mainContainer.addChild(endDragger);
+  }
 
   const line = new Group(
     new Pt(props.start.x, props.start.y),
@@ -89,13 +86,6 @@ export const Griddler = (props: GriddlerProps) => {
   const draw = () => {
     // probably remove ?
     const scale = mainContainer.parent.scale.x;
-
-    if (state.isHovered) {
-      state.currentAlpha = 1;
-    }
-    if (!state.isHovered) {
-      state.currentAlpha = 1; // TODO;
-    }
 
     const lineTransformed = line
       .clone()
@@ -113,33 +103,13 @@ export const Griddler = (props: GriddlerProps) => {
       height + PlusIconDistance + PlusIconSize,
     );
 
-    hoverContainerGraphic.scale = {
-      x: width + 10,
-      y: height,
-    };
-    hoverContainer.x = topLeft.x;
-    hoverContainer.y = topLeft.y;
-
-    // add update prop
-    addIconContainer.scale = {
-      x: 1 / scale,
-      y: 1 / scale,
-    };
-    addIconContainer.x = topLeft.x + width / 2 - PlusIconSize / scale / 2;
-    addIconContainer.y = topLeft.y + height + PlusIconDistance / scale;
-
+    addButton.draw(topLeft, width, height, scale);
     supportLines.draw(topLeft, topRight, width, height, scale);
+    gridLines.draw(topLeft, topRight, scale);
 
     if (endDragger) {
-      // add update prop
-
-      endDragger.x = topRight.x + DraggerRadius / scale;
-      endDragger.children[0].x = LineDraggerDistance * 2;
-      endDragger.y = topRight.y + height / 2;
-      endDragger.scale = 1 / scale;
+      endDragger.draw(topRight, height, scale);
     }
-
-    gridLines.draw(topLeft, topRight, scale);
   };
 
   // Receiver
@@ -155,24 +125,6 @@ export const Griddler = (props: GriddlerProps) => {
     }
     gridLines.lines = _lines;
   };
-
-  // conditional handlers // Actors
-  if (typeof props.handleEndUpdate !== "undefined") {
-    const onHandleEndUpdate = (pt: Pt) => {
-      const scale = mainContainer.parent.scale.x;
-      const griddlerDistanceScaled =
-        (LineDraggerDistance * 2 + DraggerRadius) / scale;
-      const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
-      props.handleEndUpdate!(ptHere.x);
-    };
-
-    endDragger = new Dragger({
-      stage: props.stage,
-      update: onHandleEndUpdate,
-      direction: "x",
-    });
-    mainContainer.addChild(endDragger);
-  }
 
   // must be last ?
 
