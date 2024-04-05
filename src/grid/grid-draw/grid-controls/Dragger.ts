@@ -4,7 +4,6 @@ import { Dark, DraggerRadius, StrokeStyle } from "./Constants";
 
 export class Dragger extends Container {
   dragging = false;
-
   handle = new Graphics({ cursor: "ew-resize" })
     .circle(0, 0, DraggerRadius)
     .translateTransform(DraggerRadius / -2, DraggerRadius / -2)
@@ -28,7 +27,7 @@ export class Dragger extends Container {
     this.addChild(this.handle);
   }
 
-  onDragStart = (event: FederatedPointerEvent) => {
+  private onDragStart = (event: FederatedPointerEvent) => {
     if (this.props.stage) {
       event.stopPropagation();
       event.preventDefault();
@@ -42,7 +41,7 @@ export class Dragger extends Container {
     }
   };
 
-  onDragMove = (event: FederatedPointerEvent) => {
+  private onDragMove = (event: FederatedPointerEvent) => {
     if (this.dragging) {
       event.preventDefault();
       event.stopPropagation();
@@ -51,7 +50,7 @@ export class Dragger extends Container {
     }
   };
 
-  onDragStop = (event: FederatedPointerEvent) => {
+  private onDragStop = (event: FederatedPointerEvent) => {
     // event.preventDefault();
     // event.stopPropagation();
     if (this.dragging) {

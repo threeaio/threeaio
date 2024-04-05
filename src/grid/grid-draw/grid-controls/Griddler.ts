@@ -11,7 +11,8 @@ import {
   PlusIconSize,
   VerticalLine,
 } from "./Constants";
-import {createLines} from "./GridLines";
+import { GridLines } from "./GridLines";
+// import {createLines} from "./GridLines";
 
 type GriddlerProps = {
   stage: Container;
@@ -38,7 +39,15 @@ export const Griddler = (props: GriddlerProps) => {
     },
   });
 
-  let lines = [...props.linesAt];
+  const gridLines = new GridLines(
+    props.linesAt,
+    props.stage,
+    (index: number) => (pt: Pt) => {
+      const scale = mainContainer.parent.scale.x;
+      const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
+      props.handleLineUpdate(ptHere.x, index);
+    },
+  );
 
   let endDragger: Container | undefined;
 
@@ -65,13 +74,12 @@ export const Griddler = (props: GriddlerProps) => {
   const leftSupportLine = VerticalLine();
   const rightSupportLine = VerticalLine();
 
-  const allLinesContainer = new Container();
-
   mainContainer.addChild(mainLine);
   mainContainer.addChild(leftSupportLine);
   mainContainer.addChild(rightSupportLine);
+
   mainContainer.addChild(addIconContainer);
-  mainContainer.addChild(allLinesContainer);
+  mainContainer.addChild(gridLines);
 
   const state = {
     isHovered: false,
@@ -157,15 +165,8 @@ export const Griddler = (props: GriddlerProps) => {
       endDragger.y = topRight.y + height / 2;
       endDragger.scale = 1 / scale;
     }
-    if (allLinesContainer.children.length) {
-      allLinesContainer.children.forEach((line, index) => {
-        // add update prop
-        line.x = topLeft.x + lines[index];
-        line.y = topRight.y;
-        line.children[1].y = DraggerRadius + LineDraggerDistance;
-        line.scale = 1 / scale;
-      });
-    }
+
+    gridLines.draw(topLeft, topRight, scale);
   };
 
   // Receiver
@@ -176,19 +177,11 @@ export const Griddler = (props: GriddlerProps) => {
 
   // Receiver
   const updateLines = (_lines: number[]) => {
-    if (_lines.length !== lines.length) {
-      createLines(_lines, props.stage, allLinesContainer, handleLineUpdate);
+    if (_lines.length !== gridLines.lines.length) {
+      gridLines.setNewLines(_lines);
     }
-    lines = [..._lines];
+    gridLines.lines = _lines;
   };
-
-  const handleLineUpdate = (index: number) => (pt: Pt) => {
-    const scale = mainContainer.parent.scale.x;
-    const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
-    props.handleLineUpdate(ptHere.x, index);
-  };
-
-  createLines(props.linesAt, props.stage, allLinesContainer, handleLineUpdate);
 
   // conditional handlers // Actors
   if (typeof props.handleEndUpdate !== "undefined") {

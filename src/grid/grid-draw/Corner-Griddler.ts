@@ -36,8 +36,7 @@ export const CornerBottomGriddler = () => {
 
   createEffect(() => {
     updateRowLinesByState(stadiumState.rowLinesAt);
-    return [...(stadiumState.rowLinesAt || [])];
-  }, []);
+  });
 
   const setup = () => {
     width = stadiumState.numRows + stadiumState.cutOut.y;

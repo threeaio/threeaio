@@ -39,7 +39,7 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
 
   const addRowLine = (newX: number) => {
     // ... process ?
-    setStadiumState("rowLinesAt", stadiumState.rowLinesAt.length, newX);
+    setStadiumState("rowLinesAt", [...stadiumState.rowLinesAt, newX]);
   };
 
   const setStadiumCutOutX = (newValue: number) => {
