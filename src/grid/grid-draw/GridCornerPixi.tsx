@@ -40,13 +40,14 @@ export const DrawGridCorner: Component = () => {
       setMainStage(stage);
 
       const bottomG = bottomGriddler.setup();
+
       stage.addChild(bottomG.container);
 
       app.ticker.add((ticker) => {
-        stage.scale = controlState().view.zoom / resolution;
+        stage.scale = controlState().view.zoom;
         stage.position = {
-          x: controlState().view.x / resolution,
-          y: controlState().view.y / resolution,
+          x: controlState().view.x,
+          y: controlState().view.y,
         };
 
         bottomG.draw();

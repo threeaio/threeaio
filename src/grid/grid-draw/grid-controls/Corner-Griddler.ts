@@ -4,7 +4,10 @@ import { createEffect } from "solid-js";
 import { Griddler } from "./Griddler";
 
 export const CornerBottomGriddler = () => {
-  const [{ stadiumState }, { setStadiumNumRows, updateRowLine }] = useGridNew();
+  const [
+    { stadiumState, rowLinesAt },
+    { setStadiumNumRows, updateRowLine, addRowLine },
+  ] = useGridNew();
 
   let width: number = 0;
   let start: Pt;
@@ -13,16 +16,20 @@ export const CornerBottomGriddler = () => {
   let updateWidthByState = (_num: number) => {};
   let updateRowLinesByState = (_num: number[]) => {};
 
-  const handleEndUpdate = (newX: number) => {
+  const setNumRowsUpdate = (newX: number) => {
     if (newX > 0) {
       setStadiumNumRows(newX);
     }
   };
 
-  const handleLineUpdate = (newX: number, index: number) => {
+  const setRowLinePositionByIndex = (newX: number, index: number) => {
     if (newX >= 0 && newX <= stadiumState.numRows) {
       updateRowLine(newX, index);
     }
+  };
+
+  const setAddLine = () => {
+    addRowLine(Math.floor(stadiumState.numRows / 2));
   };
 
   createEffect(() => {
@@ -31,7 +38,8 @@ export const CornerBottomGriddler = () => {
 
   createEffect(() => {
     updateRowLinesByState(stadiumState.rowLinesAt);
-  });
+    return [...(stadiumState.rowLinesAt || [])];
+  }, []);
 
   const setup = () => {
     width = stadiumState.numRows + stadiumState.cutOut.y;
@@ -45,9 +53,12 @@ export const CornerBottomGriddler = () => {
       end,
       linesAt,
       dir: -1,
-      handleEndUpdate,
-      handleLineUpdate,
+      handleAddElement: setAddLine,
+      handleEndUpdate: setNumRowsUpdate,
+      handleLineUpdate: setRowLinePositionByIndex,
     });
+
+    console.log("updateLines from griddler", updateLines);
 
     updateWidthByState = updateWidth;
     updateRowLinesByState = updateLines;

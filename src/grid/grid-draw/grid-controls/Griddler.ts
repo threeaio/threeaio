@@ -20,7 +20,7 @@ type GriddlerProps = {
   dir: 1 | -1;
   linesAt: number[];
   handleLineUpdate: (xNew: number, index: number) => void;
-  handleAddElement?: (xNew: number) => void;
+  handleAddElement?: () => void;
   handleEndUpdate?: (xNew: number) => void;
 };
 
@@ -30,6 +30,8 @@ const createLines = (
   allLinesContainer: Container,
   handleLineUpdate: (index: number) => (pt: Pt) => void,
 ) => {
+  console.log("createLines called");
+
   allLinesContainer.removeChildren();
 
   lines.forEach((line, index) => {
@@ -53,7 +55,7 @@ const createLines = (
 
 export const Griddler = (props: GriddlerProps) => {
   const mainContainer = new Container({
-    alpha: 0.5,
+    alpha: 1,
     isRenderGroup: true,
     interactive: true,
     hitArea: new Rectangle(0, 0, 1, 1),
@@ -65,17 +67,26 @@ export const Griddler = (props: GriddlerProps) => {
     },
   });
 
-  let lines = props.linesAt;
+  let lines = [...props.linesAt];
 
   let endDragger: Container | undefined;
 
   const hoverContainer = new Container({ interactive: true, alpha: 0 });
   const hoverContainerGraphic = new Graphics();
+
   mainContainer.addChild(hoverContainer);
   hoverContainerGraphic.rect(0, 0, 1, 1).fill();
   hoverContainer.addChild(hoverContainerGraphic);
 
-  const addIconContainer = new Container({ interactive: true });
+  const addIconContainer = new Container({
+    cursor: "pointer",
+    interactive: true,
+    hitArea: new Rectangle(0, 0, PlusIconSize, PlusIconSize),
+    onclick: (e) => {
+      props.handleAddElement!();
+    },
+  });
+
   const addIconContainerGraphic = PlusIcon();
   addIconContainer.addChild(addIconContainerGraphic);
 
@@ -93,10 +104,8 @@ export const Griddler = (props: GriddlerProps) => {
 
   const state = {
     isHovered: false,
-    currentAlpha: 0,
+    currentAlpha: 1,
   };
-
-  console.log("init");
 
   const line = new Group(
     new Pt(props.start.x, props.start.y),
@@ -106,7 +115,6 @@ export const Griddler = (props: GriddlerProps) => {
   const draw = () => {
     // probably remove ?
     const scale = mainContainer.parent.scale.x;
-    GriddlerDistance;
 
     if (state.isHovered) {
       state.currentAlpha = 1;
@@ -124,14 +132,12 @@ export const Griddler = (props: GriddlerProps) => {
     const width = lineTransformed[1].x - lineTransformed[0].x;
     const height = GriddlerDistance / scale;
 
-    const interActiveArea = new Rectangle(
+    mainContainer.hitArea = new Rectangle(
       topLeft.x,
       topLeft.y,
       width + 10,
-      height,
+      height + PlusIconDistance + PlusIconSize,
     );
-
-    mainContainer.hitArea = interActiveArea;
 
     hoverContainerGraphic.scale = {
       x: width + 10,
@@ -201,9 +207,8 @@ export const Griddler = (props: GriddlerProps) => {
   const updateLines = (_lines: number[]) => {
     if (_lines.length !== lines.length) {
       createLines(_lines, props.stage, allLinesContainer, handleLineUpdate);
-    } else {
-      lines = _lines;
     }
+    lines = [..._lines];
   };
 
   const handleLineUpdate = (index: number) => (pt: Pt) => {
@@ -218,12 +223,12 @@ export const Griddler = (props: GriddlerProps) => {
   if (typeof props.handleEndUpdate !== "undefined") {
     const onHandleEndUpdate = (pt: Pt) => {
       const scale = mainContainer.parent.scale.x;
-      const griddlerDistanceScaled = LineDraggerDistance / scale;
+      const griddlerDistanceScaled =
+        (LineDraggerDistance * 2 + DraggerRadius) / scale;
       const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
       props.handleEndUpdate!(ptHere.x);
     };
 
-    // props.end.$add(2, griddlerDistance / -2)
     endDragger = Dragger({
       stage: props.stage,
       update: onHandleEndUpdate,
