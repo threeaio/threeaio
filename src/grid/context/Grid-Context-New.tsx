@@ -9,7 +9,7 @@ const initialState: StadiumStateNew = {
   mainStage: null,
   numRows: 50,
   cutOut: new Pt(15, 15),
-  rowLinesAt: [],
+  rowLinesAt: [25],
 };
 
 export const makeGridContextNew = (initialState: StadiumStateNew) => {
@@ -28,8 +28,12 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
 
   const setStadiumNumRows = (numRows: number) => {
     // ... process
-
     setStadiumState("numRows", numRows);
+  };
+
+  const updateRowLine = (newX: number, index: number) => {
+    // ... process
+    setStadiumState("rowLinesAt", index, newX);
   };
 
   const setStadiumCutOutX = (newValue: number) => {
@@ -50,7 +54,13 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
     {
       stadiumState,
     },
-    { setMainStage, setStadiumNumRows, setStadiumCutOutX, setStadiumCutOutY },
+    {
+      setMainStage,
+      setStadiumNumRows,
+      setStadiumCutOutX,
+      setStadiumCutOutY,
+      updateRowLine,
+    },
   ] as const;
 };
 

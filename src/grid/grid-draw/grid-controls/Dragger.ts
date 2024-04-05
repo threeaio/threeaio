@@ -1,10 +1,6 @@
 import { Pt } from "pts";
 import { Container, FederatedPointerEvent, Graphics } from "pixi.js";
-
-// move all these to Config
-const radius = 10;
-const strokeWidth = 1;
-const strokeStyle = { width: strokeWidth, color: 0xffffff };
+import { Dark, DraggerRadius, StrokeStyle } from "./Constants";
 
 export const Dragger = (props: {
   stage: Container;
@@ -22,10 +18,10 @@ export const Dragger = (props: {
   });
 
   const handle = new Graphics()
-    .circle(0, 0, radius)
-    .translateTransform(radius / -2, radius / -2)
-    .stroke(strokeStyle)
-    .fill(0x001122);
+    .circle(0, 0, DraggerRadius)
+    .translateTransform(DraggerRadius / -2, DraggerRadius / -2)
+    .stroke(StrokeStyle)
+    .fill(Dark);
 
   handleContainer.interactive = true;
 

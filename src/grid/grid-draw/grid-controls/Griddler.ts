@@ -1,6 +1,17 @@
 import { Container, Graphics, Rectangle } from "pixi.js";
 import { Group, Pt } from "pts";
 import { Dragger } from "./Dragger";
+import {
+  DraggerRadius,
+  EndDraggerDistance,
+  GriddlerDistance,
+  HorizontalLine,
+  LineDraggerDistance,
+  PlusIcon,
+  PlusIconSize,
+  StrokeStyleSupport,
+  VerticalLine,
+} from "./Constants";
 
 type GriddlerProps = {
   stage: Container;
@@ -8,48 +19,39 @@ type GriddlerProps = {
   end: Pt;
   dir: 1 | -1;
   linesAt: number[];
-  handleEndUpdate: (pt: Pt) => void;
+  handleLineUpdate: (xNew: number, index: number) => void;
+  handleAddElement?: (xNew: number) => void;
+  handleEndUpdate?: (xNew: number) => void;
 };
 
-// move all these to Config
+const createLines = (
+  lines: number[],
+  stage: Container,
+  allLinesContainer: Container,
+  handleLineUpdate: (index: number) => (pt: Pt) => void,
+) => {
+  allLinesContainer.removeChildren();
 
-const strokeWidth = 0.5;
-const strokeStyle = { width: strokeWidth, color: 0xffffff };
-const strokeStyleSupport = { width: strokeWidth / 2, color: 0xffffff };
+  lines.forEach((line, index) => {
+    const LineContainer = new Container();
+    const LineGraphic = new Graphics()
+      .moveTo(0, 0)
+      .lineTo(0, LineDraggerDistance)
+      .stroke(StrokeStyleSupport);
 
-const endDraggerDistance = 15;
-const PlusIconSize = 20;
-
-const HorizontalLine = () => {
-  return new Graphics({ interactive: false }).moveTo(0, 0).lineTo(1, 0).stroke({
-    width: strokeWidth,
-    color: 0xffffff,
-  });
-};
-
-const VerticalLine = () => {
-  return new Graphics({ interactive: false }).moveTo(0, 0).lineTo(0, 1).stroke({
-    width: strokeWidth,
-    color: 0xffffff,
-  });
-};
-
-const PlusIcon = () => {
-  const size = PlusIconSize;
-  return new Graphics({ interactive: false })
-    .moveTo(0, size / 2)
-    .lineTo(size, size / 2)
-    .moveTo(size / 2, 0)
-    .lineTo(size / 2, size)
-    .stroke({
-      width: strokeWidth,
-      color: 0xffffff,
+    const lineDragger = Dragger({
+      stage: stage,
+      update: handleLineUpdate(index),
+      direction: "x",
     });
+    lineDragger.y = DraggerRadius + LineDraggerDistance;
+    LineContainer.addChild(LineGraphic);
+    LineContainer.addChild(lineDragger);
+    allLinesContainer.addChild(LineContainer);
+  });
 };
 
 export const Griddler = (props: GriddlerProps) => {
-  const griddlerDistance = 10; // separate controls from the actual line
-
   const mainContainer = new Container({
     alpha: 0.5,
     isRenderGroup: true,
@@ -62,6 +64,8 @@ export const Griddler = (props: GriddlerProps) => {
       state.isHovered = false;
     },
   });
+
+  let lines = props.linesAt;
 
   let endDragger: Container | undefined;
 
@@ -79,10 +83,13 @@ export const Griddler = (props: GriddlerProps) => {
   const leftSupportLine = VerticalLine();
   const rightSupportLine = VerticalLine();
 
+  const allLinesContainer = new Container();
+
   mainContainer.addChild(mainLine);
   mainContainer.addChild(leftSupportLine);
   mainContainer.addChild(rightSupportLine);
   mainContainer.addChild(addIconContainer);
+  mainContainer.addChild(allLinesContainer);
 
   const state = {
     isHovered: false,
@@ -99,7 +106,7 @@ export const Griddler = (props: GriddlerProps) => {
   const draw = () => {
     // probably remove ?
     const scale = mainContainer.parent.scale.x;
-    const griddlerDistanceScaled = griddlerDistance / 1;
+    const griddlerDistanceScaled = GriddlerDistance / 1;
 
     if (state.isHovered) {
       state.currentAlpha = 1;
@@ -163,8 +170,18 @@ export const Griddler = (props: GriddlerProps) => {
 
     if (endDragger) {
       endDragger.scale = 1 / scale;
-      endDragger.x = topRight.x + endDraggerDistance / scale;
+      endDragger.x = topRight.x + EndDraggerDistance / scale;
       endDragger.y = topRight.y + height / 2;
+    }
+    if (allLinesContainer.children.length) {
+      allLinesContainer.children.forEach((line, index) => {
+        line.x = topLeft.x + lines[index];
+        line.y = topRight.y;
+        line.children[0].scale = { x: 1, y: scale };
+        line.children[1].y = DraggerRadius + LineDraggerDistance * scale;
+        // line.children[0].y = 0;
+        line.scale = 1 / scale;
+      });
     }
   };
 
@@ -174,16 +191,30 @@ export const Griddler = (props: GriddlerProps) => {
     line[1].x = x;
   };
 
+  // Receiver
+  const updateLines = (_lines: number[]) => {
+    if (_lines.length !== lines.length) {
+      createLines(_lines, props.stage, allLinesContainer, handleLineUpdate);
+    } else {
+      lines = _lines;
+    }
+  };
+
+  const handleLineUpdate = (index: number) => (pt: Pt) => {
+    const scale = mainContainer.parent.scale.x;
+    const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
+    props.handleLineUpdate(ptHere.x, index);
+  };
+
+  createLines(props.linesAt, props.stage, allLinesContainer, handleLineUpdate);
+
   // conditional handlers // Actors
-  if (props.handleEndUpdate) {
+  if (typeof props.handleEndUpdate !== "undefined") {
     const onHandleEndUpdate = (pt: Pt) => {
       const scale = mainContainer.parent.scale.x;
-      const griddlerDistanceScaled = griddlerDistance / 1;
-      const ptHere = pt.$subtract(
-        endDraggerDistance / scale,
-        griddlerDistanceScaled / -2,
-      );
-      props.handleEndUpdate(ptHere);
+      const griddlerDistanceScaled = GriddlerDistance / 1;
+      const ptHere = pt.$subtract(EndDraggerDistance / scale, 0);
+      props.handleEndUpdate!(ptHere.x);
     };
 
     // props.end.$add(2, griddlerDistance / -2)
@@ -201,5 +232,6 @@ export const Griddler = (props: GriddlerProps) => {
     container: mainContainer,
     draw,
     updateWidth,
+    updateLines,
   };
 };
