@@ -29,7 +29,7 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
   const setStadiumNumRows = (numRows: number) => {
     // ... process
 
-    setStadiumState("numRows", Math.round(numRows));
+    setStadiumState("numRows", numRows);
   };
 
   const setStadiumCutOutX = (newValue: number) => {

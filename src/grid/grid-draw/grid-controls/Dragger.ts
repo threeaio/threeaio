@@ -1,32 +1,35 @@
 import { Pt } from "pts";
 import { Container, FederatedPointerEvent, Graphics } from "pixi.js";
 
+// move all these to Config
+const radius = 10;
+const strokeWidth = 1;
+const strokeStyle = { width: strokeWidth, color: 0xffffff };
+
 export const Dragger = (props: {
-  pt: Pt;
   stage: Container;
   update: (pt: Pt) => void;
   direction: "x" | "y" | "xy";
 }) => {
-  const radius = 1;
-  const strokeWidth = 0.5;
-  const strokeStyle = { width: strokeWidth, color: 0xffffff };
+  console.log("create Dragger");
 
-  const handleContainer = new Container();
-
-  const handle = new Graphics();
-  let dragPoint = { x: 0, y: 0 };
-
+  // let dragPoint = { x: 0, y: 0 };
   let dragging = false;
 
-  handleContainer.interactive = true;
-  handle
-    .circle(props.pt.x, props.pt.y, radius)
+  const handleContainer = new Container({
+    interactive: true,
+    onpointerdown: (e) => onDragStart(e),
+  });
+
+  const handle = new Graphics()
+    .circle(0, 0, radius)
     .translateTransform(radius / -2, radius / -2)
     .stroke(strokeStyle)
     .fill(0x001122);
 
+  handleContainer.interactive = true;
+
   handleContainer.addChild(handle);
-  handleContainer.on("pointerdown", (e) => onDragStart(e));
 
   const onDragStart = (event: FederatedPointerEvent) => {
     if (props.stage) {
@@ -35,10 +38,12 @@ export const Dragger = (props: {
       event.preventDefault();
 
       dragging = true;
-      dragPoint = event.getLocalPosition(props.stage);
+      // dragPoint = event.getLocalPosition(props.stage);
+      //
+      // dragPoint.x -= Math.round(handleContainer.x);
+      // dragPoint.y -= Math.round(handleContainer.y);
 
-      dragPoint.x -= handleContainer.x;
-      dragPoint.y -= handleContainer.y;
+      // console.log("dragPoint", dragPoint);
 
       console.log("stage", props.stage.listenerCount("globalpointermove"));
       props.stage.on("globalpointermove", onDragMove);
@@ -52,13 +57,15 @@ export const Dragger = (props: {
       event.preventDefault();
       event.stopPropagation();
       const newPoint = event.getLocalPosition(props.stage);
+      newPoint.x = Math.round(newPoint.x);
+      newPoint.y = Math.round(newPoint.y);
 
-      if (props.direction !== "y") {
-        handleContainer.x = newPoint.x - dragPoint.x;
-      }
-      if (props.direction !== "x") {
-        handleContainer.y = newPoint.y - dragPoint.y;
-      }
+      // if (props.direction !== "y") {
+      //   // handleContainer.x = newPoint.x; // - dragPoint.x;
+      // }
+      // if (props.direction !== "x") {
+      //   // handleContainer.y = newPoint.y - dragPoint.y;
+      // }
 
       props.update(new Pt(newPoint.x, newPoint.y));
     }
