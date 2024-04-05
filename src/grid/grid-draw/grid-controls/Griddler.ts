@@ -3,7 +3,6 @@ import { Group, Pt } from "pts";
 import { Dragger } from "./Dragger";
 import {
   DraggerRadius,
-  EndDraggerDistance,
   GriddlerDistance,
   HorizontalLine,
   LineDraggerDistance,
@@ -140,6 +139,7 @@ export const Griddler = (props: GriddlerProps) => {
     hoverContainer.x = topLeft.x;
     hoverContainer.y = topLeft.y;
 
+    // add update prop
     mainLine.scale = {
       x: width,
       y: 1 / scale,
@@ -147,6 +147,7 @@ export const Griddler = (props: GriddlerProps) => {
     mainLine.x = topLeft.x;
     mainLine.y = topLeft.y + height;
 
+    // add update prop
     leftSupportLine.scale = {
       x: 1 / scale,
       y: height,
@@ -154,6 +155,7 @@ export const Griddler = (props: GriddlerProps) => {
     leftSupportLine.x = topLeft.x;
     leftSupportLine.y = topLeft.y;
 
+    // add update prop
     rightSupportLine.scale = {
       x: 1 / scale,
       y: height,
@@ -161,6 +163,7 @@ export const Griddler = (props: GriddlerProps) => {
     rightSupportLine.x = topRight.x;
     rightSupportLine.y = topRight.y;
 
+    // add update prop
     addIconContainer.scale = {
       x: 1 / scale,
       y: 1 / scale,
@@ -169,17 +172,20 @@ export const Griddler = (props: GriddlerProps) => {
     addIconContainer.y = topLeft.y + height + 2;
 
     if (endDragger) {
-      endDragger.scale = 1 / scale;
-      endDragger.x = topRight.x + EndDraggerDistance / scale;
+      // add update prop
+
+      endDragger.x = topRight.x + DraggerRadius / scale;
+      endDragger.children[0].x = LineDraggerDistance * scale;
       endDragger.y = topRight.y + height / 2;
+      endDragger.scale = 1 / scale;
     }
     if (allLinesContainer.children.length) {
       allLinesContainer.children.forEach((line, index) => {
+        // add update prop
         line.x = topLeft.x + lines[index];
         line.y = topRight.y;
         line.children[0].scale = { x: 1, y: scale };
         line.children[1].y = DraggerRadius + LineDraggerDistance * scale;
-        // line.children[0].y = 0;
         line.scale = 1 / scale;
       });
     }
@@ -213,7 +219,7 @@ export const Griddler = (props: GriddlerProps) => {
     const onHandleEndUpdate = (pt: Pt) => {
       const scale = mainContainer.parent.scale.x;
       const griddlerDistanceScaled = GriddlerDistance / 1;
-      const ptHere = pt.$subtract(EndDraggerDistance / scale, 0);
+      const ptHere = pt.$subtract(LineDraggerDistance, 0);
       props.handleEndUpdate!(ptHere.x);
     };
 

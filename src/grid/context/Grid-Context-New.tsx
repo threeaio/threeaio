@@ -28,6 +28,7 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
 
   const setStadiumNumRows = (numRows: number) => {
     // ... process
+    // ... clamp RowLines
     setStadiumState("numRows", numRows);
   };
 
