@@ -2,7 +2,7 @@ import { Component, createEffect } from "solid-js";
 import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application } from "pixi.js";
 import { useGridNew } from "../context/Grid-Context-New";
-import { CornerBottomGriddler } from "./grid-controls/Corner-Griddler";
+import { CornerBottomGriddler } from "./Corner-Griddler";
 
 export const DrawGridCorner: Component = () => {
   const [{ stadiumState }, { setMainStage }] = useGridNew();

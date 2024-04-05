@@ -9,9 +9,9 @@ import {
   PlusIcon,
   PlusIconDistance,
   PlusIconSize,
-  StrokeStyleSupport,
   VerticalLine,
 } from "./Constants";
+import {createLines} from "./GridLines";
 
 type GriddlerProps = {
   stage: Container;
@@ -22,35 +22,6 @@ type GriddlerProps = {
   handleLineUpdate: (xNew: number, index: number) => void;
   handleAddElement?: () => void;
   handleEndUpdate?: (xNew: number) => void;
-};
-
-const createLines = (
-  lines: number[],
-  stage: Container,
-  allLinesContainer: Container,
-  handleLineUpdate: (index: number) => (pt: Pt) => void,
-) => {
-  console.log("createLines called");
-
-  allLinesContainer.removeChildren();
-
-  lines.forEach((line, index) => {
-    const LineContainer = new Container();
-    const LineGraphic = new Graphics()
-      .moveTo(0, 0)
-      .lineTo(0, LineDraggerDistance)
-      .stroke(StrokeStyleSupport);
-
-    const lineDragger = Dragger({
-      stage: stage,
-      update: handleLineUpdate(index),
-      direction: "x",
-    });
-    lineDragger.y = DraggerRadius + LineDraggerDistance;
-    LineContainer.addChild(LineGraphic);
-    LineContainer.addChild(lineDragger);
-    allLinesContainer.addChild(LineContainer);
-  });
 };
 
 export const Griddler = (props: GriddlerProps) => {
@@ -182,7 +153,7 @@ export const Griddler = (props: GriddlerProps) => {
       // add update prop
 
       endDragger.x = topRight.x + DraggerRadius / scale;
-      endDragger.children[0].x = LineDraggerDistance;
+      endDragger.children[0].x = LineDraggerDistance * 2;
       endDragger.y = topRight.y + height / 2;
       endDragger.scale = 1 / scale;
     }
@@ -229,7 +200,7 @@ export const Griddler = (props: GriddlerProps) => {
       props.handleEndUpdate!(ptHere.x);
     };
 
-    endDragger = Dragger({
+    endDragger = new Dragger({
       stage: props.stage,
       update: onHandleEndUpdate,
       direction: "x",

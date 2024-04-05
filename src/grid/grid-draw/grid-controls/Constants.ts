@@ -35,9 +35,7 @@ export const VerticalLine = () => {
 
 export const PlusIcon = () => {
   const size = PlusIconSize;
-  return new Graphics({
-    interactive: false,
-  })
+  return new Graphics({ interactive: false })
     .moveTo(0, size / 2)
     .lineTo(size, size / 2)
     .moveTo(size / 2, 0)
