@@ -4,14 +4,13 @@ import { Dragger } from "./Dragger";
 import {
   DraggerRadius,
   GriddlerDistance,
-  HorizontalLine,
   LineDraggerDistance,
   PlusIcon,
   PlusIconDistance,
   PlusIconSize,
-  VerticalLine,
 } from "./Constants";
 import { GridLines } from "./GridLines";
+import { SupportLines } from "./SupportLines";
 // import {createLines} from "./GridLines";
 
 type GriddlerProps = {
@@ -39,6 +38,8 @@ export const Griddler = (props: GriddlerProps) => {
     },
   });
 
+  const supportLines = new SupportLines();
+
   const gridLines = new GridLines(
     props.linesAt,
     props.stage,
@@ -48,6 +49,8 @@ export const Griddler = (props: GriddlerProps) => {
       props.handleLineUpdate(ptHere.x, index);
     },
   );
+
+  mainContainer.addChild(supportLines);
 
   let endDragger: Container | undefined;
 
@@ -69,14 +72,6 @@ export const Griddler = (props: GriddlerProps) => {
 
   const addIconContainerGraphic = PlusIcon();
   addIconContainer.addChild(addIconContainerGraphic);
-
-  const mainLine = HorizontalLine();
-  const leftSupportLine = VerticalLine();
-  const rightSupportLine = VerticalLine();
-
-  mainContainer.addChild(mainLine);
-  mainContainer.addChild(leftSupportLine);
-  mainContainer.addChild(rightSupportLine);
 
   mainContainer.addChild(addIconContainer);
   mainContainer.addChild(gridLines);
@@ -126,36 +121,14 @@ export const Griddler = (props: GriddlerProps) => {
     hoverContainer.y = topLeft.y;
 
     // add update prop
-    mainLine.scale = {
-      x: width,
-      y: 1 / scale,
-    };
-    mainLine.x = topLeft.x;
-    mainLine.y = topLeft.y + height;
-
-    // add update prop
-    leftSupportLine.scale = {
-      x: 1 / scale,
-      y: height,
-    };
-    leftSupportLine.x = topLeft.x;
-    leftSupportLine.y = topLeft.y;
-
-    // add update prop
-    rightSupportLine.scale = {
-      x: 1 / scale,
-      y: height,
-    };
-    rightSupportLine.x = topRight.x;
-    rightSupportLine.y = topRight.y;
-
-    // add update prop
     addIconContainer.scale = {
       x: 1 / scale,
       y: 1 / scale,
     };
     addIconContainer.x = topLeft.x + width / 2 - PlusIconSize / scale / 2;
     addIconContainer.y = topLeft.y + height + PlusIconDistance / scale;
+
+    supportLines.draw(topLeft, topRight, width, height, scale);
 
     if (endDragger) {
       // add update prop

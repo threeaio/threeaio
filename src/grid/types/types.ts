@@ -5,6 +5,11 @@ export type Subset<K, T extends K> = T;
 
 export const BEZIER_CIRCLE: 0.552284749831 = 0.552284749831;
 
+export type PointLike = {
+  x: number;
+  y: number;
+};
+
 export type CanvasControl = {
   el: HTMLDivElement | null;
   view: {
