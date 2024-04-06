@@ -1,5 +1,5 @@
 import { Container, Graphics } from "pixi.js";
-import { useGrid } from "../../context/Grid-Context";
+import { useGrid } from "../../context/_Grid-Context";
 
 export const ArbitAreas = () => {
   const [

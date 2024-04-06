@@ -2,6 +2,7 @@ import { Container, Rectangle } from "pixi.js";
 import { Group, Pt } from "pts";
 import {
   DraggerRadius,
+  EndDraggerDistance,
   GriddlerDistance,
   LineDraggerDistance,
   PlusIconDistance,
@@ -11,6 +12,7 @@ import { GridLines } from "./GridLines";
 import { SupportLines } from "./SupportLines";
 import { AddButton } from "./AddButton";
 import { GriddlerEndDrag } from "./GriddlerEndDrag";
+import { fromControlState } from "../../context/Canvas-Control-Store";
 // import {createLines} from "./GridLines";
 
 type GriddlerProps = {
@@ -59,7 +61,7 @@ export const Griddler = (props: GriddlerProps) => {
     ? new GriddlerEndDrag(props.stage, (pt: Pt) => {
         const scale = mainContainer.parent.scale.x;
         const griddlerDistanceScaled =
-          (LineDraggerDistance * 2 + DraggerRadius) / scale;
+          (EndDraggerDistance + DraggerRadius) / scale;
         const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
         props.handleEndUpdate!(ptHere.x);
       })
@@ -84,8 +86,7 @@ export const Griddler = (props: GriddlerProps) => {
   );
 
   const draw = () => {
-    // probably remove ?
-    const scale = mainContainer.parent.scale.x;
+    const scale = fromControlState[0].controlState.view.zoom;
 
     const lineTransformed = line
       .clone()
@@ -96,16 +97,39 @@ export const Griddler = (props: GriddlerProps) => {
     const width = lineTransformed[1].x - lineTransformed[0].x;
     const height = GriddlerDistance / scale;
 
-    mainContainer.hitArea = new Rectangle(
+    const drawRect = new Rectangle(
       topLeft.x,
       topLeft.y,
-      width + 10,
-      height + PlusIconDistance + PlusIconSize,
+      width + (EndDraggerDistance + DraggerRadius * 2) / scale,
+      height + (PlusIconDistance + PlusIconSize) / scale,
     );
 
-    addButton.draw(topLeft, width, height, scale);
-    supportLines.draw(topLeft, topRight, width, height, scale);
-    gridLines.draw(topLeft, topRight, scale);
+    /*
+
+    // hit area debug
+    const Foo = new Graphics({
+      label: "foo",
+      alpha: 0.1,
+    })
+      .rect(
+        topLeft.x,
+        topLeft.y,
+        width + (EndDraggerDistance + DraggerRadius * 2) / scale,
+        height + (PlusIconDistance + PlusIconSize) / scale,
+      )
+      .fill();
+
+   mainContainer.removeChildAt(3);
+    mainContainer.addChild()Foo;
+
+     */
+
+    mainContainer.hitArea = drawRect;
+
+    addButton.draw(topLeft, width, height);
+    supportLines.draw(topLeft, topRight, width, height);
+
+    gridLines.draw(topLeft, topRight);
 
     if (endDragger) {
       endDragger.draw(topRight, height, scale);

@@ -1,5 +1,5 @@
 import { Container, FederatedPointerEvent, Graphics } from "pixi.js";
-import { useGrid } from "../../context/Grid-Context";
+import { useGrid } from "../../context/_Grid-Context";
 import { ArbitLine } from "../../types/types";
 import { Num, Pt } from "pts";
 

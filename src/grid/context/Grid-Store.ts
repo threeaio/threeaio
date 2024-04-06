@@ -1,4 +1,3 @@
-import { createContext, JSX, ParentComponent, useContext } from "solid-js";
 import { StadiumStateNew } from "../types/types";
 import { createStore } from "solid-js/store";
 import { Pt } from "pts";
@@ -12,7 +11,7 @@ const initialState: StadiumStateNew = {
   rowLinesAt: [25],
 };
 
-export const makeGridContextNew = (initialState: StadiumStateNew) => {
+const makeStadiumContextNew = (initialState: StadiumStateNew) => {
   const [stadiumState, setStadiumState] =
     createStore<StadiumStateNew>(initialState);
 
@@ -71,28 +70,6 @@ export const makeGridContextNew = (initialState: StadiumStateNew) => {
   ] as const;
 };
 
-////////
-
-type GridContextNewType = ReturnType<typeof makeGridContextNew>;
-
-export const GridContextNew = createContext<GridContextNewType>();
-
-export const GridProviderNew: ParentComponent = (props: {
-  children?: JSX.Element;
-}) => {
-  const state = makeGridContextNew(initialState);
-
-  return (
-    <GridContextNew.Provider value={state}>
-      {props.children}
-    </GridContextNew.Provider>
-  );
-};
-
-export const useGridNew = () => {
-  const value = useContext(GridContextNew);
-  if (value === undefined) {
-    throw new Error("useGridNew must be used within a GridContextNew.Provider");
-  }
-  return value;
-};
+type StadiumStateType = ReturnType<typeof makeStadiumContextNew>;
+export const fromStadiumState: StadiumStateType =
+  makeStadiumContextNew(initialState);

@@ -4,7 +4,7 @@ import { Pt } from "pts";
 
 import { RighDrawer, SliderInput } from "@grid/ui";
 import { initFlowbite } from "flowbite";
-import { useGrid } from "../context/Grid-Context";
+import { useGrid } from "../context/_Grid-Context";
 
 export const GridOptions: Component = () => {
   // https://github.com/themesberg/tailwind-solidjs-starter/issues/1

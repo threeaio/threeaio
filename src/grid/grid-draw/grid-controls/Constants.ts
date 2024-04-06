@@ -12,6 +12,7 @@ export const PlusIconSize = 20;
 export const PlusIconDistance = 8;
 export const DraggerRadius = 10;
 export const LineDraggerDistance = 10;
+export const EndDraggerDistance = LineDraggerDistance * 2;
 
 export const HorizontalLine = () => {
   return new Graphics({ interactive: false })

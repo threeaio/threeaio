@@ -7,7 +7,7 @@ export class Dragger extends Container {
   handle = new Graphics({ cursor: "ew-resize" })
     .circle(0, 0, DraggerRadius)
     .translateTransform(DraggerRadius / -2, DraggerRadius / -2)
-    .scaleTransform(0.5, 0.5)
+    .scaleTransform(5, 0.5)
     .stroke(StrokeStyle)
     .fill(Dark);
 
@@ -25,6 +25,7 @@ export class Dragger extends Container {
     });
 
     this.addChild(this.handle);
+    this.handle.scale = 1;
   }
 
   private onDragStart = (event: FederatedPointerEvent) => {

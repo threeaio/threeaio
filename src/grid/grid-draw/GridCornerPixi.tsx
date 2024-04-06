@@ -1,14 +1,16 @@
 import { Component, createEffect } from "solid-js";
-import { useCanvasControl } from "../context/Canvas-Control-Context";
 import { Application } from "pixi.js";
-import { useGridNew } from "../context/Grid-Context-New";
 import { CornerBottomGriddler } from "./Corner-Griddler";
+import { fromControlState } from "../context/Canvas-Control-Store";
+import { fromStadiumState } from "../context/Grid-Store";
 
 export const DrawGridCorner: Component = () => {
-  const [{ stadiumState }, { setMainStage }] = useGridNew();
-  const [{ controlState }, { setupControls }] = useCanvasControl();
-  // has to be constructed after stage is set in Store. What TODO
+  const [{}, { setMainStage }] = fromStadiumState;
+  const [{ controlState }, { setupControls }] = fromControlState;
+  // has to be constructed after stage is set in Store. What TODO ?
+  // but also needs solid js render Context
   const bottomGriddler = CornerBottomGriddler();
+
   createEffect(() => {});
 
   const createSketch = (ref: HTMLDivElement) => {
@@ -19,10 +21,11 @@ export const DrawGridCorner: Component = () => {
     setTimeout(async () => {
       const app = new Application();
       await app.init({
-        backgroundAlpha: 0,
         resizeTo: ref,
+        backgroundColor: 0x111827,
         resolution: resolution,
         antialias: true,
+        roundPixels: false,
         eventMode: "static",
         eventFeatures: {
           move: true,
@@ -44,10 +47,10 @@ export const DrawGridCorner: Component = () => {
       stage.addChild(bottomG.container);
 
       app.ticker.add((ticker) => {
-        stage.scale = controlState().view.zoom;
+        stage.scale = controlState.view.zoom;
         stage.position = {
-          x: controlState().view.x,
-          y: controlState().view.y,
+          x: controlState.view.x,
+          y: controlState.view.y,
         };
 
         bottomG.draw();

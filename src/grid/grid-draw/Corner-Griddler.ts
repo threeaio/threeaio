@@ -1,11 +1,11 @@
-import { useGridNew } from "../context/Grid-Context-New";
 import { Pt } from "pts";
 import { createEffect } from "solid-js";
 import { Griddler } from "./grid-controls/Griddler";
+import { fromStadiumState } from "../context/Grid-Store";
 
 export const CornerBottomGriddler = () => {
   const [{ stadiumState }, { setStadiumNumRows, updateRowLine, addRowLine }] =
-    useGridNew();
+    fromStadiumState;
 
   let width: number = 0;
   let start: Pt;
@@ -54,8 +54,6 @@ export const CornerBottomGriddler = () => {
       handleEndUpdate: setNumRowsUpdate,
       handleLineUpdate: setRowLinePositionByIndex,
     });
-
-    console.log("updateLines from griddler", updateLines);
 
     updateWidthByState = updateWidth;
     updateRowLinesByState = updateLines;

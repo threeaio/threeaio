@@ -7,8 +7,8 @@ import {
   onCleanup,
   runWithOwner,
 } from "solid-js";
-import { useGrid } from "../context/Grid-Context";
-import { useCanvasControl } from "../context/Canvas-Control-Context";
+import { useGrid } from "../context/_Grid-Context";
+import { useCanvasControl } from "../context/_Canvas-Control-Context";
 
 export const DrawGrid3D: Component = () => {
   const [{ stadiumGrid, stadiumDimensions }] = useGrid();

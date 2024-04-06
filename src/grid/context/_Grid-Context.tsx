@@ -138,7 +138,7 @@ export const makeGridContext = (initialState: StadiumState) => {
 
 type GridContextType = ReturnType<typeof makeGridContext>;
 
-export const GridContext = createContext<GridContextType>();
+export const _GridContext = createContext<GridContextType>();
 
 export const GridProvider: ParentComponent = (props: {
   children?: JSX.Element;
@@ -146,12 +146,14 @@ export const GridProvider: ParentComponent = (props: {
   const state = makeGridContext(initialState);
 
   return (
-    <GridContext.Provider value={state}>{props.children}</GridContext.Provider>
+    <_GridContext.Provider value={state}>
+      {props.children}
+    </_GridContext.Provider>
   );
 };
 
 export const useGrid = () => {
-  const value = useContext(GridContext);
+  const value = useContext(_GridContext);
   if (value === undefined) {
     throw new Error("useGrid must be used within a GridContext.Provider");
   }

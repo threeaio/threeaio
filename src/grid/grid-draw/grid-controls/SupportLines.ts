@@ -1,6 +1,7 @@
 import { Container } from "pixi.js";
 import { HorizontalLine, VerticalLine } from "./Constants";
 import { PointLike } from "../../types/types";
+import { fromControlState } from "../../context/Canvas-Control-Store";
 
 export class SupportLines extends Container {
   mainLine = HorizontalLine();
@@ -19,8 +20,9 @@ export class SupportLines extends Container {
     topRight: PointLike,
     width: number,
     height: number,
-    scale: number,
   ) {
+    const scale = fromControlState[0].controlState.view.zoom;
+
     this.mainLine.scale = {
       x: width,
       y: 1 / scale,

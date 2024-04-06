@@ -6,6 +6,7 @@ import {
   StrokeStyleSupport,
 } from "./Constants";
 import { Dragger } from "./Dragger";
+import { fromControlState } from "../../context/Canvas-Control-Store";
 
 export class GridLines extends Container {
   constructor(
@@ -48,11 +49,9 @@ export class GridLines extends Container {
     this.removeChildren();
   }
 
-  draw(
-    topLeft: { x: number; y: number },
-    topRight: { x: number; y: number },
-    scale: number,
-  ) {
+  draw(topLeft: { x: number; y: number }, topRight: { x: number; y: number }) {
+    const scale = fromControlState[0].controlState.view.zoom;
+
     if (this.children.length) {
       this.children.forEach((line, index) => {
         // add update prop

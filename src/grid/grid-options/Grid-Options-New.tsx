@@ -2,7 +2,7 @@ import { Component, onMount } from "solid-js";
 
 import { RighDrawer } from "@grid/ui";
 import { initFlowbite } from "flowbite";
-import { useGridNew } from "../context/Grid-Context-New";
+import { fromStadiumState } from "../context/Grid-Store";
 
 export const GridOptionsNew: Component = () => {
   // https://github.com/themesberg/tailwind-solidjs-starter/issues/1
@@ -10,7 +10,7 @@ export const GridOptionsNew: Component = () => {
     initFlowbite();
   });
 
-  const [{ stadiumState }] = useGridNew();
+  const [{ stadiumState }] = fromStadiumState;
 
   return (
     <div>

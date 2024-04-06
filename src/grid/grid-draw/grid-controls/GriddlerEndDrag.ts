@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
 import { Dragger } from "./Dragger";
-import { DraggerRadius, LineDraggerDistance } from "./Constants";
+import { DraggerRadius, EndDraggerDistance } from "./Constants";
 import { PointLike } from "../../types/types";
 import { Pt } from "pts";
 
@@ -19,7 +19,7 @@ export class GriddlerEndDrag extends Container {
 
   draw(topRight: PointLike, height: number, scale: number) {
     this.dragger.x = topRight.x + DraggerRadius / scale;
-    this.dragger.children[0].x = LineDraggerDistance * 2;
+    this.dragger.children[0].x = EndDraggerDistance;
     this.dragger.y = topRight.y + height / 2;
     this.dragger.scale = 1 / scale;
   }

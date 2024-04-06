@@ -1,6 +1,6 @@
 import { Component, createEffect, createMemo, getOwner } from "solid-js";
-import { useGrid } from "../context/Grid-Context";
-import { useCanvasControl } from "../context/Canvas-Control-Context";
+import { useGrid } from "../context/_Grid-Context";
+import { useCanvasControl } from "../context/_Canvas-Control-Context";
 import { Application, Container, Graphics } from "pixi.js";
 import { Block, BlockType, SeatSprite } from "./test-block/Test-Block";
 import { block5, block6, block7 } from "./test-block/Test-Data";
@@ -52,7 +52,7 @@ export const DrawGridPixi: Component = () => {
         .on("pointertap", (event) => {
           console.log("event", event);
           if (currentBlock) {
-            currentBlock.setBlockTransform(gridCell, 1);
+            currentBlock.setBlockTransform(gridCell);
           }
         });
       //

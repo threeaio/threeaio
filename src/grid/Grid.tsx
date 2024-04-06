@@ -1,7 +1,7 @@
 import { JSX, ParentComponent } from "solid-js";
-import { CanvasControlProvider } from "./context/Canvas-Control-Context";
-import { GridProvider } from "./context/Grid-Context";
-import { GridOptions } from "./grid-options/Grid-Options";
+import { CanvasControlProvider } from "./context/_Canvas-Control-Context";
+import { GridProvider } from "./context/_Grid-Context";
+import { GridOptions } from "./grid-options/_Grid-Options";
 
 export const Grid: ParentComponent = (props: { children?: JSX.Element }) => {
   return (
