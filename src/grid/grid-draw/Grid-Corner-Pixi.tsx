@@ -22,6 +22,7 @@ export const DrawGridCorner: Component = () => {
       resizeTo: ref,
       backgroundColor: 0x111827,
       resolution: resolution,
+
       antialias: true,
       roundPixels: false,
       eventMode: "static",

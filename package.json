@@ -25,6 +25,7 @@
     "@thisbeyond/solid-dnd": "^0.7.5",
     "@types/p5": "^1.7.6",
     "flowbite": "^2.3.0",
+    "gsap": "^3.12.5",
     "p5": "^1.9.2",
     "pixi-viewport": "^5.0.2",
     "pixi.js": "^8.0.4",

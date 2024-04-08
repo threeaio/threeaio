@@ -26,6 +26,7 @@ export class Dragger extends Container {
 
     this.handle.cursor = "ew-resize";
     this.handle.scale = 1;
+    // this.handle.
   }
 
   private onDragStart = (event: FederatedPointerEvent) => {
