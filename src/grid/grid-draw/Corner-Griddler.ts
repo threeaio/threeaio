@@ -1,11 +1,14 @@
 import { Pt } from "pts";
-import { createEffect } from "solid-js";
+import { createEffect, runWithOwner } from "solid-js";
 import { Griddler } from "./grid-controls/Griddler";
 import { fromStadiumState } from "../context/Grid-Store";
+import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 
 export const CornerBottomGriddler = () => {
   const [{ stadiumState }, { setStadiumNumRows, updateRowLine, addRowLine }] =
     fromStadiumState;
+
+  const [{ PG, getCurrentOwner }, {}] = fromPixiGlobals;
 
   let width: number = 0;
   let start: Pt;
@@ -30,12 +33,16 @@ export const CornerBottomGriddler = () => {
     addRowLine(stadiumState.numRows / 2);
   };
 
-  createEffect(() => {
-    updateWidthByState(stadiumState.numRows);
+  runWithOwner(getCurrentOwner(), () => {
+    createEffect(() => {
+      updateWidthByState(stadiumState.numRows);
+    });
   });
 
-  createEffect(() => {
-    updateRowLinesByState(stadiumState.rowLinesAt);
+  runWithOwner(getCurrentOwner(), () => {
+    createEffect(() => {
+      updateRowLinesByState(stadiumState.rowLinesAt);
+    });
   });
 
   const setup = () => {
@@ -45,7 +52,7 @@ export const CornerBottomGriddler = () => {
     linesAt = stadiumState.rowLinesAt;
 
     const { container, draw, updateWidth, updateLines } = Griddler({
-      stage: stadiumState.mainStage!,
+      stage: PG.mainStage!,
       start,
       end,
       linesAt,

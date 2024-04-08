@@ -1,5 +1,4 @@
 import { Pt } from "pts";
-import { Container } from "pixi.js";
 
 export type Subset<K, T extends K> = T;
 
@@ -42,13 +41,6 @@ export interface StadiumState {
   colSize: number; // determines how many cols on straight so far
   t1AngleOffset: number;
   t2AngleOffset: number;
-}
-
-export interface StadiumStateNew {
-  mainStage: Container | null;
-  numRows: number; // number od max Rows
-  cutOut: Pt;
-  rowLinesAt: number[];
 }
 
 export type AreaPosition =

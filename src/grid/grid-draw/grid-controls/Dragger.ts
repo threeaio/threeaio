@@ -1,15 +1,13 @@
 import { Pt } from "pts";
 import { Container, FederatedPointerEvent, Graphics } from "pixi.js";
-import { Dark, DraggerRadius, StrokeStyle } from "./Constants";
+import { DraggerRadius, DragHandle } from "./Constants";
 
 export class Dragger extends Container {
   dragging = false;
-  handle = new Graphics({ cursor: "ew-resize" })
-    .circle(0, 0, DraggerRadius)
-    .translateTransform(DraggerRadius / -2, DraggerRadius / -2)
-    .scaleTransform(5, 0.5)
-    .stroke(StrokeStyle)
-    .fill(Dark);
+  handle = new Graphics(DragHandle).translateTransform(
+    DraggerRadius / -2,
+    DraggerRadius / -2,
+  );
 
   constructor(
     private props: {
@@ -25,6 +23,8 @@ export class Dragger extends Container {
     });
 
     this.addChild(this.handle);
+
+    this.handle.cursor = "ew-resize";
     this.handle.scale = 1;
   }
 

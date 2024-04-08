@@ -1,17 +1,20 @@
-import { StadiumStateNew } from "../types/types";
 import { createStore } from "solid-js/store";
 import { Pt } from "pts";
-import { Container } from "pixi.js";
+
+export interface StadiumStateNew {
+  numRows: number; // number od max Rows
+  cutOut: Pt;
+  rowLinesAt: number[];
+}
 
 const w = 60;
 const initialState: StadiumStateNew = {
-  mainStage: null,
   numRows: 50,
   cutOut: new Pt(15, 15),
   rowLinesAt: [25],
 };
 
-const makeStadiumContextNew = (initialState: StadiumStateNew) => {
+const setupGridStore = (initialState: StadiumStateNew) => {
   const [stadiumState, setStadiumState] =
     createStore<StadiumStateNew>(initialState);
 
@@ -21,13 +24,13 @@ const makeStadiumContextNew = (initialState: StadiumStateNew) => {
     });
   };
 
-  const setMainStage = (stage: Container) => {
-    setStadiumState("mainStage", stage);
-  };
-
   const setStadiumNumRows = (numRows: number) => {
     // ... process
     // ... clamp RowLines
+    setStadiumState(
+      "rowLinesAt",
+      stadiumState.rowLinesAt.map((l) => (l > numRows ? numRows : l)),
+    );
     setStadiumState("numRows", numRows);
   };
 
@@ -60,7 +63,6 @@ const makeStadiumContextNew = (initialState: StadiumStateNew) => {
       stadiumState,
     },
     {
-      setMainStage,
       setStadiumNumRows,
       setStadiumCutOutX,
       setStadiumCutOutY,
@@ -70,6 +72,5 @@ const makeStadiumContextNew = (initialState: StadiumStateNew) => {
   ] as const;
 };
 
-type StadiumStateType = ReturnType<typeof makeStadiumContextNew>;
-export const fromStadiumState: StadiumStateType =
-  makeStadiumContextNew(initialState);
+type StadiumStateType = ReturnType<typeof setupGridStore>;
+export const fromStadiumState: StadiumStateType = setupGridStore(initialState);

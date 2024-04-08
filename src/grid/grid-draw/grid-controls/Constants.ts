@@ -1,5 +1,5 @@
 // move all these to Config
-import { Graphics } from "pixi.js";
+import { Graphics, GraphicsContext } from "pixi.js";
 
 export const StrokeWidth = 2;
 export const White = 0xffffff;
@@ -14,14 +14,21 @@ export const DraggerRadius = 10;
 export const LineDraggerDistance = 10;
 export const EndDraggerDistance = LineDraggerDistance * 2;
 
+export const DragHandle = new GraphicsContext()
+  .circle(0, 0, DraggerRadius)
+  .stroke(StrokeStyle)
+  .fill(Dark);
+
+const HotizontalLineGraphicContext = new GraphicsContext()
+  .moveTo(0, 0)
+  .lineTo(StrokeWidth / 2, 0)
+  .stroke({
+    width: StrokeWidth / 2,
+    color: White,
+  });
+
 export const HorizontalLine = () => {
-  return new Graphics({ interactive: false })
-    .moveTo(0, 0)
-    .lineTo(StrokeWidth / 2, 0)
-    .stroke({
-      width: StrokeWidth / 2,
-      color: White,
-    });
+  return new Graphics(HotizontalLineGraphicContext);
 };
 
 export const VerticalLine = () => {
