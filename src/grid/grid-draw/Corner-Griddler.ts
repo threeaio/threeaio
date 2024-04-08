@@ -1,77 +1,72 @@
-import { Pt } from "pts";
+import { Num, Pt } from "pts";
 import { createEffect, runWithOwner } from "solid-js";
 import { Griddler } from "./grid-controls/Griddler";
-import { fromStadiumState } from "../context/Grid-Store";
+import { fromStadiumState, StadiumStateNew } from "../context/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
+import { Container } from "pixi.js";
 
-export const CornerBottomGriddler = () => {
-  const [{ stadiumState }, { setStadiumNumRows, updateRowLine, addRowLine }] =
-    fromStadiumState;
+export class CornerBottomGriddler extends Container {
+  stadiumState: StadiumStateNew = fromStadiumState[0].stadiumState;
+  setStadiumNumRows = fromStadiumState[1].setStadiumNumRows;
+  updateRowLine = fromStadiumState[1].updateRowLine;
+  addRowLine = fromStadiumState[1].addRowLine;
 
-  const [{ PG, getCurrentOwner }, {}] = fromPixiGlobals;
+  PG = fromPixiGlobals[0].PG;
+  getCurrentOwner = fromPixiGlobals[0].getCurrentOwner;
+  private readonly griddler: Griddler;
 
-  let width: number = 0;
-  let start: Pt;
-  let end: Pt;
-  let linesAt: number[];
-  let updateWidthByState = (_num: number) => {};
-  let updateRowLinesByState = (_num: number[]) => {};
+  constructor() {
+    super();
+    const width = this.stadiumState.numRows + this.stadiumState.cutOut.y;
+    const start = new Pt(0, width);
+    const end = new Pt(this.stadiumState.numRows, width);
+    const linesAt = this.stadiumState.rowLinesAt;
 
-  const setNumRowsUpdate = (newX: number) => {
+    this.griddler = this.getGriddler(start, end, linesAt);
+    this.addChild(this.griddler);
+    this.connectEffectsToGriddler();
+  }
+
+  public draw() {
+    this.griddler.draw();
+  }
+
+  private setNumRowsUpdate = (newX: number) => {
     if (newX > 0) {
-      setStadiumNumRows(newX);
+      this.setStadiumNumRows(newX);
     }
   };
 
-  const setRowLinePositionByIndex = (newX: number, index: number) => {
-    if (newX >= 0 && newX <= stadiumState.numRows) {
-      updateRowLine(newX, index);
-    }
+  private setRowLinePositionByIndex = (newX: number, index: number) => {
+    const _v = Num.clamp(newX, 0, this.stadiumState.numRows);
+    this.updateRowLine(_v, index);
   };
 
-  const setAddLine = () => {
-    addRowLine(stadiumState.numRows / 2);
+  private setAddLine = () => {
+    this.addRowLine(this.stadiumState.numRows / 2);
   };
 
-  runWithOwner(getCurrentOwner(), () => {
-    createEffect(() => {
-      updateWidthByState(stadiumState.numRows);
-    });
-  });
-
-  runWithOwner(getCurrentOwner(), () => {
-    createEffect(() => {
-      updateRowLinesByState(stadiumState.rowLinesAt);
-    });
-  });
-
-  const setup = () => {
-    width = stadiumState.numRows + stadiumState.cutOut.y;
-    start = new Pt(0, width);
-    end = new Pt(stadiumState.numRows, width);
-    linesAt = stadiumState.rowLinesAt;
-
-    const { container, draw, updateWidth, updateLines } = Griddler({
-      stage: PG.mainStage!,
+  private getGriddler(start: Pt, end: Pt, linesAt: number[]) {
+    return new Griddler({
+      stage: this.PG.mainStage!,
       start,
       end,
       linesAt,
       dir: -1,
-      handleAddElement: setAddLine,
-      handleEndUpdate: setNumRowsUpdate,
-      handleLineUpdate: setRowLinePositionByIndex,
+      handleAddElement: this.setAddLine,
+      handleEndUpdate: this.setNumRowsUpdate,
+      handleLineUpdate: this.setRowLinePositionByIndex,
     });
+  }
 
-    updateWidthByState = updateWidth;
-    updateRowLinesByState = updateLines;
-
-    return {
-      container,
-      draw,
-    };
-  };
-
-  return {
-    setup,
-  };
-};
+  private connectEffectsToGriddler() {
+    runWithOwner(this.getCurrentOwner(), () => {
+      createEffect(() => {
+        this.griddler.updateWidth(this.stadiumState.numRows);
+      });
+      createEffect(() => {
+        this.griddler.updateLines(this.stadiumState.rowLinesAt);
+      });
+    });
+  }
+}

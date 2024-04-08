@@ -10,10 +10,9 @@ import {
 } from "./Constants";
 import { GridLines } from "./GridLines";
 import { SupportLines } from "./SupportLines";
-import { AddButton } from "./AddButton";
 import { GriddlerEndDrag } from "./GriddlerEndDrag";
+import { AddButton } from "./AddButton";
 import { fromControlState } from "../../context/Canvas-Control-Store";
-// import {createLines} from "./GridLines";
 
 type GriddlerProps = {
   stage: Container;
@@ -26,136 +25,129 @@ type GriddlerProps = {
   handleEndUpdate?: (xNew: number) => void;
 };
 
-export const Griddler = (props: GriddlerProps) => {
-  const state = {
+export class Griddler extends Container {
+  private state = {
     isHovered: false,
     currentAlpha: 1,
   };
 
-  const mainContainer = new Container({
-    alpha: 1,
-    isRenderGroup: true,
-    interactive: true,
-    hitArea: new Rectangle(0, 0, 1, 1),
-    onmouseenter: (e) => {
-      state.isHovered = true;
-    },
-    onmouseleave: (e) => {
-      state.isHovered = false;
-    },
-  });
+  private supportLines!: SupportLines;
+  private gridLines!: GridLines;
+  private addButton!: AddButton;
+  private endDragger: GriddlerEndDrag | undefined;
+  private line!: Group;
 
-  const supportLines = new SupportLines();
-
-  const gridLines = new GridLines(
-    props.linesAt,
-    props.stage,
-    (index: number) => (pt: Pt) => {
-      const scale = mainContainer.parent.scale.x;
-      const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
-      props.handleLineUpdate(ptHere.x, index);
-    },
-  );
-
-  const endDragger = props.handleEndUpdate
-    ? new GriddlerEndDrag(props.stage, (pt: Pt) => {
-        const scale = mainContainer.parent.scale.x;
-        const griddlerDistanceScaled =
-          (EndDraggerDistance + DraggerRadius) / scale;
-        const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
-        props.handleEndUpdate!(ptHere.x);
-      })
-    : undefined;
-
-  const addButton = new AddButton({
-    onclick: (e) => {
-      props.handleAddElement!();
-    },
-  });
-
-  mainContainer.addChild(supportLines);
-  mainContainer.addChild(gridLines);
-  mainContainer.addChild(addButton);
-  if (endDragger) {
-    mainContainer.addChild(endDragger);
+  constructor(private props: GriddlerProps) {
+    super({
+      alpha: 1,
+      isRenderGroup: true,
+      interactive: true,
+      hitArea: new Rectangle(0, 0, 1, 1),
+      onmouseenter: (e) => {
+        this.state.isHovered = true;
+      },
+      onmouseleave: (e) => {
+        this.state.isHovered = false;
+      },
+    });
+    this.setupChildren();
   }
 
-  const line = new Group(
-    new Pt(props.start.x, props.start.y),
-    new Pt(props.end.x, props.end.y),
-  );
+  // Receiver
+  public updateWidth = (x: number) => {
+    this.state.currentAlpha = 1;
+    this.line[1].x = x;
+  };
 
-  const draw = () => {
+  // Receiver
+  public updateLines = (_lines: number[]) => {
+    if (_lines.length !== this.gridLines.lines.length) {
+      this.gridLines.setNewLines(_lines);
+    }
+    this.gridLines.lines = _lines;
+  };
+
+  public draw() {
     const scale = fromControlState[0].controlState.view.zoom;
 
-    const lineTransformed = line
+    const lineTransformed = this.line
       .clone()
-      .add({ x: 0, y: GriddlerDistance * props.dir });
+      .add({ x: 0, y: GriddlerDistance * this.props.dir });
 
     const topLeft = { x: lineTransformed[0].x, y: lineTransformed[0].y };
     const topRight = { x: lineTransformed[1].x, y: lineTransformed[1].y };
     const width = lineTransformed[1].x - lineTransformed[0].x;
     const height = GriddlerDistance / scale;
 
-    const drawRect = new Rectangle(
+    const hitAreaRect = new Rectangle(
       topLeft.x,
       topLeft.y,
       width + (EndDraggerDistance + DraggerRadius * 2) / scale,
       height + (PlusIconDistance + PlusIconSize) / scale,
     );
 
-    /*
+    this.hitArea = hitAreaRect;
 
-    // hit area debug
-    const Foo = new Graphics({
-      label: "foo",
-      alpha: 0.1,
-    })
-      .rect(
-        topLeft.x,
-        topLeft.y,
-        width + (EndDraggerDistance + DraggerRadius * 2) / scale,
-        height + (PlusIconDistance + PlusIconSize) / scale,
-      )
-      .fill();
+    this.addButton.draw(topLeft, width, height);
+    this.supportLines.draw(topLeft, topRight, width, height);
 
-   mainContainer.removeChildAt(3);
-    mainContainer.addChild()Foo;
+    this.gridLines.draw(topLeft, topRight);
 
-     */
-
-    mainContainer.hitArea = drawRect;
-
-    addButton.draw(topLeft, width, height);
-    supportLines.draw(topLeft, topRight, width, height);
-
-    gridLines.draw(topLeft, topRight);
-
-    if (endDragger) {
-      endDragger.draw(topRight, height, scale);
+    if (this.endDragger) {
+      this.endDragger.draw(topRight, height, scale);
     }
-  };
+  }
 
-  // Receiver
-  const updateWidth = (x: number) => {
-    state.currentAlpha = 1;
-    line[1].x = x;
-  };
+  private setupChildren() {
+    this.supportLines = new SupportLines();
+    this.gridLines = this.getGridLines();
+    this.endDragger = this.getEndDragger();
+    this.addButton = this.getAddButton();
 
-  // Receiver
-  const updateLines = (_lines: number[]) => {
-    if (_lines.length !== gridLines.lines.length) {
-      gridLines.setNewLines(_lines);
+    // what is this for ?
+    this.line = new Group(
+      new Pt(this.props.start.x, this.props.start.y),
+      new Pt(this.props.end.x, this.props.end.y),
+    );
+
+    this.addChild(this.supportLines);
+    this.addChild(this.gridLines);
+    this.addChild(this.addButton);
+    if (this.endDragger) {
+      this.addChild(this.endDragger);
     }
-    gridLines.lines = _lines;
-  };
+  }
 
-  // must be last ?
+  private getAddButton() {
+    return new AddButton({
+      onclick: (e) => {
+        this.props.handleAddElement!();
+      },
+    });
+  }
 
-  return {
-    container: mainContainer,
-    draw,
-    updateWidth,
-    updateLines,
-  };
-};
+  private getEndDragger() {
+    return this.props.handleEndUpdate
+      ? new GriddlerEndDrag(this.props.stage, (pt: Pt) => {
+          const scale = this.parent.scale.x;
+          const griddlerDistanceScaled =
+            (EndDraggerDistance + DraggerRadius) / scale;
+          const ptHere = pt.$subtract(griddlerDistanceScaled, 0);
+          this.props.handleEndUpdate!(ptHere.x);
+        })
+      : undefined;
+  }
+
+  private getGridLines() {
+    return new GridLines(
+      this.props.linesAt,
+      this.props.stage,
+      (index: number) => (pt: Pt) => {
+        //
+        const scale = this.parent.scale.x;
+        const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
+        this.props.handleLineUpdate(ptHere.x, index);
+      },
+    );
+  }
+}

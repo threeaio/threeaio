@@ -49,7 +49,7 @@ export const VerticalLine = () => {
 
 export const PlusIcon = () => {
   const size = PlusIconSize;
-  return new Graphics({ interactive: false })
+  const g = new Graphics({ interactive: false })
     .moveTo(0, size / 2)
     .lineTo(size, size / 2)
     .moveTo(size / 2, 0)
@@ -58,4 +58,6 @@ export const PlusIcon = () => {
       width: StrokeWidth / 2,
       color: White,
     });
+  g.interactive = false;
+  return g;
 };
