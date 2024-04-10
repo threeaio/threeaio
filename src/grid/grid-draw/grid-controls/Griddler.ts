@@ -1,9 +1,9 @@
 import { Container, Rectangle } from "pixi.js";
 import { Group, Pt } from "pts";
-import { GridLines } from "./GridLines";
-import { SupportLines } from "./SupportLines";
-import { GriddlerEndDrag } from "./GriddlerEndDrag";
-import { AddButton } from "./AddButton";
+import { GriddlerSegments } from "./Griddler-Segments";
+import { GriddlerSupportLines } from "./Griddler-Support-Lines";
+import { GriddlerEndDrag } from "./Griddler-End-Drag";
+import { AddButton } from "./Add-Button";
 import { fromControlState } from "../../context/Canvas-Control-Store";
 import {
   DraggerRadius,
@@ -31,8 +31,8 @@ export class Griddler extends Container {
     currentAlpha: 1,
   };
 
-  private supportLines!: SupportLines;
-  private gridLines!: GridLines;
+  private supportLines!: GriddlerSupportLines;
+  private gridLines!: GriddlerSegments;
   private addButton!: AddButton;
   private endDragger: GriddlerEndDrag | undefined;
   private line!: Group;
@@ -99,7 +99,7 @@ export class Griddler extends Container {
   }
 
   private setupChildren() {
-    this.supportLines = new SupportLines();
+    this.supportLines = new GriddlerSupportLines();
     this.gridLines = this.getGridLines();
     this.endDragger = this.getEndDragger();
     this.addButton = this.getAddButton();
@@ -139,7 +139,7 @@ export class Griddler extends Container {
   }
 
   private getGridLines() {
-    return new GridLines(
+    return new GriddlerSegments(
       this.props.linesAt,
       this.props.stage,
       (index: number) => (pt: Pt) => {

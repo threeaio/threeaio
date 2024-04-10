@@ -1,7 +1,7 @@
 import { Application, Container } from "pixi.js";
 import { Owner } from "solid-js";
 import { createStore } from "solid-js/store";
-import { GlobalGraphicContextes } from "./Graphic-Contextes";
+import { PixiGraphicContextes } from "./Pixi-Graphic-Contextes";
 
 export const StrokeWidth = 2;
 export const White = 0xffffff;
@@ -31,7 +31,7 @@ const setupPixiGlobalsStore = (initialState: PixiGlobalStore) => {
 
   const [PG, setPixiGlobals] = createStore<PixiGlobalStore>(initialState);
 
-  const graphicContextes = GlobalGraphicContextes();
+  const graphicContextes = PixiGraphicContextes();
 
   const reset = () => {
     if (PG.pixiApp) {

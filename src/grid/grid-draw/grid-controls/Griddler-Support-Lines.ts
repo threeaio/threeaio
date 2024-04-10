@@ -3,7 +3,7 @@ import { HorizontalLine, VerticalLine } from "./Constants";
 import { PointLike } from "../../types/types";
 import { fromControlState } from "../../context/Canvas-Control-Store";
 
-export class SupportLines extends Container {
+export class GriddlerSupportLines extends Container {
   mainLine = HorizontalLine();
   leftSupportLine = VerticalLine();
   rightSupportLine = VerticalLine();

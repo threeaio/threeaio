@@ -2,9 +2,13 @@ import { Container, Graphics } from "pixi.js";
 import { Pt } from "pts";
 import { Dragger } from "./Dragger";
 import { fromControlState } from "../../context/Canvas-Control-Store";
-import {DraggerRadius, LineDraggerDistance, StrokeStyleSupport} from "../../context/Pixi-Globals-Store";
+import {
+  DraggerRadius,
+  LineDraggerDistance,
+  StrokeStyleSupport,
+} from "../../context/Pixi-Globals-Store";
 
-export class GridLines extends Container {
+export class GriddlerSegments extends Container {
   constructor(
     public lines: number[],
     private stage: Container,
