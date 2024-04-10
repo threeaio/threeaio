@@ -1,16 +1,10 @@
 import { Component, getOwner, onCleanup } from "solid-js";
 import { Application } from "pixi.js";
-import { CornerBottomGriddler } from "./Corner-Griddler";
-import { fromControlState } from "../context/Canvas-Control-Store";
-import { fromStadiumState } from "../context/Grid-Store";
-import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
-import { setupPixiGraphicContext } from "../context/Pixi-Graphic-Contextes";
+import { fromLandingPageState } from "../landing-page-state";
+import { fromPixiGlobals } from "../../grid/context/Pixi-Globals-Store";
 
-export const DrawGridCorner: Component = () => {
-  console.log("DrawGridCorner");
-
-  const [{}, {}] = fromStadiumState;
-  const [{ controlState }, { setupControls }] = fromControlState;
+export const DrawAnimation: Component = () => {
+  const [{}, {}] = fromLandingPageState;
   const [{}, { setMainStage, setSolidContextOwner, setPixiApp, reset }] =
     fromPixiGlobals;
 
@@ -21,8 +15,6 @@ export const DrawGridCorner: Component = () => {
   });
 
   const createSketch = async (ref: HTMLDivElement) => {
-    setupControls(ref);
-
     const resolution = 1;
 
     const app = new Application();
@@ -52,28 +44,13 @@ export const DrawGridCorner: Component = () => {
 
     setMainStage(stage);
 
-    // TODO: whole graphic-context-shizzle maybe inside Griddler ?
-    setupPixiGraphicContext();
-    const bottomGriddler = new CornerBottomGriddler();
-
-    stage.addChild(bottomGriddler);
-
-    app.ticker.add((ticker) => {
-      stage.scale = controlState.view.zoom;
-      stage.position = {
-        x: controlState.view.x,
-        y: controlState.view.y,
-      };
-
-      bottomGriddler.draw();
-    });
+    app.ticker.add((ticker) => {});
   };
 
   return (
     <>
-      Hallo
       <div
-        class="h-full w-full max-w-full absolute"
+        class="h-screen w-screen  fixed"
         ref={(el) => createSketch(el)}
       ></div>
     </>

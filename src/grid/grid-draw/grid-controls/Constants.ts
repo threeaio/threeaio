@@ -1,19 +1,21 @@
 import { Graphics } from "pixi.js";
 import {
-  fromPixiGlobals,
   PlusIconSize,
   StrokeWidth,
   White,
 } from "../../context/Pixi-Globals-Store";
+import { pixiGraphicContextGetter } from "../../context/Pixi-Graphic-Contextes";
 
 export const HorizontalLine = () => {
-  const g = new Graphics(fromPixiGlobals[0].HorizontalLineGraphicContext());
+  const g = new Graphics(
+    pixiGraphicContextGetter.HorizontalLineGraphicContext(),
+  );
   g.interactive = false;
   return g;
 };
 
 export const VerticalLine = () => {
-  const g = new Graphics(fromPixiGlobals[0].VerticalLineGraphicContext());
+  const g = new Graphics(pixiGraphicContextGetter.VerticalLineGraphicContext());
   g.interactive = false;
   return g;
 };

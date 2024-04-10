@@ -7,7 +7,7 @@ import {
   White,
 } from "./Pixi-Globals-Store";
 
-export const PixiGraphicContextes: () => {
+const PixiGraphicContextes: () => {
   setup: () => void;
   getter: {
     HorizontalLineGraphicContext: () => GraphicsContext;
@@ -63,3 +63,8 @@ export const PixiGraphicContextes: () => {
     },
   };
 };
+
+const pixiGraphicContext = PixiGraphicContextes();
+
+export const setupPixiGraphicContext = pixiGraphicContext.setup;
+export const pixiGraphicContextGetter = pixiGraphicContext.getter;

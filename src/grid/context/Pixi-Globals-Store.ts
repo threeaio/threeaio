@@ -1,7 +1,6 @@
 import { Application, Container } from "pixi.js";
 import { Owner } from "solid-js";
 import { createStore } from "solid-js/store";
-import { PixiGraphicContextes } from "./Pixi-Graphic-Contextes";
 
 export const StrokeWidth = 2;
 export const White = 0xffffff;
@@ -31,8 +30,6 @@ const setupPixiGlobalsStore = (initialState: PixiGlobalStore) => {
 
   const [PG, setPixiGlobals] = createStore<PixiGlobalStore>(initialState);
 
-  const graphicContextes = PixiGraphicContextes();
-
   const reset = () => {
     if (PG.pixiApp) {
       console.log("destroying");
@@ -58,7 +55,6 @@ const setupPixiGlobalsStore = (initialState: PixiGlobalStore) => {
       reset();
     }
     console.log("Pixi App set up!");
-    graphicContextes.setup();
     setPixiGlobals("pixiApp", app);
   };
 
@@ -77,7 +73,6 @@ const setupPixiGlobalsStore = (initialState: PixiGlobalStore) => {
     {
       PG,
       getCurrentOwner,
-      ...graphicContextes.getter,
     },
     {
       reset,

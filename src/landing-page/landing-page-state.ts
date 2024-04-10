@@ -5,6 +5,7 @@ export interface LandingPage {
   totallyScrolled: number;
   currentSection: number;
   scrollSpeed: number;
+  scrollDirection: 1 | -1;
 }
 
 const initialState: LandingPage = {
@@ -12,6 +13,7 @@ const initialState: LandingPage = {
   totallyScrolled: 0,
   currentSection: 0,
   scrollSpeed: 0,
+  scrollDirection: 1,
 };
 
 const setupLandingPage = (initialState: LandingPage) => {
@@ -33,5 +35,5 @@ const setupLandingPage = (initialState: LandingPage) => {
 };
 
 type LandingPageStateType = ReturnType<typeof setupLandingPage>;
-export const fromLadingPageState: LandingPageStateType =
+export const fromLandingPageState: LandingPageStateType =
   setupLandingPage(initialState);
