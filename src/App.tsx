@@ -5,9 +5,32 @@ const App: ParentComponent = (props: { children?: JSX.Element }) => {
   return (
     <div class="h-screen">
       <header class="fixed text-gray-400 top-0 z-10">
-        <A href="">Current</A> &nbsp;| &nbsp;
-        <A href="old/2d">2D</A> &nbsp;| &nbsp;
-        <A href="old/3d">3D</A>
+        <ul class="hidden md:flex md:space-x-4 list-none">
+          <li>
+            <A
+              class="text-base font-normal  list-none hover:text-gray-100"
+              href="grid-editor"
+            >
+              Current
+            </A>
+          </li>
+          <li>
+            <A
+              class="text-base font-normal list-none hover:text-gray-100"
+              href="old/2d"
+            >
+              Old 2D
+            </A>
+          </li>
+          <li>
+            <A
+              class="text-base font-normal list-none hover:text-gray-100"
+              href="old/3d"
+            >
+              Old 3D
+            </A>
+          </li>
+        </ul>
       </header>
       {props.children}
     </div>

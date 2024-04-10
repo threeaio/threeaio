@@ -1,8 +1,11 @@
 import { Container } from "pixi.js";
 import { Dragger } from "./Dragger";
-import { DraggerRadius, EndDraggerDistance } from "./Constants";
 import { PointLike } from "../../types/types";
 import { Pt } from "pts";
+import {
+  DraggerRadius,
+  EndDraggerDistance,
+} from "../../context/Pixi-Globals-Store";
 
 export class GriddlerEndDrag extends Container {
   // controlState: CanvasControl;

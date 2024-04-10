@@ -1,4 +1,4 @@
-import { Component, getOwner } from "solid-js";
+import { Component, getOwner, onCleanup } from "solid-js";
 import { Application } from "pixi.js";
 import { CornerBottomGriddler } from "./Corner-Griddler";
 import { fromControlState } from "../context/Canvas-Control-Store";
@@ -6,11 +6,18 @@ import { fromStadiumState } from "../context/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 
 export const DrawGridCorner: Component = () => {
+  console.log("DrawGridCorner");
+
   const [{}, {}] = fromStadiumState;
   const [{ controlState }, { setupControls }] = fromControlState;
-  const [{}, { setMainStage, setSolidContextOwner }] = fromPixiGlobals;
+  const [{}, { setMainStage, setSolidContextOwner, setPixiApp, reset }] =
+    fromPixiGlobals;
 
   setSolidContextOwner(getOwner());
+
+  onCleanup(async () => {
+    reset();
+  });
 
   const createSketch = async (ref: HTMLDivElement) => {
     setupControls(ref);
@@ -18,6 +25,9 @@ export const DrawGridCorner: Component = () => {
     const resolution = 1;
 
     const app = new Application();
+
+    setPixiApp(app);
+
     await app.init({
       resizeTo: ref,
       backgroundColor: 0x111827,

@@ -9,6 +9,7 @@ import {GridNew} from "./grid/Grid-New";
 import {DrawGrid3D} from "./grid/grid-draw/_DrawGrid3D";
 import {DrawGridPixiCorner} from "./grid/grid-draw/_DrawGridPixiCorner";
 import {DrawGridCorner} from "./grid/grid-draw/Grid-Corner-Pixi";
+import {LandingPage} from "./landing-page/Landing-Page";
 
 const root = document.getElementById("root");
 
@@ -21,7 +22,8 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 render(
   () => (
     <Router root={App}>
-      <Route path="/" component={GridNew}>
+      <Route path="" component={LandingPage}></Route>
+      <Route path="/grid-editor" component={GridNew}>
         <Route path="" component={DrawGridCorner} />
       </Route>
       <Route path="/old" component={Grid}>

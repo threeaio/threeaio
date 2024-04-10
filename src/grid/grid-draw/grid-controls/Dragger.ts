@@ -1,10 +1,13 @@
 import { Pt } from "pts";
 import { Container, FederatedPointerEvent, Graphics } from "pixi.js";
-import { DraggerRadius, DragHandle } from "./Constants";
+import {
+  DraggerRadius,
+  fromPixiGlobals,
+} from "../../context/Pixi-Globals-Store";
 
 export class Dragger extends Container {
   dragging = false;
-  handle = new Graphics(DragHandle).translateTransform(
+  handle = new Graphics(fromPixiGlobals[0].DragHandle()).translateTransform(
     DraggerRadius / -2,
     DraggerRadius / -2,
   );

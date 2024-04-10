@@ -1,5 +1,10 @@
 import { Container, Rectangle } from "pixi.js";
 import { Group, Pt } from "pts";
+import { GridLines } from "./GridLines";
+import { SupportLines } from "./SupportLines";
+import { GriddlerEndDrag } from "./GriddlerEndDrag";
+import { AddButton } from "./AddButton";
+import { fromControlState } from "../../context/Canvas-Control-Store";
 import {
   DraggerRadius,
   EndDraggerDistance,
@@ -7,12 +12,7 @@ import {
   LineDraggerDistance,
   PlusIconDistance,
   PlusIconSize,
-} from "./Constants";
-import { GridLines } from "./GridLines";
-import { SupportLines } from "./SupportLines";
-import { GriddlerEndDrag } from "./GriddlerEndDrag";
-import { AddButton } from "./AddButton";
-import { fromControlState } from "../../context/Canvas-Control-Store";
+} from "../../context/Pixi-Globals-Store";
 
 type GriddlerProps = {
   stage: Container;

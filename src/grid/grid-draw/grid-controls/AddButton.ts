@@ -1,7 +1,11 @@
 import { Container, ContainerOptions, Rectangle } from "pixi.js";
-import { PlusIcon, PlusIconDistance, PlusIconSize } from "./Constants";
+import { PlusIcon } from "./Constants";
 import { PointLike } from "../../types/types";
 import { fromControlState } from "../../context/Canvas-Control-Store";
+import {
+  PlusIconDistance,
+  PlusIconSize,
+} from "../../context/Pixi-Globals-Store";
 
 export class AddButton extends Container {
   addIconContainerGraphic = PlusIcon();
