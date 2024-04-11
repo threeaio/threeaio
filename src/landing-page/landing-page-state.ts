@@ -24,12 +24,22 @@ const setupLandingPage = (initialState: LandingPage) => {
     setLandingPageState("totalHeight", height);
   };
 
+  const setYScroll = (scollPos: number) => {
+    setLandingPageState("totallyScrolled", scollPos);
+  };
+
+  const setScrollSpeed = (scollSpeed: number) => {
+    setLandingPageState("scrollSpeed", scollSpeed);
+  };
+
   return [
     {
       landingPageState,
     },
     {
       setTotalHeight,
+      setYScroll,
+      setScrollSpeed,
     },
   ] as const;
 };

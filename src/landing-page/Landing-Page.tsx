@@ -1,35 +1,55 @@
 import { Component } from "solid-js";
-import { LandingPageSection } from "./Landing-Page-Section";
+import { LandingPageSection } from "./components/Landing-Page-Section";
+import { LandingPageHeadline } from "./components/Landing-Page-Headline";
+import { LandingPageHeadlineSubline } from "./components/Landing-Page-Headline-Subline";
+import { fromLandingPageState } from "./landing-page-state";
+import { DrawAnimation } from "./animation/Animation";
 
 export const LandingPage: Component = () => {
+  const [{ landingPageState }, { setTotalHeight, setYScroll, setScrollSpeed }] =
+    fromLandingPageState;
+
   let oldPosition = window.scrollY;
   let oldTime = Date.now();
 
   const setupResizeObserver = (el: HTMLElement) => {
     new ResizeObserver((args) => {
-      console.log("ResizeObserver args", args);
       const cr = args[0].contentRect;
-      console.log(cr.height);
+      setTotalHeight(cr.height);
     }).observe(el);
   };
 
-  const handleWondowScroll = (e: Event) => {
+  let resetTimeout: number;
+
+  const handleWindowScroll = (e: Event) => {
     const newPosition = window.scrollY;
     const direction = newPosition > oldPosition ? "down" : "up";
     const distance = Math.abs(oldPosition - newPosition);
     const timeElapsed = e.timeStamp - oldTime;
+    const speed = distance / timeElapsed;
 
-    console.log(window.scrollY);
-    console.log("direction", direction);
+    setYScroll(newPosition);
+    setScrollSpeed(speed);
+
+    // console.log(window.scrollY);
+    // console.log("direction", direction);
     // console.log("distance", distance);
     // console.log("timeElapsed", timeElapsed);
-    console.log("speed", distance / timeElapsed);
+    // console.log("speed", distance / timeElapsed);
     oldTime = e.timeStamp;
     oldPosition = newPosition;
+
+    if (resetTimeout) {
+      clearTimeout(resetTimeout);
+    }
+
+    resetTimeout = setTimeout(() => {
+      setScrollSpeed(0);
+    }, 20);
   };
 
   const setupIntersectionObserver = (el: HTMLElement) => {
-    window.addEventListener("scroll", (e) => handleWondowScroll(e));
+    window.addEventListener("scroll", (e) => handleWindowScroll(e));
   };
 
   return (
@@ -39,19 +59,20 @@ export const LandingPage: Component = () => {
         setupIntersectionObserver(el);
       }}
     >
+      <DrawAnimation />
       <LandingPageSection>
-        <div class="mr-auto place-self-center  lg:col-span-7">
-          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-            What Marketing could be
-          </h1>
-        </div>
+        <LandingPageHeadline>What Marketing could be.</LandingPageHeadline>
+        <LandingPageHeadlineSubline>
+          A noobs attempt to explain how I think money is made these days.
+        </LandingPageHeadlineSubline>
       </LandingPageSection>
       <LandingPageSection>
-        <div class="mr-auto place-self-center  lg:col-span-7">
-          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-            What Marketing could be
-          </h1>
-        </div>
+        <LandingPageHeadlineSubline>
+          First Ingredient:
+        </LandingPageHeadlineSubline>
+        <LandingPageHeadline>
+          When a »Need« touches a »Skill«.
+        </LandingPageHeadline>
       </LandingPageSection>
     </div>
   );
