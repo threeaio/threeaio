@@ -6,74 +6,105 @@ import { fromLandingPageState } from "./landing-page-state";
 import { DrawAnimation } from "./animation/Animation";
 
 export const LandingPage: Component = () => {
-  const [{ landingPageState }, { setTotalHeight, setYScroll, setScrollSpeed }] =
-    fromLandingPageState;
+  const [
+    { landingPageState },
+    {
+      setTotalContentHeight,
+      setScreenHeight,
+      setTotalWidth,
+      setYScroll,
+      setScrollSpeed,
+    },
+  ] = fromLandingPageState;
 
   let oldPosition = window.scrollY;
   let oldTime = Date.now();
 
-  const setupResizeObserver = (el: HTMLElement) => {
+  const setupContentResizeObserver = (el: HTMLElement) => {
     new ResizeObserver((args) => {
       const cr = args[0].contentRect;
-      setTotalHeight(cr.height);
+      setTotalContentHeight(cr.height);
+      setTotalWidth(cr.width);
+    }).observe(el);
+  };
+
+  const setupScreenResizeObserver = (el: HTMLElement) => {
+    new ResizeObserver((args) => {
+      const cr = args[0].contentRect;
+      setScreenHeight(cr.height);
     }).observe(el);
   };
 
   let resetTimeout: number;
 
-  const handleWindowScroll = (e: Event) => {
-    const newPosition = window.scrollY;
+  const handleContentScroll = (e: Event) => {
+    const newPosition = (e.target as HTMLDivElement).scrollTop;
     const direction = newPosition > oldPosition ? "down" : "up";
     const distance = Math.abs(oldPosition - newPosition);
     const timeElapsed = e.timeStamp - oldTime;
     const speed = distance / timeElapsed;
 
     setYScroll(newPosition);
-    setScrollSpeed(speed);
 
-    // console.log(window.scrollY);
-    // console.log("direction", direction);
-    // console.log("distance", distance);
-    // console.log("timeElapsed", timeElapsed);
-    // console.log("speed", distance / timeElapsed);
     oldTime = e.timeStamp;
     oldPosition = newPosition;
 
-    if (resetTimeout) {
-      clearTimeout(resetTimeout);
-    }
-
-    resetTimeout = setTimeout(() => {
-      setScrollSpeed(0);
-    }, 20);
+    // setScrollSpeed(speed);
+    //
+    // if (resetTimeout) {
+    //   clearTimeout(resetTimeout);
+    // }
+    //
+    // resetTimeout = setTimeout(() => {
+    //   setScrollSpeed(0);
+    // }, 20);
   };
 
   const setupIntersectionObserver = (el: HTMLElement) => {
-    window.addEventListener("scroll", (e) => handleWindowScroll(e));
+    el.removeEventListener("scroll", (e) => handleContentScroll(e));
+    el.addEventListener("scroll", (e) => handleContentScroll(e));
   };
 
   return (
     <div
       ref={(el) => {
-        setupResizeObserver(el);
-        setupIntersectionObserver(el);
+        setupScreenResizeObserver(el);
       }}
     >
       <DrawAnimation />
-      <LandingPageSection>
-        <LandingPageHeadline>What Marketing could be.</LandingPageHeadline>
-        <LandingPageHeadlineSubline>
-          A noobs attempt to explain how I think money is made these days.
-        </LandingPageHeadlineSubline>
-      </LandingPageSection>
-      <LandingPageSection>
-        <LandingPageHeadlineSubline>
-          First Ingredient:
-        </LandingPageHeadlineSubline>
-        <LandingPageHeadline>
-          When a »Need« touches a »Skill«.
-        </LandingPageHeadline>
-      </LandingPageSection>
+      <div
+        class="h-screen snap-mandatory snap-y overflow-auto"
+        ref={(el) => {
+          setupIntersectionObserver(el);
+        }}
+      >
+        <div
+          ref={(el) => {
+            setupContentResizeObserver(el);
+          }}
+        >
+          <LandingPageSection>
+            <LandingPageHeadline>
+              Was könnte eine Marketingstrategie sein?
+            </LandingPageHeadline>
+            <LandingPageHeadlineSubline>
+              Ein paar Noob-Gedanken.
+            </LandingPageHeadlineSubline>
+          </LandingPageSection>
+
+          <LandingPageSection>
+            <LandingPageHeadline>
+              Oder wie man »gutes&nbsp;Geld« macht.
+            </LandingPageHeadline>
+          </LandingPageSection>
+
+          <LandingPageSection>
+            <LandingPageHeadline>
+              Ein spezieller Bedarf trifft auf eine spezielle Fähigkeit
+            </LandingPageHeadline>
+          </LandingPageSection>
+        </div>
+      </div>
     </div>
   );
 };

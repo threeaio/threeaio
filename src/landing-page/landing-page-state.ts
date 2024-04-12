@@ -1,7 +1,9 @@
 import { createStore } from "solid-js/store";
 
 export interface LandingPage {
-  totalHeight: number; // number od max Rows
+  totalContentHeight: number;
+  totalWidth: number;
+  screenHeight: number;
   totallyScrolled: number;
   currentSection: number;
   scrollSpeed: number;
@@ -9,7 +11,9 @@ export interface LandingPage {
 }
 
 const initialState: LandingPage = {
-  totalHeight: 0,
+  totalContentHeight: 0,
+  screenHeight: 0,
+  totalWidth: 0,
   totallyScrolled: 0,
   currentSection: 0,
   scrollSpeed: 0,
@@ -20,8 +24,16 @@ const setupLandingPage = (initialState: LandingPage) => {
   const [landingPageState, setLandingPageState] =
     createStore<LandingPage>(initialState);
 
-  const setTotalHeight = (height: number) => {
-    setLandingPageState("totalHeight", height);
+  const setTotalContentHeight = (height: number) => {
+    setLandingPageState("totalContentHeight", height);
+  };
+
+  const setScreenHeight = (height: number) => {
+    setLandingPageState("screenHeight", height);
+  };
+
+  const setTotalWidth = (width: number) => {
+    setLandingPageState("totalWidth", width);
   };
 
   const setYScroll = (scollPos: number) => {
@@ -32,12 +44,18 @@ const setupLandingPage = (initialState: LandingPage) => {
     setLandingPageState("scrollSpeed", scollSpeed);
   };
 
+  // const percentScrolled = () => {
+  //   return
+  // }
+
   return [
     {
       landingPageState,
     },
     {
-      setTotalHeight,
+      setTotalContentHeight,
+      setTotalWidth,
+      setScreenHeight,
       setYScroll,
       setScrollSpeed,
     },
