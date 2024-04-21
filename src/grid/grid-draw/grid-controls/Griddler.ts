@@ -129,7 +129,7 @@ export class Griddler extends Container {
   private getEndDragger() {
     return this.props.handleEndUpdate
       ? new GriddlerEndDrag(this.props.stage, (pt: Pt) => {
-          const scale = this.parent.scale.x;
+          const scale = fromControlState[0].controlState.view.zoom;
           const griddlerDistanceScaled =
             (EndDraggerDistance + DraggerRadius) / scale;
           const ptHere = pt.$subtract(griddlerDistanceScaled, 0);

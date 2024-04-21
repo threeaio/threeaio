@@ -1,11 +1,5 @@
 import { GraphicsContext } from "pixi.js";
-import {
-  Dark,
-  DraggerRadius,
-  StrokeStyle,
-  StrokeWidth,
-  White,
-} from "./Pixi-Globals-Store";
+import { Dark, DraggerRadius, StrokeStyle, White } from "./Pixi-Globals-Store";
 
 const PixiGraphicContextes: () => {
   setup: () => void;
@@ -36,16 +30,16 @@ const PixiGraphicContextes: () => {
 
     _HorizontalLineGraphicContext = new GraphicsContext()
       .moveTo(0, 0)
-      .lineTo(StrokeWidth / 2, 0)
+      .lineTo(1, 0)
       .stroke({
-        width: StrokeWidth / 2,
+        width: 1,
         color: White,
       });
     _VerticalLineGraphicContext = new GraphicsContext()
       .moveTo(0, 0)
-      .lineTo(0, StrokeWidth / 2)
+      .lineTo(0, 1)
       .stroke({
-        width: StrokeWidth / 2,
+        width: 1,
         color: White,
       });
   };
