@@ -1,46 +1,88 @@
 import { fromStadiumState } from "../context/grid/Grid-Store";
-import { fromPixiGlobals, StrokeWidth } from "../context/Pixi-Globals-Store";
-import { Container, Graphics } from "pixi.js";
-import { HorizontalLine, VerticalLine } from "./grid-controls/Constants";
-import { Pt } from "pts";
+import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
+import { Container } from "pixi.js";
+import { HorizontalLine } from "./grid-controls/Constants";
+import { Line, Pt } from "pts";
+import { fromControlState } from "../context/Canvas-Control-Store";
 
 class Cell extends Container {
   public cellDefinition: [Pt, Pt, Pt, Pt];
   private bottomLine = HorizontalLine();
-  private leftLine = VerticalLine();
+  private rightLine = HorizontalLine();
 
   constructor(cellDefinition: [Pt, Pt, Pt, Pt]) {
     super();
     this.cellDefinition = cellDefinition;
+    this.addChild(this.bottomLine);
+    this.addChild(this.rightLine);
   }
 
-  public draw() {}
+  public update(cellDefinition: [Pt, Pt, Pt, Pt]) {
+    this.cellDefinition = cellDefinition;
+  }
+
+  public draw() {
+    const zoom = fromControlState[0].controlState.view.zoom;
+
+    // bottom Line
+    const bottomLineAngle = this.cellDefinition[3]
+      .$subtract(this.cellDefinition[0])
+      .angle();
+    const bottomLineMag = Line.magnitude([
+      this.cellDefinition[0],
+      this.cellDefinition[3],
+    ]);
+    this.bottomLine.position = this.cellDefinition[0];
+    this.bottomLine.scale = { x: bottomLineMag, y: 1 / zoom };
+    this.bottomLine.rotation = bottomLineAngle;
+
+    // right Line
+    const rightLineAngle = this.cellDefinition[2]
+      .$subtract(this.cellDefinition[3])
+      .angle();
+    const rightLineMag = Line.magnitude([
+      this.cellDefinition[3],
+      this.cellDefinition[2],
+    ]);
+    this.rightLine.position = this.cellDefinition[3];
+    this.rightLine.scale = { x: rightLineMag, y: 1 / zoom };
+    this.rightLine.rotation = rightLineAngle;
+  }
 }
 
 export class CornerGrid extends Container {
   getCornerCells = fromStadiumState[0].getCornerCells;
-
+  cells: Cell[] = [];
   PG = fromPixiGlobals[0].PG;
   getCurrentOwner = fromPixiGlobals[0].getCurrentOwner;
 
   constructor() {
     super();
+    this.update();
+  }
+
+  public update() {
+    //this.removeChildren();
+    const newChilds: Cell[] = [];
+    this.getCornerCells().forEach((pts, index) => {
+      if (this.cells[index]) {
+        this.cells[index].update(pts);
+      } else {
+        const newCell = new Cell(pts);
+        this.cells.push(newCell);
+        newChilds.push(newCell);
+      }
+    });
+    // TODO: remove unneeded
+    if (newChilds.length) {
+      this.addChild(...newChilds);
+    }
   }
 
   public draw() {
-    this.removeChildren();
-    this.getCornerCells().forEach((pts, index) => {
-      const g = new Graphics({ interactive: false })
-        .moveTo(pts[0].x, pts[0].y)
-        .lineTo(pts[1].x, pts[1].y)
-        .lineTo(pts[2].x, pts[2].y)
-        .lineTo(pts[3].x, pts[3].y)
-        .lineTo(pts[0].x, pts[0].y)
-        .stroke({
-          width: StrokeWidth,
-          color: 0x00ff99,
-        });
-      this.addChild(g);
+    //
+    this.cells.forEach((c, index) => {
+      c.draw();
     });
   }
 }

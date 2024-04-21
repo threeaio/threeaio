@@ -7,7 +7,9 @@ export const getCornerDimensions = (state: StadiumStateNew): Pt => {
   return new Pt(w, h);
 };
 
-export const calculateCornerCells = (state: StadiumStateNew) => {
+export const calculateCornerCells = (
+  state: StadiumStateNew,
+): [Pt, Pt, Pt, Pt][] => {
   const dimensions = getCornerDimensions(state);
   const segmments = [0, ...state.rowLinesAt]; // + state.numRows
   const xStartBottom = 0;

@@ -70,6 +70,8 @@ export const DrawGridCorner: Component = () => {
 
       // bottomGriddler.y = stadiumState.numRows + stadiumState.cutOut.y;
       bottomGriddler.draw();
+
+      cornerGrid.update();
       cornerGrid.draw();
     });
   };
