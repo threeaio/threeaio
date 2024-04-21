@@ -2,14 +2,15 @@ import { Component, getOwner, onCleanup } from "solid-js";
 import { Application } from "pixi.js";
 import { CornerBottomGriddler } from "./Corner-Bottom-Griddler";
 import { fromControlState } from "../context/Canvas-Control-Store";
-import { fromStadiumState } from "../context/Grid-Store";
+import { fromStadiumState } from "../context/grid/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 import { setupPixiGraphicContext } from "../context/Pixi-Graphic-Contextes";
+import { CornerGrid } from "./Corner-Grid";
 
 export const DrawGridCorner: Component = () => {
   console.log("DrawGridCorner");
 
-  const [{}, {}] = fromStadiumState;
+  const [{ stadiumState }, {}] = fromStadiumState;
   const [{ controlState }, { setupControls }] = fromControlState;
   const [{}, { setMainStage, setSolidContextOwner, setPixiApp, reset }] =
     fromPixiGlobals;
@@ -55,8 +56,10 @@ export const DrawGridCorner: Component = () => {
     // TODO: whole graphic-context-shizzle maybe inside Griddler ?
     setupPixiGraphicContext();
     const bottomGriddler = new CornerBottomGriddler();
+    const cornerGrid = new CornerGrid();
 
     stage.addChild(bottomGriddler);
+    stage.addChild(cornerGrid);
 
     app.ticker.add((ticker) => {
       stage.scale = controlState.view.zoom;
@@ -65,13 +68,14 @@ export const DrawGridCorner: Component = () => {
         y: controlState.view.y,
       };
 
+      // bottomGriddler.y = stadiumState.numRows + stadiumState.cutOut.y;
       bottomGriddler.draw();
+      cornerGrid.draw();
     });
   };
 
   return (
     <>
-      Hallo
       <div
         class="h-full w-full max-w-full absolute"
         ref={(el) => createSketch(el)}

@@ -70,9 +70,7 @@ export class Griddler extends Container {
   public draw() {
     const scale = fromControlState[0].controlState.view.zoom;
 
-    const lineTransformed = this.line
-      .clone()
-      .add({ x: 0, y: GriddlerDistance * this.props.dir });
+    const lineTransformed = this.line.clone();
 
     const topLeft = { x: lineTransformed[0].x, y: lineTransformed[0].y };
     const topRight = { x: lineTransformed[1].x, y: lineTransformed[1].y };

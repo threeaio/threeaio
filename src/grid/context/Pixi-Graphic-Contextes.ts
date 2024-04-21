@@ -1,5 +1,5 @@
 import { GraphicsContext } from "pixi.js";
-import { Dark, DraggerRadius, StrokeStyle, White } from "./Pixi-Globals-Store";
+import { Dark, DraggerRadius, White } from "./Pixi-Globals-Store";
 
 const PixiGraphicContextes: () => {
   setup: () => void;
@@ -25,7 +25,10 @@ const PixiGraphicContextes: () => {
     }
     _DragHandle = new GraphicsContext()
       .circle(0, 0, DraggerRadius)
-      .stroke(StrokeStyle)
+      .stroke({
+        width: 2,
+        color: White,
+      })
       .fill(Dark);
 
     _HorizontalLineGraphicContext = new GraphicsContext()

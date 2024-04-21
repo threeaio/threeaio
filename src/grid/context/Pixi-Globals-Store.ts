@@ -2,11 +2,11 @@ import { Application, Container } from "pixi.js";
 import { Owner } from "solid-js";
 import { createStore } from "solid-js/store";
 
-export const StrokeWidth = 2;
+export const StrokeWidth = 1;
 export const White = 0xffffff;
 export const Dark = 0x001122;
 export const StrokeStyle = { width: StrokeWidth, color: White };
-export const StrokeStyleSupport = { width: StrokeWidth / 2, color: White };
+export const StrokeStyleSupport = { width: StrokeWidth, color: White };
 
 export const GriddlerDistance = 40; // should not scale
 export const PlusIconSize = 21;

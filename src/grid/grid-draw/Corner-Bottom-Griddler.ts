@@ -1,7 +1,7 @@
 import { Num, Pt } from "pts";
 import { createEffect, runWithOwner } from "solid-js";
 import { Griddler } from "./grid-controls/Griddler";
-import { fromStadiumState, StadiumStateNew } from "../context/Grid-Store";
+import { fromStadiumState, StadiumStateNew } from "../context/grid/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 import { Container } from "pixi.js";
 
@@ -18,8 +18,8 @@ export class CornerBottomGriddler extends Container {
   constructor() {
     super();
     const width = this.stadiumState.numRows + this.stadiumState.cutOut.y;
-    const start = new Pt(0, width);
-    const end = new Pt(this.stadiumState.numRows, width);
+    const start = new Pt(0, 0);
+    const end = new Pt(this.stadiumState.numRows, 0);
     const linesAt = this.stadiumState.rowLinesAt;
 
     this.griddler = this.getGriddler(start, end, linesAt);
@@ -61,6 +61,10 @@ export class CornerBottomGriddler extends Container {
 
   private connectEffectsToGriddler() {
     runWithOwner(this.getCurrentOwner(), () => {
+      createEffect(() => {
+        this.griddler.y =
+          this.stadiumState.numRows + this.stadiumState.cutOut.y;
+      });
       createEffect(() => {
         this.griddler.updateWidth(this.stadiumState.numRows);
       });

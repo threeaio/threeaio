@@ -1,5 +1,6 @@
 import { createStore } from "solid-js/store";
 import { Pt } from "pts";
+import { calculateCornerCells } from "./corner";
 
 export interface StadiumStateNew {
   numRows: number; // number od max Rows
@@ -10,7 +11,7 @@ export interface StadiumStateNew {
 const w = 60;
 const initialState: StadiumStateNew = {
   numRows: 50,
-  cutOut: new Pt(15, 15),
+  cutOut: new Pt(25, 25),
   rowLinesAt: [25],
 };
 
@@ -41,7 +42,10 @@ const setupGridStore = (initialState: StadiumStateNew) => {
 
   const addRowLine = (newX: number) => {
     // ... process ?
-    setStadiumState("rowLinesAt", [...stadiumState.rowLinesAt, newX]);
+    setStadiumState(
+      "rowLinesAt",
+      [...stadiumState.rowLinesAt, newX].sort((a, b) => a - b),
+    );
   };
 
   const setStadiumCutOutX = (newValue: number) => {
@@ -58,9 +62,14 @@ const setupGridStore = (initialState: StadiumStateNew) => {
     setStadiumState("cutOut", newPt);
   };
 
+  const getCornerCells = () => {
+    return calculateCornerCells(stadiumState);
+  };
+
   return [
     {
       stadiumState,
+      getCornerCells,
     },
     {
       setStadiumNumRows,

@@ -28,7 +28,7 @@ export const PlusIcon = () => {
     .moveTo(size / 2, 0)
     .lineTo(size / 2, size)
     .stroke({
-      width: StrokeWidth / 2,
+      width: StrokeWidth,
       color: White,
     });
   g.interactive = false;
