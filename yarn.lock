@@ -679,6 +679,11 @@
   resolved "https://registry.yarnpkg.com/@solidjs/router/-/router-0.13.1.tgz#91894f1f3d2458fd5dfeb2ca80898b8d4de13cb4"
   integrity sha512-Rz5Lf0ssWMuN+Wm2GFO0vwZoO/KSwYFSuCUzWrRAvje5M0ZYZrMk5FZxuzdJT+zg8KuqWJQlRALks5E0r+FjAA==
 
+"@studio-freight/lenis@^1.0.42":
+  version "1.0.42"
+  resolved "https://registry.yarnpkg.com/@studio-freight/lenis/-/lenis-1.0.42.tgz#031402beee5eede12649beb9a912abd1aa98f96a"
+  integrity sha512-HJAGf2DeM+BTvKzHv752z6Z7zy6bA643nZM7W88Ft9tnw2GsJSp6iJ+3cekjyMIWH+cloL2U9X82dKXgdU8kPg==
+
 "@thisbeyond/solid-dnd@^0.7.5":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@thisbeyond/solid-dnd/-/solid-dnd-0.7.5.tgz#c7585511bc83b5b973315f956296431124b6562c"

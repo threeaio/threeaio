@@ -4,6 +4,9 @@ import { LandingPageHeadline } from "./components/Landing-Page-Headline";
 import { LandingPageHeadlineSubline } from "./components/Landing-Page-Headline-Subline";
 import { fromLandingPageState } from "./landing-page-state";
 import { DrawAnimation } from "./animation/Animation";
+import Lenis from "@studio-freight/lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const LandingPage: Component = () => {
   const [
@@ -12,10 +15,36 @@ export const LandingPage: Component = () => {
       setTotalContentHeight,
       setScreenHeight,
       setTotalWidth,
-      setYScroll,
-      setScrollSpeed,
+      setProgress,
+      setVelocity,
+      setScrollDirection,
     },
   ] = fromLandingPageState;
+
+  // lenis
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const lenis = new Lenis();
+
+  lenis.on("scroll", (e) => {
+    // console.log("Lenis progress", e.progress);
+    // console.log("Lenis velocity", e.velocity);
+    // console.log("Lenis direction", e.direction);
+    setVelocity(e.velocity);
+    setProgress(e.progress);
+    setScrollDirection(e.direction);
+  });
+
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+
+  // lenis end
 
   let oldPosition = window.scrollY;
   let oldTime = Date.now();
@@ -44,7 +73,7 @@ export const LandingPage: Component = () => {
     const timeElapsed = e.timeStamp - oldTime;
     const speed = distance / timeElapsed;
 
-    setYScroll(newPosition);
+    setProgress(newPosition);
 
     oldTime = e.timeStamp;
     oldPosition = newPosition;
@@ -73,7 +102,7 @@ export const LandingPage: Component = () => {
     >
       <DrawAnimation />
       <div
-        class="h-screen snap-mandatory snap-y overflow-auto"
+        class=""
         ref={(el) => {
           setupIntersectionObserver(el);
         }}
@@ -88,19 +117,25 @@ export const LandingPage: Component = () => {
               Was könnte eine Marketingstrategie sein?
             </LandingPageHeadline>
             <LandingPageHeadlineSubline>
-              Ein paar Noob-Gedanken.
+              Schwurbel eines Nicht-Experten.
             </LandingPageHeadlineSubline>
           </LandingPageSection>
 
           <LandingPageSection>
             <LandingPageHeadline>
-              Oder wie man »gutes&nbsp;Geld« macht.
+              Bzw. wie macht man »gutes&nbsp;Geld«?
             </LandingPageHeadline>
           </LandingPageSection>
 
           <LandingPageSection>
+            <LandingPageHeadlineSubline>
+              Eine Möglichkeit (von N):
+              <br />
+              <br />
+              <br />
+            </LandingPageHeadlineSubline>
             <LandingPageHeadline>
-              Ein spezieller Bedarf trifft auf eine spezielle Fähigkeit
+              »Ein dringender Bedarf trifft auf eine besondere Fähigkeit.«
             </LandingPageHeadline>
           </LandingPageSection>
         </div>

@@ -1,7 +1,7 @@
 import { Group, Line, Num, Pt } from "pts";
 import { StadiumState } from "../types/types";
 import { Accessor, createMemo } from "solid-js";
-import { createArrayFromLength } from "../_util/generic.functions";
+import { createArrayFromLength } from "../../_util/generic.functions";
 
 export const arbitCurves = (
   stadiumState: StadiumState,

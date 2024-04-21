@@ -12,7 +12,7 @@ import {
 import {
   createArrayFromLength,
   getObjectKeys,
-} from "../_util/generic.functions";
+} from "../../_util/generic.functions";
 import { Accessor } from "solid-js";
 
 const makeAreaDefinitionWithCells = (

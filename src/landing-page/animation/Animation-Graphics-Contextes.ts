@@ -1,6 +1,7 @@
 import { Graphics, GraphicsContext } from "pixi.js";
+import { StrokeStyle } from "../../grid/context/Pixi-Globals-Store";
 
-const StrokeWidth = 20;
+const StrokeWidth = 1;
 const White = 0xffffff;
 
 const PixiLandingPageGraphicContextes: () => {
@@ -17,8 +18,9 @@ const PixiLandingPageGraphicContextes: () => {
     }
 
     _VerticalLineGraphicContext = new GraphicsContext()
-      .rect(0, 0, 1, StrokeWidth)
-      .fill(White);
+      .moveTo(0, 0)
+      .lineTo(1, 0)
+      .stroke(StrokeStyle);
   };
 
   const VerticalLineGraphicContext = () => _VerticalLineGraphicContext;

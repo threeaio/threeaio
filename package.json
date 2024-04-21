@@ -23,6 +23,7 @@
     "@solid-primitives/scroll": "^2.0.23",
     "@solid-primitives/workers": "^0.2.7",
     "@solidjs/router": "^0.13.1",
+    "@studio-freight/lenis": "^1.0.42",
     "@thisbeyond/solid-dnd": "^0.7.5",
     "@types/p5": "^1.7.6",
     "flowbite": "^2.3.0",

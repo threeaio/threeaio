@@ -20,7 +20,10 @@ import {
   makeStadiumDimensions,
 } from "../grid-calculations";
 import { createStore } from "solid-js/store";
-import { makeGroups, mapCornerToDirectedLines } from "../_util/pts-utilities";
+import {
+  makeGroups,
+  mapCornerToDirectedLines,
+} from "../../_util/pts-utilities";
 import {
   pickLeft,
   pickRight,

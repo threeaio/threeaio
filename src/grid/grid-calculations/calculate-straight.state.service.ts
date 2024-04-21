@@ -1,11 +1,11 @@
 import { Pt } from "pts";
 import { CellLines, CenterLines, StadiumState } from "../types/types";
-import { createArrayFromLength } from "../_util/generic.functions";
+import { createArrayFromLength } from "../../_util/generic.functions";
 import {
   cloneGroup,
   makeGroups,
   mapCornerToDirectedLines,
-} from "../_util/pts-utilities";
+} from "../../_util/pts-utilities";
 import { Accessor } from "solid-js";
 
 export const straightAreasLines = (

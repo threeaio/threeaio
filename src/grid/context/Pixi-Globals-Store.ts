@@ -2,7 +2,7 @@ import { Application, Container } from "pixi.js";
 import { Owner } from "solid-js";
 import { createStore } from "solid-js/store";
 
-export const StrokeWidth = 2;
+export const StrokeWidth = 1;
 export const White = 0xffffff;
 export const Dark = 0x001122;
 export const StrokeStyle = { width: StrokeWidth, color: White };
@@ -35,11 +35,12 @@ const setupPixiGlobalsStore = (initialState: PixiGlobalStore) => {
       console.log("destroying");
       PG.pixiApp.destroy(true);
     }
+
     setPixiGlobals("pixiApp", null);
     setPixiGlobals("mainStage", null);
+    solidContextOwner = null;
 
     console.log("PG.pixiApp after destroy", PG.pixiApp);
-    solidContextOwner = null;
   };
 
   const setMainStage = (stage: Container) => {

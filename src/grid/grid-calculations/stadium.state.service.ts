@@ -1,7 +1,7 @@
 import { Pt } from "pts";
 import { SimpleLine, StadiumState } from "../types/types";
 import { Accessor } from "solid-js";
-import { getObjectKeys } from "../_util/generic.functions";
+import { getObjectKeys } from "../../_util/generic.functions";
 
 export const stadiumDimensions = (stadiumState: StadiumState): Pt => {
   return new Pt(

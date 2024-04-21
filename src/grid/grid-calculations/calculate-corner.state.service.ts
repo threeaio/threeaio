@@ -3,10 +3,10 @@ import {
   cloneGroup,
   makeGroups,
   mapCornerToDirectedLines,
-} from "../_util/pts-utilities";
+} from "../../_util/pts-utilities";
 import { CellLines, CenterLines, StadiumState } from "../types/types";
 import { Accessor } from "solid-js";
-import { createArrayFromLength } from "../_util/generic.functions";
+import { createArrayFromLength } from "../../_util/generic.functions";
 
 export const cornerLines = (stadiumState: Accessor<StadiumState>) => {
   const _stadiumState = stadiumState();

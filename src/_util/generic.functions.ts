@@ -19,6 +19,12 @@ export const insertInArray = <T>(
   ];
 };
 
+export const getRandomInt = (min: number, max: number) => {
+  const minCeiled = min * 100;
+  const maxFloored = max * 100;
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled) / 100; // The maximum is exclusive and the minimum is inclusive
+};
+
 export const moveInArray = <T>(array: T[], from: number, to: number) => {
   const elm = array[from];
   const withoutElArray = [...array.slice(0, from), ...array.slice(from + 1)];

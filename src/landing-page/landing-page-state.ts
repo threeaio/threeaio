@@ -4,9 +4,9 @@ export interface LandingPage {
   totalContentHeight: number;
   totalWidth: number;
   screenHeight: number;
-  totallyScrolled: number;
+  progress: number;
   currentSection: number;
-  scrollSpeed: number;
+  velocity: number;
   scrollDirection: 1 | -1;
 }
 
@@ -14,9 +14,9 @@ const initialState: LandingPage = {
   totalContentHeight: 0,
   screenHeight: 0,
   totalWidth: 0,
-  totallyScrolled: 0,
+  progress: 0,
   currentSection: 0,
-  scrollSpeed: 0,
+  velocity: 0,
   scrollDirection: 1,
 };
 
@@ -36,12 +36,16 @@ const setupLandingPage = (initialState: LandingPage) => {
     setLandingPageState("totalWidth", width);
   };
 
-  const setYScroll = (scollPos: number) => {
-    setLandingPageState("totallyScrolled", scollPos);
+  const setProgress = (scollPos: number) => {
+    setLandingPageState("progress", scollPos);
   };
 
-  const setScrollSpeed = (scollSpeed: number) => {
-    setLandingPageState("scrollSpeed", scollSpeed);
+  const setScrollDirection = (dir: -1 | 1) => {
+    setLandingPageState("scrollDirection", dir);
+  };
+
+  const setVelocity = (scollSpeed: number) => {
+    setLandingPageState("velocity", scollSpeed);
   };
 
   // const percentScrolled = () => {
@@ -56,8 +60,9 @@ const setupLandingPage = (initialState: LandingPage) => {
       setTotalContentHeight,
       setTotalWidth,
       setScreenHeight,
-      setYScroll,
-      setScrollSpeed,
+      setProgress,
+      setVelocity,
+      setScrollDirection,
     },
   ] as const;
 };
