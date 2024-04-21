@@ -94,7 +94,7 @@ export class Griddler extends Container {
     this.gridLines.draw(topLeft, topRight);
 
     if (this.endDragger) {
-      this.endDragger.draw(topRight, height, scale);
+      this.endDragger.draw(topRight, height);
     }
   }
 

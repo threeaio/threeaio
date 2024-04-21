@@ -1,6 +1,6 @@
 import { Component, getOwner, onCleanup } from "solid-js";
 import { Application } from "pixi.js";
-import { CornerBottomGriddler } from "./Corner-Griddler";
+import { CornerBottomGriddler } from "./Corner-Bottom-Griddler";
 import { fromControlState } from "../context/Canvas-Control-Store";
 import { fromStadiumState } from "../context/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";

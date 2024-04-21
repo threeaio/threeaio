@@ -6,24 +6,22 @@ import {
   DraggerRadius,
   EndDraggerDistance,
 } from "../../context/Pixi-Globals-Store";
+import { fromControlState } from "../../context/Canvas-Control-Store";
 
 export class GriddlerEndDrag extends Container {
-  // controlState: CanvasControl;
   dragger: Dragger;
 
   constructor(stage: Container, update: (pt: Pt) => void) {
     super();
     this.dragger = new Dragger({ stage, update, direction: "x" });
     this.addChild(this.dragger);
-
-    // this.controlState = useCanvasControl()[0].controlState();
-    // console.log("this.controlState", this.controlState);
+    this.dragger.children[0].x = EndDraggerDistance;
   }
 
-  draw(topRight: PointLike, height: number, scale: number) {
-    this.dragger.x = topRight.x + DraggerRadius / scale;
-    this.dragger.children[0].x = EndDraggerDistance;
+  draw(topRight: PointLike, height: number) {
+    const zoom = fromControlState[0].controlState.view.zoom;
+    this.dragger.x = topRight.x + DraggerRadius / zoom;
     this.dragger.y = topRight.y + height / 2;
-    this.dragger.scale = 1 / scale;
+    this.dragger.scale = 1 / zoom;
   }
 }
