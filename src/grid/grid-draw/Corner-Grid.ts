@@ -1,14 +1,14 @@
 import { fromStadiumState } from "../context/grid/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 import { Container } from "pixi.js";
-import { HorizontalLine } from "./grid-controls/Constants";
+import { ReadOnlyLine } from "./grid-controls/Constants";
 import { Line, Pt } from "pts";
 import { fromControlState } from "../context/Canvas-Control-Store";
 
 class Cell extends Container {
   public cellDefinition: [Pt, Pt, Pt, Pt];
-  private bottomLine = HorizontalLine();
-  private rightLine = HorizontalLine();
+  private bottomLine = ReadOnlyLine();
+  private rightLine = ReadOnlyLine();
 
   constructor(cellDefinition: [Pt, Pt, Pt, Pt]) {
     super();
@@ -33,7 +33,7 @@ class Cell extends Container {
       this.cellDefinition[3],
     ]);
     this.bottomLine.position = this.cellDefinition[0];
-    this.bottomLine.scale = { x: bottomLineMag, y: 1 / zoom };
+    this.bottomLine.scale = { x: bottomLineMag, y: 0.5 / zoom };
     this.bottomLine.rotation = bottomLineAngle;
 
     // right Line
@@ -45,7 +45,7 @@ class Cell extends Container {
       this.cellDefinition[2],
     ]);
     this.rightLine.position = this.cellDefinition[3];
-    this.rightLine.scale = { x: rightLineMag, y: 1 / zoom };
+    this.rightLine.scale = { x: rightLineMag, y: 0.5 / zoom };
     this.rightLine.rotation = rightLineAngle;
   }
 }

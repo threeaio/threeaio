@@ -6,9 +6,10 @@ import { fromStadiumState } from "../context/grid/Grid-Store";
 import { fromPixiGlobals } from "../context/Pixi-Globals-Store";
 import { setupPixiGraphicContext } from "../context/Pixi-Graphic-Contextes";
 import { CornerGrid } from "./Corner-Grid";
+import { gsap } from "gsap";
 
 export const DrawGridCorner: Component = () => {
-  console.log("DrawGridCorner");
+  console.log("gsap", gsap);
 
   const [{ stadiumState }, {}] = fromStadiumState;
   const [{ controlState }, { setupControls }] = fromControlState;
@@ -34,7 +35,7 @@ export const DrawGridCorner: Component = () => {
       resizeTo: ref,
       backgroundColor: 0x111827,
       resolution: resolution,
-
+      bezierSmoothness: 1,
       antialias: true,
       roundPixels: false,
       eventMode: "static",
@@ -62,7 +63,21 @@ export const DrawGridCorner: Component = () => {
     stage.addChild(cornerGrid);
 
     app.ticker.add((ticker) => {
+      // animation just for fun
+      // gsap.to(stage.scale, {
+      //   x: controlState.view.zoom,
+      //   y: controlState.view.zoom,
+      //   duration: 0.4,
+      //   ease: "sine.out",
+      // });
+      // gsap.to(stage.position, {
+      //   x: controlState.view.x,
+      //   y: controlState.view.y,
+      //   ease: "sine.out",
+      //   duration: 0.4,
+      // });
       stage.scale = controlState.view.zoom;
+
       stage.position = {
         x: controlState.view.x,
         y: controlState.view.y,
@@ -73,6 +88,9 @@ export const DrawGridCorner: Component = () => {
 
       cornerGrid.update();
       cornerGrid.draw();
+
+      bottomGriddler.y = -stadiumState.numRows;
+      cornerGrid.y = -stadiumState.numRows;
     });
   };
 

@@ -11,8 +11,8 @@ export interface StadiumStateNew {
 const w = 60;
 const initialState: StadiumStateNew = {
   numRows: 50,
-  cutOut: new Pt(25, 25),
-  rowLinesAt: [25],
+  cutOut: new Pt(10, 10),
+  rowLinesAt: [2, 4, 6, 8, 10, 12, 14, 16, 22, 26, 30, 34, 38],
 };
 
 const setupGridStore = (initialState: StadiumStateNew) => {

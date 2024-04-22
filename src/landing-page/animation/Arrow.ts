@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
 import { VerticalLine } from "./Animation-Graphics-Contextes";
-import { getRandomInt } from "../../_util/generic.functions";
+import { getRandomFloat } from "../../_util/generic.functions";
 import { Num } from "pts";
 
 // defaut is left to right with a length of 1
@@ -14,8 +14,8 @@ export class Arrow extends Container {
 
   constructor() {
     super();
-    this.x = getRandomInt(0, 1900);
-    this.y = getRandomInt(0, 1000);
+    this.x = getRandomFloat(0, 1900);
+    this.y = getRandomFloat(0, 1000);
     this.constructArrow();
     this.rotation = Math.PI / 2;
   }

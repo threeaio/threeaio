@@ -1,9 +1,10 @@
 import { GraphicsContext } from "pixi.js";
-import { Dark, DraggerRadius, White } from "./Pixi-Globals-Store";
+import { Dark, DraggerRadius, Green, White } from "./Pixi-Globals-Store";
 
 const PixiGraphicContextes: () => {
   setup: () => void;
   getter: {
+    ReadonlyLineContext: () => GraphicsContext;
     HorizontalLineGraphicContext: () => GraphicsContext;
     DragHandle: () => GraphicsContext;
     VerticalLineGraphicContext: () => GraphicsContext;
@@ -12,6 +13,7 @@ const PixiGraphicContextes: () => {
   let _DragHandle: GraphicsContext;
   let _HorizontalLineGraphicContext: GraphicsContext;
   let _VerticalLineGraphicContext: GraphicsContext;
+  let _ReadonlyLineContext: GraphicsContext;
 
   const setup = () => {
     if (_DragHandle) {
@@ -23,10 +25,13 @@ const PixiGraphicContextes: () => {
     if (_VerticalLineGraphicContext) {
       _VerticalLineGraphicContext.destroy();
     }
+    if (_ReadonlyLineContext) {
+      _ReadonlyLineContext.destroy();
+    }
     _DragHandle = new GraphicsContext()
       .circle(0, 0, DraggerRadius)
       .stroke({
-        width: 2,
+        width: 2.5,
         color: White,
       })
       .fill(Dark);
@@ -35,21 +40,29 @@ const PixiGraphicContextes: () => {
       .moveTo(0, 0)
       .lineTo(1, 0)
       .stroke({
-        width: 1,
+        width: 1.5,
         color: White,
       });
     _VerticalLineGraphicContext = new GraphicsContext()
       .moveTo(0, 0)
       .lineTo(0, 1)
       .stroke({
-        width: 1,
+        width: 1.5,
         color: White,
+      });
+    _ReadonlyLineContext = new GraphicsContext()
+      .moveTo(0, 0)
+      .lineTo(1, 0)
+      .stroke({
+        width: 1.5,
+        color: Green,
       });
   };
 
   const DragHandle = () => _DragHandle;
   const HorizontalLineGraphicContext = () => _HorizontalLineGraphicContext;
   const VerticalLineGraphicContext = () => _VerticalLineGraphicContext;
+  const ReadonlyLineContext = () => _ReadonlyLineContext;
 
   return {
     setup,
@@ -57,6 +70,7 @@ const PixiGraphicContextes: () => {
       DragHandle,
       HorizontalLineGraphicContext,
       VerticalLineGraphicContext,
+      ReadonlyLineContext,
     },
   };
 };

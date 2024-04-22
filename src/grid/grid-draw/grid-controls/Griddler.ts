@@ -108,12 +108,13 @@ export class Griddler extends Container {
       new Pt(this.props.end.x, this.props.end.y),
     );
 
-    this.addChild(this.supportLines);
-    this.addChild(this.gridLines);
-    this.addChild(this.addButton);
     if (this.endDragger) {
       this.addChild(this.endDragger);
     }
+
+    this.addChild(this.supportLines);
+    this.addChild(this.gridLines);
+    this.addChild(this.addButton);
   }
 
   private getAddButton() {

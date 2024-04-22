@@ -2,8 +2,9 @@ import { Application, Container } from "pixi.js";
 import { Owner } from "solid-js";
 import { createStore } from "solid-js/store";
 
-export const StrokeWidth = 1;
+export const StrokeWidth = 1.5;
 export const White = 0xffffff;
+export const Green = 0x00ff99;
 export const Dark = 0x001122;
 export const StrokeStyle = { width: StrokeWidth, color: White };
 export const StrokeStyleSupport = { width: StrokeWidth, color: White };

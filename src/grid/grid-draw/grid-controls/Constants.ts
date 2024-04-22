@@ -1,15 +1,17 @@
 import { Graphics } from "pixi.js";
-import {
-  PlusIconSize,
-  StrokeWidth,
-  White,
-} from "../../context/Pixi-Globals-Store";
+import { PlusIconSize, White } from "../../context/Pixi-Globals-Store";
 import { pixiGraphicContextGetter } from "../../context/Pixi-Graphic-Contextes";
 
 export const HorizontalLine = () => {
   const g = new Graphics(
     pixiGraphicContextGetter.HorizontalLineGraphicContext(),
   );
+  g.interactive = false;
+  return g;
+};
+
+export const ReadOnlyLine = () => {
+  const g = new Graphics(pixiGraphicContextGetter.ReadonlyLineContext());
   g.interactive = false;
   return g;
 };
@@ -28,7 +30,7 @@ export const PlusIcon = () => {
     .moveTo(size / 2, 0)
     .lineTo(size / 2, size)
     .stroke({
-      width: StrokeWidth,
+      width: 1.5,
       color: White,
     });
   g.interactive = false;

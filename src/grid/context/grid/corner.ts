@@ -12,10 +12,12 @@ export const calculateCornerCells = (
 ): [Pt, Pt, Pt, Pt][] => {
   const dimensions = getCornerDimensions(state);
   const segmments = [0, ...state.rowLinesAt]; // + state.numRows
+
   const xStartBottom = 0;
   const yStartBottom = dimensions.y;
   const xStartRight = dimensions.x;
   const yStartRight = 0;
+
   const cells = segmments.map((position, index) => {
     const isLast = index === segmments.length - 1;
     const nextPosition = isLast ? state.numRows : segmments[index + 1];

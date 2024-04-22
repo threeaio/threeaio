@@ -19,10 +19,13 @@ export const insertInArray = <T>(
   ];
 };
 
-export const getRandomInt = (min: number, max: number) => {
-  const minCeiled = min * 100;
-  const maxFloored = max * 100;
-  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled) / 100; // The maximum is exclusive and the minimum is inclusive
+export const getRandomFloat = (min: number, max: number, precision = 2) => {
+  const minCeiled = min * Math.pow(10, precision);
+  const maxFloored = max * Math.pow(10, precision);
+  return (
+    Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled) /
+    Math.pow(10, precision)
+  ); // The maximum is exclusive and the minimum is inclusive
 };
 
 export const moveInArray = <T>(array: T[], from: number, to: number) => {
