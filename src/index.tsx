@@ -4,12 +4,12 @@ import {render} from "solid-js/web";
 import "./index.css";
 import {Route, Router} from "@solidjs/router";
 import App from "./App";
-import {Grid} from "./grid/Grid";
-import {GridNew} from "./grid/Grid-New";
-import {DrawGrid3D} from "./grid/grid-draw/_DrawGrid3D";
-import {DrawGridPixiCorner} from "./grid/grid-draw/_DrawGridPixiCorner";
-import {DrawGridCorner} from "./grid/grid-draw/Grid-Corner-Pixi";
-import {LandingPage} from "./landing-page/Landing-Page";
+import {LandingPage} from "./features/landing-page/Landing-Page";
+import {GridNew} from "./features/grid/Grid-New";
+import {DrawGridCorner} from "./features/grid/grid-draw/Grid-Corner-Pixi";
+import {Grid} from "./features/grid/_old/Grid";
+import {DrawGridPixiCorner} from "./features/grid/grid-draw/_old/_DrawGridPixiCorner";
+import {DrawGrid3D} from "./features/grid/grid-draw/_old/_DrawGrid3D";
 
 const root = document.getElementById("root");
 

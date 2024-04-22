@@ -1,5 +1,5 @@
 import { Group, Pt } from "pts";
-import { CellLines, SimpleLine } from "../grid/types/types";
+import { CellLines, SimpleLine } from "../types/types";
 
 export const makeGroups = (pts: Pt[][]): Group[] => {
   return pts.map((pts) => Group.fromPtArray(pts));

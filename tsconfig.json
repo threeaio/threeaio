@@ -14,8 +14,14 @@
     "noEmit": true,
     "isolatedModules": true,
     "paths": {
-      "@grid/ui": [
+      "@3a/grid/ui": [
         "./src/ui/index.ts"
+      ],
+      "@3a/utils": [
+        "./src/_util/index.ts"
+      ],
+      "@3a/types": [
+        "./src/types/types.ts"
       ]
     }
   }
