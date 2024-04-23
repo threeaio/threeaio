@@ -7,6 +7,7 @@ import { DrawAnimation } from "./animation/Animation";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "cal-sans";
 
 export const LandingPage: Component = () => {
   const [
@@ -116,29 +117,30 @@ export const LandingPage: Component = () => {
           }}
         >
           <LandingPageSection>
-            <LandingPageHeadline>
-              Was könnte eine Marketingstrategie sein?
-            </LandingPageHeadline>
+            <LandingPageHeadline>Angular, Art and Anarchy</LandingPageHeadline>
             <LandingPageHeadlineSubline>
-              Schwurbel eines Nicht-Experten.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis,
+              inventore.
             </LandingPageHeadlineSubline>
           </LandingPageSection>
 
           <LandingPageSection>
             <LandingPageHeadline>
-              Bzw. wie macht man »gutes&nbsp;Geld«?
+              Lorem ipsum dolor sit amet, consectetur.
             </LandingPageHeadline>
+            <LandingPageHeadlineSubline>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
+              aperiam atque, doloribus eos exercitationem nihil possimus saepe
+              sit?
+            </LandingPageHeadlineSubline>
           </LandingPageSection>
 
           <LandingPageSection>
             <LandingPageHeadlineSubline>
-              Eine Möglichkeit (von N):
-              <br />
-              <br />
-              <br />
+              Lorem ipsum dolor sit amet.
             </LandingPageHeadlineSubline>
             <LandingPageHeadline>
-              »Ein dringender Bedarf trifft auf eine besondere Fähigkeit.«
+              Lorem ipsum dolor sit amet, consectetur adipisicing.
             </LandingPageHeadline>
           </LandingPageSection>
         </div>

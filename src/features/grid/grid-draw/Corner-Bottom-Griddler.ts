@@ -3,7 +3,7 @@ import { createEffect, runWithOwner } from "solid-js";
 import { Griddler } from "./grid-controls/Griddler";
 import { fromStadiumState, StadiumStateNew } from "../grid-context/Grid-Store";
 import { Container } from "pixi.js";
-import {fromPixiGlobals} from "../../../context/Pixi-Globals-Store";
+import { fromPixiGlobals } from "@3a/pixi-globals";
 
 export class CornerBottomGriddler extends Container {
   stadiumState: StadiumStateNew = fromStadiumState[0].stadiumState;

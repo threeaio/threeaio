@@ -22,6 +22,12 @@
       ],
       "@3a/types": [
         "./src/types/types.ts"
+      ],
+      "@3a/canvas-control": [
+        "./src/context/Canvas-Control-Store"
+      ],
+      "@3a/pixi-globals": [
+        "./src/context/Pixi-Globals-Store"
       ]
     }
   }

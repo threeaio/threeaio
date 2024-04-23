@@ -1,8 +1,8 @@
 import { fromStadiumState } from "../grid-context/Grid-Store";
 import { Container } from "pixi.js";
 import { Line, Pt } from "pts";
-import { fromControlState } from "../../../context/Canvas-Control-Store";
-import { fromPixiGlobals } from "../../../context/Pixi-Globals-Store";
+import { fromControlState } from "@3a/canvas-control";
+import { fromPixiGlobals } from "@3a/pixi-globals";
 import { ReadOnlyLine } from "../grid-context/Pixi-Graphic-Contextes";
 
 class Cell extends Container {

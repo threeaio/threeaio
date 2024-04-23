@@ -1,4 +1,3 @@
-export const StrokeWidth = 1.5;
 export const Green = 0x00ff99;
 export const Dark = 0x001122;
 export const White = 0xffffff;

@@ -1,8 +1,12 @@
 import { Container, Graphics } from "pixi.js";
 import { Pt } from "pts";
 import { Dragger } from "./Dragger";
-import { fromControlState } from "../../../../context/Canvas-Control-Store";
-import {DraggerRadius, LineDraggerDistance, StrokeStyleSupport} from "../../Constants";
+import { fromControlState } from "@3a/canvas-control";
+import {
+  DraggerRadius,
+  LineDraggerDistance,
+  StrokeStyleSupport,
+} from "../../Constants";
 
 export class GriddlerSegments extends Container {
   constructor(

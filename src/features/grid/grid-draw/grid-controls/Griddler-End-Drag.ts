@@ -1,7 +1,7 @@
 import { Container, Graphics } from "pixi.js";
 import { Dragger } from "./Dragger";
 import { Pt } from "pts";
-import { fromControlState } from "../../../../context/Canvas-Control-Store";
+import { fromControlState } from "@3a/canvas-control";
 import {
   DraggerRadius,
   EndDraggerDistance,

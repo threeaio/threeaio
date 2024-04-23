@@ -5,7 +5,7 @@ import { Arrow } from "./Arrow";
 import { setupGraphicContext } from "./Animation-Graphics-Contextes";
 
 import { gsap } from "gsap";
-import { fromPixiGlobals } from "../../../context/Pixi-Globals-Store";
+import { fromPixiGlobals } from "@3a/pixi-globals";
 import { createArrayFromLength, getRandomFloat } from "@3a/utils";
 
 export const DrawAnimation: Component = () => {

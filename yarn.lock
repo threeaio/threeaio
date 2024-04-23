@@ -873,6 +873,11 @@ browserslist@^4.22.2, browserslist@^4.23.0:
     node-releases "^2.0.14"
     update-browserslist-db "^1.0.13"
 
+cal-sans@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cal-sans/-/cal-sans-1.0.1.tgz#691bbf04ae5cabd1f827dd842923cee419f57aa9"
+  integrity sha512-XwN3/7jez8WmFVcNnNqO2K9lh133KiIcURCyGFnSM+ZmNZ8zIcOTNfr3SpenLAkRceYsq+fQNX/PL4C1rIkEPQ==
+
 camelcase-css@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/camelcase-css/-/camelcase-css-2.0.1.tgz#ee978f6947914cc30c6b44741b6ed1df7f043fd5"

@@ -1,6 +1,6 @@
 import { Container, ContainerOptions, Rectangle } from "pixi.js";
 import { PlusIconDistance, PlusIconSize } from "../../Constants";
-import { fromControlState } from "../../../../context/Canvas-Control-Store";
+import { fromControlState } from "@3a/canvas-control";
 import { PlusIcon } from "../../grid-context/Pixi-Graphic-Contextes";
 import { ThreeAPointLike } from "@3a/types";
 

@@ -4,8 +4,8 @@ import { CornerBottomGriddler } from "./Corner-Bottom-Griddler";
 import { fromStadiumState } from "../grid-context/Grid-Store";
 import { CornerGrid } from "./Corner-Grid";
 import { gsap } from "gsap";
-import { fromControlState } from "../../../context/Canvas-Control-Store";
-import { fromPixiGlobals } from "../../../context/Pixi-Globals-Store";
+import { fromControlState } from "@3a/canvas-control";
+import { fromPixiGlobals } from "@3a/pixi-globals";
 import { setupPixiGraphicContext } from "../grid-context/Pixi-Graphic-Contextes";
 
 export const DrawGridCorner: Component = () => {

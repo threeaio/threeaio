@@ -1,9 +1,10 @@
-import { Container, PointLike } from "pixi.js";
-import { fromControlState } from "../../../../context/Canvas-Control-Store";
+import { Container } from "pixi.js";
+import { fromControlState } from "@3a/canvas-control";
 import {
   HorizontalLine,
   VerticalLine,
 } from "../../grid-context/Pixi-Graphic-Contextes";
+import { ThreeAPointLike } from "@3a/types";
 
 export class GriddlerSupportLines extends Container {
   mainLine = HorizontalLine();
@@ -18,8 +19,8 @@ export class GriddlerSupportLines extends Container {
   }
 
   public draw(
-    topLeft: PointLike,
-    topRight: PointLike,
+    topLeft: ThreeAPointLike,
+    topRight: ThreeAPointLike,
     width: number,
     height: number,
   ) {

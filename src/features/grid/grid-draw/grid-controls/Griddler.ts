@@ -4,7 +4,7 @@ import { GriddlerSegments } from "./Griddler-Segments";
 import { GriddlerSupportLines } from "./Griddler-Support-Lines";
 import { GriddlerEndDrag } from "./Griddler-End-Drag";
 import { AddButton } from "./Add-Button";
-import { fromControlState } from "../../../../context/Canvas-Control-Store";
+import { fromControlState } from "@3a/canvas-control";
 import {
   DraggerRadius,
   EndDraggerDistance,
