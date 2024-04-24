@@ -57,19 +57,20 @@ export const DrawAnimation: Component = () => {
 
     const anArrFormLength = createArrayFromLength(10000);
     const arrows = anArrFormLength.map((i) => new Arrow());
-    const rands = anArrFormLength.map((i) => getRandomFloat(-0.5, 0.5));
+    const rands = anArrFormLength.map((i) => getRandomFloat(0, 2));
     stage.addChild(...arrows);
 
     const Pi = Math.PI;
 
     app.ticker.add((ticker) => {
       arrows.forEach((a, index) => {
-        a.dir = landingPageState.scrollDirection;
-        a.arrowWidth = Math.abs(landingPageState.velocity) * a.dir * 1;
+        // a.dir = landingPageState.scrollDirection;
+        const aw = Math.abs(landingPageState.velocity) * a.dir * rands[index];
+        a.arrowWidth = aw;
         // a.rotation = 0.5 * Pi + 0.5 - Math.sin(landingPageState.velocity / 20);
 
         // gsap.to(a, {
-        //   arrowWidth: Math.abs(landingPageState.velocity) * a.dir * 11,
+        //   arrowWidth: aw,
         //   duration: 1,
         // });
         // gsap.to(a, {

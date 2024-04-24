@@ -21,7 +21,8 @@ export class Arrow extends Container {
   }
 
   public draw() {
-    // this.alpha = Math.abs(this.arrowWidth * 0.0006);
+    //this.alpha = Math.abs(this.arrowWidth * 0.0006);
+    // this.groupColor = 0xffffff * this.arrowWidth;
 
     this.line.scale = {
       x: this.arrowWidth,

@@ -119,8 +119,7 @@ export const LandingPage: Component = () => {
           <LandingPageSection>
             <LandingPageHeadline>Angular, Art and Anarchy</LandingPageHeadline>
             <LandingPageHeadlineSubline>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis,
-              inventore.
+              Shitting Code is my Business.
             </LandingPageHeadlineSubline>
           </LandingPageSection>
 
