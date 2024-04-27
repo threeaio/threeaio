@@ -17,13 +17,22 @@ export class AddButton extends Container {
     this.addChild(this.addIconContainerGraphic);
   }
 
-  draw(topLeft: ThreeAPointLike, width: number, height: number) {
+  draw(topLeft: ThreeAPointLike, width: number, height: number, dir: -1 | 1) {
     const zoom = fromControlState[0].zoom();
     this.scale = {
       x: 1 / zoom,
       y: 1 / zoom,
     };
     this.x = topLeft.x + width / 2 - PlusIconSize / zoom / 2;
-    this.y = topLeft.y + height + PlusIconDistance / zoom;
+    if (dir === 1) {
+      this.y = topLeft.y + height + PlusIconDistance / zoom;
+    }
+    if (dir === -1) {
+      this.y = height - PlusIconSize / zoom - PlusIconDistance / zoom;
+    }
+
+    // topLeft.y +
+    // dir * (dir > 0 ? height : 0) +
+    // (PlusIconDistance / zoom) * dir;
   }
 }

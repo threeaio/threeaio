@@ -13,6 +13,7 @@ export class GriddlerSegments extends Container {
     public lines: number[],
     private stage: Container,
     private handleLineUpdate: (index: number) => (pt: Pt) => void,
+    private dir: -1 | 1,
   ) {
     super();
     this.createLines();
@@ -49,15 +50,16 @@ export class GriddlerSegments extends Container {
     this.removeChildren();
   }
 
-  draw(topLeft: { x: number; y: number }, topRight: { x: number; y: number }) {
+  draw(topLeft: { x: number; y: number }) {
     const scale = fromControlState[0].controlState.view.zoom;
 
     if (this.children.length) {
       this.children.forEach((line, index) => {
         // add update prop
         line.x = topLeft.x + this.lines[index];
-        line.y = topRight.y;
-        line.children[1].y = DraggerRadius + LineDraggerDistance;
+        line.y = 0;
+        line.rotation = this.dir > 0 ? 0 : Math.PI;
+        DraggerRadius + LineDraggerDistance; //
         line.scale = 1 / scale;
       });
     }

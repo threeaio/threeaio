@@ -1,12 +1,13 @@
 import { Component, getOwner, onCleanup } from "solid-js";
 import { Application } from "pixi.js";
-import { CornerBottomGriddler } from "./Corner-Bottom-Griddler";
+import { GriddlerCornerBottom } from "./Griddler-Corner-Bottom";
 import { fromStadiumState } from "../grid-context/Grid-Store";
 import { CornerGrid } from "./Corner-Grid";
 import { gsap } from "gsap";
 import { fromControlState } from "@3a/canvas-control";
 import { fromPixiGlobals } from "@3a/pixi-globals";
 import { setupPixiGraphicContext } from "../grid-context/Pixi-Graphic-Contextes";
+import { GriddlerCornerSegment } from "./Griddler-Corner-Segment";
 
 export const DrawGridCorner: Component = () => {
   console.log("gsap", gsap);
@@ -56,10 +57,15 @@ export const DrawGridCorner: Component = () => {
 
     // TODO: whole graphic-context-shizzle maybe inside Griddler ?
     setupPixiGraphicContext();
-    const bottomGriddler = new CornerBottomGriddler();
+    const bottomGriddler = new GriddlerCornerBottom();
+
+    // TODO this is a collection
+    const segementGriddler = new GriddlerCornerSegment(0);
+
     const cornerGrid = new CornerGrid();
 
     stage.addChild(bottomGriddler);
+    stage.addChild(segementGriddler);
     stage.addChild(cornerGrid);
 
     app.ticker.add((ticker) => {
@@ -85,10 +91,13 @@ export const DrawGridCorner: Component = () => {
 
       // bottomGriddler.y = stadiumState.numRows + stadiumState.cutOut.y;
       bottomGriddler.draw();
+      segementGriddler.draw();
 
       cornerGrid.update();
       cornerGrid.draw();
 
+      // todo: put all in one container
+      segementGriddler.y = -stadiumState.numRows;
       bottomGriddler.y = -stadiumState.numRows;
       cornerGrid.y = -stadiumState.numRows;
     });

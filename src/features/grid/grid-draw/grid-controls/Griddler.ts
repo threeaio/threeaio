@@ -77,19 +77,44 @@ export class Griddler extends Container {
     const width = lineTransformed[1].x - lineTransformed[0].x;
     const height = GriddlerDistance / scale;
 
-    const hitAreaRect = new Rectangle(
-      topLeft.x,
-      topLeft.y,
-      width + (EndDraggerDistance + DraggerRadius * 2) / scale,
+    const hitAreaHeight = Math.abs(
       height + (PlusIconDistance + PlusIconSize) / scale,
     );
+    const hitAreaShape = [
+      topLeft.x,
+      this.props.dir > 0 ? 0 : -hitAreaHeight,
+      width + (EndDraggerDistance + DraggerRadius * 2) / scale,
+      hitAreaHeight,
+    ];
+    const hitAreaRect = new Rectangle(...hitAreaShape);
 
     this.hitArea = hitAreaRect;
+    // debug hit area
+    // if (this.children[3]) {
+    //   this.removeChildAt(3);
+    // }
+    //
+    // this.addChildAt(
+    //   new Graphics()
+    //     .rect(
+    //       hitAreaShape[0],
+    //       hitAreaShape[1],
+    //       hitAreaShape[2],
+    //       hitAreaShape[3],
+    //     )
+    //     .fill(0xff0000),
+    //   3,
+    // );
 
-    this.addButton.draw(topLeft, width, height);
-    this.supportLines.draw(topLeft, topRight, width, height);
+    this.addButton.draw(
+      topLeft,
+      width,
+      height * this.props.dir,
+      this.props.dir,
+    );
+    this.supportLines.draw(topLeft, topRight, width, height * this.props.dir);
 
-    this.gridLines.draw(topLeft, topRight);
+    this.gridLines.draw(topLeft);
 
     if (this.endDragger) {
       this.endDragger.draw(topRight, height);
@@ -147,6 +172,7 @@ export class Griddler extends Container {
         const ptHere = pt.$subtract(0, LineDraggerDistance / scale);
         this.props.handleLineUpdate(ptHere.x, index);
       },
+      this.props.dir,
     );
   }
 }

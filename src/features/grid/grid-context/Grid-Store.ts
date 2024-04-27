@@ -6,6 +6,7 @@ export interface StadiumStateNew {
   numRows: number; // number od max Rows
   cutOut: Pt;
   rowLinesAt: number[];
+  colLinesInSegments: number[][];
 }
 
 const w = 60;
@@ -13,6 +14,7 @@ const initialState: StadiumStateNew = {
   numRows: 50,
   cutOut: new Pt(10, 10),
   rowLinesAt: [2, 4, 6, 8, 10, 12, 14, 16, 22, 26, 30, 34, 38],
+  colLinesInSegments: [[5, 6]],
 };
 
 const setupGridStore = (initialState: StadiumStateNew) => {
@@ -38,6 +40,15 @@ const setupGridStore = (initialState: StadiumStateNew) => {
   const updateRowLine = (newX: number, index: number) => {
     // ... process
     setStadiumState("rowLinesAt", index, newX);
+  };
+
+  const updateSegmentColLine = (
+    newX: number,
+    segementIndex: number,
+    index: number,
+  ) => {
+    // ... process
+    setStadiumState("colLinesInSegments", segementIndex, index, newX);
   };
 
   const addRowLine = (newX: number) => {
@@ -77,6 +88,7 @@ const setupGridStore = (initialState: StadiumStateNew) => {
       setStadiumCutOutY,
       updateRowLine,
       addRowLine,
+      updateSegmentColLine,
     },
   ] as const;
 };

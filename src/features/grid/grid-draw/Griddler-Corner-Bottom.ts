@@ -5,7 +5,7 @@ import { fromStadiumState, StadiumStateNew } from "../grid-context/Grid-Store";
 import { Container } from "pixi.js";
 import { fromPixiGlobals } from "@3a/pixi-globals";
 
-export class CornerBottomGriddler extends Container {
+export class GriddlerCornerBottom extends Container {
   stadiumState: StadiumStateNew = fromStadiumState[0].stadiumState;
   setStadiumNumRows = fromStadiumState[1].setStadiumNumRows;
   updateRowLine = fromStadiumState[1].updateRowLine;
@@ -52,7 +52,7 @@ export class CornerBottomGriddler extends Container {
       start,
       end,
       linesAt,
-      dir: -1,
+      dir: 1,
       handleAddElement: this.setAddLine,
       handleEndUpdate: this.setNumRowsUpdate,
       handleLineUpdate: this.setRowLinePositionByIndex,
