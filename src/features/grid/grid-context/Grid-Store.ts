@@ -14,7 +14,7 @@ const initialState: StadiumStateNew = {
   numRows: 50,
   cutOut: new Pt(10, 10),
   rowLinesAt: [2, 4, 6, 8, 10, 12, 14, 16, 22, 26, 30, 34, 38],
-  colLinesInSegments: [[5, 6]],
+  colLinesInSegments: [[0, 20]],
 };
 
 const setupGridStore = (initialState: StadiumStateNew) => {

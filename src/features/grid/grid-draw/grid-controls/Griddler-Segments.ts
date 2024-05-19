@@ -59,7 +59,7 @@ export class GriddlerSegments extends Container {
         line.x = topLeft.x + this.lines[index];
         line.y = 0;
         line.rotation = this.dir > 0 ? 0 : Math.PI;
-        DraggerRadius + LineDraggerDistance; //
+        // DraggerRadius + LineDraggerDistance; //
         line.scale = 1 / scale;
       });
     }

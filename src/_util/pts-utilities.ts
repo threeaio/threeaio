@@ -1,5 +1,5 @@
-import { Group, Pt } from "pts";
-import { CellLines, SimpleLine } from "../types/types";
+import { Group, Line, Pt } from "pts";
+import { CellLines, SimpleLine, ThreeAPointLike } from "../types/types";
 
 export const makeGroups = (pts: Pt[][]): Group[] => {
   return pts.map((pts) => Group.fromPtArray(pts));
@@ -15,6 +15,13 @@ export const groupAsSimpleLine = (group: Group | Pt[]): SimpleLine => {
     throw new Error("groupAsSimpleLine not possible for group");
   }
   return [group[0], group[1]];
+};
+
+export const magnitudeBy2Points = (
+  pt1: ThreeAPointLike,
+  pt2: ThreeAPointLike,
+) => {
+  return Line.magnitude([new Pt(pt1.x, pt1.y), new Pt(pt2.x, pt2.y)]);
 };
 
 export const cloneGroup = (group: Group): Group => {

@@ -97,9 +97,9 @@ export const DrawGridCorner: Component = () => {
       cornerGrid.draw();
 
       // todo: put all in one container
-      segementGriddler.y = -stadiumState.numRows;
-      bottomGriddler.y = -stadiumState.numRows;
-      cornerGrid.y = -stadiumState.numRows;
+      // segementGriddler.y = -stadiumState.numRows;
+      // bottomGriddler.y = -stadiumState.numRows;
+      // cornerGrid.y = -stadiumState.numRows;
     });
   };
 

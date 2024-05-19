@@ -4,6 +4,7 @@ import { Griddler } from "./grid-controls/Griddler";
 import { fromStadiumState, StadiumStateNew } from "../grid-context/Grid-Store";
 import { Container } from "pixi.js";
 import { fromPixiGlobals } from "@3a/pixi-globals";
+import { ThreeAPointLike } from "@3a/types";
 
 export class GriddlerCornerSegment extends Container {
   stadiumState: StadiumStateNew = fromStadiumState[0].stadiumState;
@@ -30,9 +31,18 @@ export class GriddlerCornerSegment extends Container {
     this.griddler.draw();
   }
 
-  private setSegmentColLine = (newX: number, index: number) => {
+  private setSegmentColLine = (
+    _newX: number,
+    index: number,
+    origPoint: ThreeAPointLike,
+  ) => {
     //const _v = Num.clamp(newX, 0, this.stadiumState.numRows);
-    this.updateSegmentColLine(newX, this.myIndex, index);
+    const thisPosition = this.griddler.position;
+    // console.log("origPoint", origPoint);
+    const zero = { x: 0, y: 0 };
+    // const distance = magnitudeBy2Points(thisPosition, origPoint);
+    // console.log("distance", distance);
+    this.updateSegmentColLine(_newX, this.myIndex, index);
   };
 
   private getGriddler(start: Pt, end: Pt, linesAt: number[]) {
