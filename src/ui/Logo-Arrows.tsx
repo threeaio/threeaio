@@ -48,26 +48,37 @@ export const LogoArrows = (props: {}) => {
       .join(" ");
   };
 
+  const tl1 = gsap.timeline({
+    yoyo: true,
+    repeat: 100,
+    defaults: { opacity: 0, duration: 0.4, ease: "back.out(1.1)" },
+  });
+
+  const stop = () => {
+    tl1.repeat(0);
+  };
+
+  const run = () => {
+    tl1.yoyo(true);
+    tl1.repeat(100);
+    tl1.play(0);
+  };
+
   onMount(() => {
     const svgArrowOrigin = "top right";
     const xTypoOffset = -200;
     const typoTimeOffset = "-=.2";
     const arrowTimeOffset = ">-0.2";
-    const tl1 = gsap.timeline({
-      // yoyo: true,
-      // repeat: 2,
-      defaults: { opacity: 0, duration: 0.4, ease: "back.out(1.1)" },
-    });
+
     tl1
-      .from(".logo-text__t", { x: xTypoOffset }, typoTimeOffset)
-      .addLabel("startText");
-    tl1.from(".logo-text__h", { x: xTypoOffset }, typoTimeOffset);
-    tl1.from(".logo-text__r", { x: xTypoOffset }, typoTimeOffset);
-    tl1.from(".logo-text__e1", { x: xTypoOffset }, typoTimeOffset);
-    tl1.from(".logo-text__e2", { x: xTypoOffset }, typoTimeOffset);
-    tl1.from(".logo-text__a", { x: xTypoOffset * -1 }, typoTimeOffset);
-    tl1.from(".logo-text__dot", { x: xTypoOffset * -1 }, typoTimeOffset);
-    tl1
+      .from(".logo-text__t", { x: xTypoOffset })
+      .addLabel("startText")
+      .from(".logo-text__h", { x: xTypoOffset }, typoTimeOffset)
+      .from(".logo-text__r", { x: xTypoOffset }, typoTimeOffset)
+      .from(".logo-text__e1", { x: xTypoOffset }, typoTimeOffset)
+      .from(".logo-text__e2", { x: xTypoOffset }, typoTimeOffset)
+      .from(".logo-text__a", { x: xTypoOffset * -1 }, typoTimeOffset)
+      .from(".logo-text__dot", { x: xTypoOffset * -1 }, typoTimeOffset)
       .from(
         ".logo-arrows__left",
         {
@@ -78,31 +89,33 @@ export const LogoArrows = (props: {}) => {
         },
         "startText+=.5s",
       )
-      .addLabel("startArrow");
-    tl1.from(
-      ".logo-arrows__middle",
-      {
-        attr: {
-          points: convertToArrowStart(arrow2),
+      .addLabel("startArrow")
+      .from(
+        ".logo-arrows__middle",
+        {
+          attr: {
+            points: convertToArrowStart(arrow2),
+          },
+          transformOrigin: svgArrowOrigin,
         },
-        transformOrigin: svgArrowOrigin,
-      },
-      arrowTimeOffset,
-    );
-    tl1.from(
-      ".logo-arrows__right",
-      {
-        attr: {
-          points: convertToArrowStart(arrow3),
+        arrowTimeOffset,
+      )
+      .from(
+        ".logo-arrows__right",
+        {
+          attr: {
+            points: convertToArrowStart(arrow3),
+          },
+          transformOrigin: svgArrowOrigin,
         },
-        transformOrigin: svgArrowOrigin,
-      },
-      arrowTimeOffset,
-    );
+        arrowTimeOffset,
+      );
+
+    tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full">
+    <div class="w-full" onMouseEnter={run} onMouseLeave={stop}>
       <svg viewBox="-200 -20 1077.5 600">
         <g class="logo-text">
           <path

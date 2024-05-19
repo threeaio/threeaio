@@ -55,64 +55,83 @@ export const LogoAnarchy = (props: {}) => {
       .join(" ");
   };
 
+  const standardDuration = 0.25;
+  const tl1 = gsap.timeline({
+    defaults: { duration: standardDuration, ease: "back.out(1.1)" },
+  });
+
+  const stop = () => {
+    tl1.repeat(0);
+  };
+
+  const run = () => {
+    tl1.yoyo(true);
+    tl1.repeat(100);
+    tl1.play(0);
+  };
+
   onMount(() => {
     const svgArrowOrigin = "top right";
     const xTypoOffset = -40;
+    const slowDuration = 1;
     const typoTimeOffset = ">-=.05";
     const circleTimeOffset = "=.2";
     const arrowTimeOffset = ">-0.03";
-    const tl1 = gsap.timeline({
-      // yoyo: true,
-      // repeat: 2,
-      defaults: { opacity: 0, duration: 0.25, ease: "back.out(1.1)" },
-    });
+
     tl1
+      .from(".b_2", {
+        opacity: 0,
+        attr: {
+          points: convertToArrowStart(arrow2),
+        },
+        duration: standardDuration * 1.4,
+        transformOrigin: svgArrowOrigin,
+      })
+      // .from(".b_2", { opacity: 0, duration: slowDuration }, "<")
+      .addLabel("startArrow")
       .from(
-        ".b_2",
+        ".b_1",
         {
+          opacity: 0,
           attr: {
-            points: convertToArrowStart(arrow2),
+            points: convertToArrowStart(arrow1),
           },
+          duration: standardDuration * 1.2,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
       )
-      .addLabel("startArrow");
-    tl1.from(
-      ".b_1",
-      {
-        attr: {
-          points: convertToArrowStart(arrow1),
+      .from(
+        ".b_3",
+        {
+          opacity: 0,
+          attr: {
+            points: convertToArrowStart(arrow3),
+          },
+          duration: standardDuration,
+          transformOrigin: svgArrowOrigin,
         },
-        transformOrigin: svgArrowOrigin,
-      },
-      arrowTimeOffset,
-    );
-    tl1.from(
-      ".b_3",
-      {
-        attr: {
-          points: convertToArrowStart(arrow3),
+        arrowTimeOffset,
+      )
+      .from(".a_1", { opacity: 0, x: xTypoOffset }, typoTimeOffset)
+      .addLabel("startText")
+      .from(
+        ".circle",
+        {
+          opacity: 0,
+          scale: 0.8,
+          transformOrigin: "center center",
+          duration: 0.6,
+          ease: "back.out(2.7)",
         },
-        transformOrigin: svgArrowOrigin,
-      },
-      arrowTimeOffset,
-    );
-    tl1.from(".a_1", { x: xTypoOffset }, typoTimeOffset).addLabel("startText");
-    tl1.from(
-      ".circle",
-      {
-        scale: 0.8,
-        transformOrigin: "center center",
-        duration: 0.6,
-        ease: "back.out(2.7)",
-      },
-      circleTimeOffset,
-    );
+        circleTimeOffset,
+      );
+
+    tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full">
+    <div class="w-full" onMouseEnter={run} onMouseLeave={stop}>
       <svg viewBox="0 0 962 721">
         <g class="all" style="transform-origin: 50% 50%; transform: scale(2)">
           <polygon class="logo-main-color b_2" points={arrow2} />
