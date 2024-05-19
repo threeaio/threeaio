@@ -72,17 +72,15 @@ export const LandingPage: Component = () => {
     >
       <div class="mx-auto max-w-[1000px] p-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-          <div class="p-8  bg-gray-800">
-            <div class="flex items-center">
-              <LogoArrows />
-            </div>
+          <div class="p-8 bg-gray-800 flex items-center">
+            <LogoArrows />
           </div>
-          <div class="p-8  bg-gray-800">
-            <div class="flex items-center">
-              <LogoAnarchy />
-            </div>
+          <div class="p-8 bg-gray-800 flex items-center">
+            <LogoAnarchy />
           </div>
-          <div class="p-8  bg-gray-800">{/*<LogoArrows />*/}</div>
+          <div class="p-8  bg-gray-800 flex items-center">
+            {/*<LogoArrows />*/}
+          </div>
         </div>
       </div>
     </div>

@@ -26,8 +26,8 @@ export const LogoAnarchy = (props: {}) => {
     // pArrowLeftStart[2] = pArrowLeftStart[6];
     // pArrowLeftStart[3] = pArrowLeftStart[7];
 
-    const diffX = pArrowLeft[4] - pArrowLeft[0];
-    const diffY = pArrowLeft[5] - pArrowLeft[1];
+    const diffX = pArrowLeft[6] - pArrowLeft[0];
+    const diffY = pArrowLeft[7] - pArrowLeft[1];
 
     const getTupleList = (list: number[]) => {
       const grouped: number[][] = list
