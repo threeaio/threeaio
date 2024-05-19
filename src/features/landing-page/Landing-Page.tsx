@@ -1,13 +1,11 @@
 import { Component } from "solid-js";
-import { LandingPageSection } from "./components/Landing-Page-Section";
-import { LandingPageHeadline } from "./components/Landing-Page-Headline";
-import { LandingPageHeadlineSubline } from "./components/Landing-Page-Headline-Subline";
 import { fromLandingPageState } from "./landing-page-state";
-import { DrawAnimation } from "./animation/Animation";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "cal-sans";
+import { LogoArrows } from "@3a/grid/ui";
+import { LogoAnarchy } from "../../ui/Logo-Anarchy";
 
 export const LandingPage: Component = () => {
   const [
@@ -50,9 +48,6 @@ export const LandingPage: Component = () => {
 
   // lenis end
 
-  let oldPosition = window.scrollY;
-  let oldTime = Date.now();
-
   const setupContentResizeObserver = (el: HTMLElement) => {
     new ResizeObserver((args) => {
       const cr = args[0].contentRect;
@@ -68,80 +63,26 @@ export const LandingPage: Component = () => {
     }).observe(el);
   };
 
-  let resetTimeout: number;
-
-  const handleContentScroll = (e: Event) => {
-    const newPosition = (e.target as HTMLDivElement).scrollTop;
-    const direction = newPosition > oldPosition ? "down" : "up";
-    const distance = Math.abs(oldPosition - newPosition);
-    const timeElapsed = e.timeStamp - oldTime;
-    const speed = distance / timeElapsed;
-
-    setProgress(newPosition);
-
-    oldTime = e.timeStamp;
-    oldPosition = newPosition;
-
-    // setScrollSpeed(speed);
-    //
-    // if (resetTimeout) {
-    //   clearTimeout(resetTimeout);
-    // }
-    //
-    // resetTimeout = setTimeout(() => {
-    //   setScrollSpeed(0);
-    // }, 20);
-  };
-
-  const setupIntersectionObserver = (el: HTMLElement) => {
-    el.removeEventListener("scroll", (e) => handleContentScroll(e));
-    el.addEventListener("scroll", (e) => handleContentScroll(e));
-  };
-
   return (
     <div
       ref={(el) => {
         setupScreenResizeObserver(el);
+        setupContentResizeObserver(el);
       }}
     >
-      <DrawAnimation />
-      <div
-        class=""
-        ref={(el) => {
-          setupIntersectionObserver(el);
-        }}
-      >
-        <div
-          ref={(el) => {
-            setupContentResizeObserver(el);
-          }}
-        >
-          <LandingPageSection>
-            <LandingPageHeadline>Angular, Art and Anarchy</LandingPageHeadline>
-            <LandingPageHeadlineSubline>
-              Shitting Code is my Business.
-            </LandingPageHeadlineSubline>
-          </LandingPageSection>
-
-          <LandingPageSection>
-            <LandingPageHeadline>
-              Lorem ipsum dolor sit amet, consectetur.
-            </LandingPageHeadline>
-            <LandingPageHeadlineSubline>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid
-              aperiam atque, doloribus eos exercitationem nihil possimus saepe
-              sit?
-            </LandingPageHeadlineSubline>
-          </LandingPageSection>
-
-          <LandingPageSection>
-            <LandingPageHeadlineSubline>
-              Lorem ipsum dolor sit amet.
-            </LandingPageHeadlineSubline>
-            <LandingPageHeadline>
-              Lorem ipsum dolor sit amet, consectetur adipisicing.
-            </LandingPageHeadline>
-          </LandingPageSection>
+      <div class="mx-auto max-w-[1000px] p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+          <div class="p-8  bg-gray-800">
+            <div class="flex items-center">
+              <LogoArrows />
+            </div>
+          </div>
+          <div class="p-8  bg-gray-800">
+            <div class="flex items-center">
+              <LogoAnarchy />
+            </div>
+          </div>
+          <div class="p-8  bg-gray-800">{/*<LogoArrows />*/}</div>
         </div>
       </div>
     </div>
