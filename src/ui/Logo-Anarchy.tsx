@@ -76,7 +76,7 @@ export const LogoAnarchy = (props: {}) => {
     const slowDuration = 1;
     const typoTimeOffset = ">-=.05";
     const circleTimeOffset = "=.2";
-    const arrowTimeOffset = ">-0.03";
+    const arrowTimeOffset = ">-0.2";
 
     tl1
       .from(".b_2", {
@@ -125,7 +125,8 @@ export const LogoAnarchy = (props: {}) => {
           ease: "back.out(2.7)",
         },
         circleTimeOffset,
-      );
+      )
+      .from(".w-full", { opacity: 1, duration: 0.5 });
 
     tl1.pause(tl1.endTime());
   });

@@ -70,16 +70,13 @@ export const LandingPage: Component = () => {
         setupContentResizeObserver(el);
       }}
     >
-      <div class="mx-auto max-w-[1000px] p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-          <div class="p-8 bg-gray-800 flex items-center">
+      <div class="mx-auto max-w-[1400px] p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-1">
+          <div class="p-8 bg-[#181e1c] flex items-center">
             <LogoArrows />
           </div>
-          <div class="p-8 bg-gray-800 flex items-center">
+          <div class="p-8 bg-[#181e1c] flex items-center">
             <LogoAnarchy />
-          </div>
-          <div class="p-8  bg-gray-800 flex items-center">
-            {/*<LogoArrows />*/}
           </div>
         </div>
       </div>

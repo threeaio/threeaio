@@ -48,13 +48,15 @@ export const LogoArrows = (props: {}) => {
       .join(" ");
   };
 
+  const standardDuration = 0.25;
   const tl1 = gsap.timeline({
     yoyo: true,
     repeat: 100,
-    defaults: { opacity: 0, duration: 0.4, ease: "back.out(1.1)" },
+    defaults: { opacity: 0, duration: standardDuration, ease: "back.out(1.5)" },
   });
 
   const stop = () => {
+    // tl1.yoyo(false);
     tl1.repeat(0);
   };
 
@@ -66,28 +68,45 @@ export const LogoArrows = (props: {}) => {
 
   onMount(() => {
     const svgArrowOrigin = "top right";
-    const xTypoOffset = -200;
-    const typoTimeOffset = "-=.2";
-    const arrowTimeOffset = ">-0.2";
+    const xTypoOffset = -30;
+    const typoTimeOffset = "-=.19";
+    const arrowTimeOffset = ">-0.17";
 
     tl1
-      .from(".logo-text__t", { x: xTypoOffset })
+      .from(".logo-text__t", {
+        x: xTypoOffset,
+      })
       .addLabel("startText")
-      .from(".logo-text__h", { x: xTypoOffset }, typoTimeOffset)
+      .from(
+        ".logo-text__h",
+        {
+          x: xTypoOffset,
+        },
+        typoTimeOffset,
+      )
       .from(".logo-text__r", { x: xTypoOffset }, typoTimeOffset)
-      .from(".logo-text__e1", { x: xTypoOffset }, typoTimeOffset)
+      .from(
+        ".logo-text__e1",
+        { x: xTypoOffset, delay: (0 * standardDuration) / 2 },
+        typoTimeOffset,
+      )
       .from(".logo-text__e2", { x: xTypoOffset }, typoTimeOffset)
-      .from(".logo-text__a", { x: xTypoOffset * -1 }, typoTimeOffset)
-      .from(".logo-text__dot", { x: xTypoOffset * -1 }, typoTimeOffset)
+      .from(".logo-text__a", { x: xTypoOffset }, typoTimeOffset)
+      .from(
+        ".logo-text__dot",
+        { x: xTypoOffset * -1.6, delay: 0.1, ease: "back.out(2.5)" },
+        typoTimeOffset,
+      )
       .from(
         ".logo-arrows__left",
         {
           attr: {
             points: convertToArrowStart(arrow1),
           },
+          duration: standardDuration,
           transformOrigin: svgArrowOrigin,
         },
-        "startText+=.5s",
+        "startText+=.6s",
       )
       .addLabel("startArrow")
       .from(
@@ -96,6 +115,7 @@ export const LogoArrows = (props: {}) => {
           attr: {
             points: convertToArrowStart(arrow2),
           },
+          duration: standardDuration * 1.4,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
@@ -106,11 +126,12 @@ export const LogoArrows = (props: {}) => {
           attr: {
             points: convertToArrowStart(arrow3),
           },
+          duration: standardDuration * 1.8,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
-      );
-
+      )
+      .from(".w-full", { opacity: 1, duration: 1 });
     tl1.pause(tl1.endTime());
   });
 

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .logo-main-color {
-    fill: #ffffff;
+    fill: #dedddc;
 }
 
 .logo-highlight-color {
-    fill: #00d374;
+    fill: #3ef198;
 }
 
 svg * {
