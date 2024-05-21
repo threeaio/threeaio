@@ -6,6 +6,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "cal-sans";
 import { LogoArrows } from "@3a/grid/ui";
 import { LogoAnarchy } from "../../ui/Logo-Anarchy";
+import { LandingPageColors } from "./components/Landing-Page-Colors";
+import { LandingPageHeadline } from "./components/Landing-Page-Headline";
+import { LandingPageHeadlineSubline } from "./components/Landing-Page-Headline-Subline";
 
 export const LandingPage: Component = () => {
   const [
@@ -71,14 +74,31 @@ export const LandingPage: Component = () => {
       }}
     >
       <div class="mx-auto max-w-[1400px] p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-1">
-          <div class="p-8 bg-[#181e1c] flex items-center">
+        <div class="py-12">
+          <LandingPageHeadline>Angular, Art and Anarchy</LandingPageHeadline>
+          <LandingPageHeadlineSubline>
+            Nikolaj Sokolowksis Creative Hub
+          </LandingPageHeadlineSubline>
+        </div>
+      </div>
+      {/*<Divider />*/}
+      <div class="mx-auto max-w-[1400px] p-6">
+        <h2 class="text-3a-green mb-2">Thinking about a Logo and Colors</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+          <div class="p-8 bg-3a-gray-darkest flex items-center">
             <LogoArrows />
           </div>
-          <div class="p-8 bg-[#181e1c] flex items-center">
+          <div class="p-8 bg-3a-gray-darkest flex items-center">
             <LogoAnarchy />
           </div>
+          <div class="p-8 bg-3a-gray-darkest flex items-center">
+            <LandingPageColors />
+          </div>
         </div>
+      </div>
+      <div class="mx-auto max-w-[1400px] p-6">
+        <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>
+        <img src="/src/assets/mood_1.jpeg" alt="mood for three-a" />
       </div>
     </div>
   );

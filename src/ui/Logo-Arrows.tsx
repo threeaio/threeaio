@@ -106,7 +106,7 @@ export const LogoArrows = (props: {}) => {
           duration: standardDuration,
           transformOrigin: svgArrowOrigin,
         },
-        "startText+=.6s",
+        "startText+=.2s",
       )
       .addLabel("startArrow")
       .from(
@@ -115,7 +115,7 @@ export const LogoArrows = (props: {}) => {
           attr: {
             points: convertToArrowStart(arrow2),
           },
-          duration: standardDuration * 1.4,
+          duration: standardDuration * 1.2,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
@@ -126,7 +126,7 @@ export const LogoArrows = (props: {}) => {
           attr: {
             points: convertToArrowStart(arrow3),
           },
-          duration: standardDuration * 1.8,
+          duration: standardDuration * 1,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,

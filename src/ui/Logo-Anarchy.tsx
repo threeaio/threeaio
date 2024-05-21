@@ -8,10 +8,10 @@ export const LogoAnarchy = (props: {}) => {
   const pathA =
     "555.5 410.75 517.004 305.75 516.5 305.75 504.752 337.793 517.201 371.75 492.371 371.75 485.405 390.75 524.167 390.75 531.5 410.75 555.5 410.75";
 
-  const arrow1 =
+  const arrow2 =
     "416.752 410.75 440.752 410.75 479.248 305.75 455.248 305.75 416.752 410.75";
 
-  const arrow2 =
+  const arrow1 =
     "385.752 410.75 409.752 410.75 448.248 305.75 424.248 305.75 385.752 410.75";
 
   const arrow3 =
@@ -57,7 +57,7 @@ export const LogoAnarchy = (props: {}) => {
 
   const standardDuration = 0.25;
   const tl1 = gsap.timeline({
-    defaults: { duration: standardDuration, ease: "back.out(1.1)" },
+    defaults: { duration: standardDuration, opacity: 0, ease: "back.out(1.1)" },
   });
 
   const stop = () => {
@@ -73,30 +73,27 @@ export const LogoAnarchy = (props: {}) => {
   onMount(() => {
     const svgArrowOrigin = "top right";
     const xTypoOffset = -40;
-    const slowDuration = 1;
-    const typoTimeOffset = ">-=.05";
+    const typoTimeOffset = ">-=.2";
     const circleTimeOffset = "=.2";
     const arrowTimeOffset = ">-0.2";
 
     tl1
-      .from(".b_2", {
-        opacity: 0,
+      .from(".b_1", {
         attr: {
-          points: convertToArrowStart(arrow2),
+          points: convertToArrowStart(arrow1),
         },
-        duration: standardDuration * 1.4,
+        duration: standardDuration * 0.7,
         transformOrigin: svgArrowOrigin,
       })
       // .from(".b_2", { opacity: 0, duration: slowDuration }, "<")
       .addLabel("startArrow")
       .from(
-        ".b_1",
+        ".b_2",
         {
-          opacity: 0,
           attr: {
-            points: convertToArrowStart(arrow1),
+            points: convertToArrowStart(arrow2),
           },
-          duration: standardDuration * 1.2,
+          duration: standardDuration * 1.4,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
@@ -104,21 +101,19 @@ export const LogoAnarchy = (props: {}) => {
       .from(
         ".b_3",
         {
-          opacity: 0,
           attr: {
             points: convertToArrowStart(arrow3),
           },
-          duration: standardDuration,
+          duration: standardDuration * 1.8,
           transformOrigin: svgArrowOrigin,
         },
         arrowTimeOffset,
       )
-      .from(".a_1", { opacity: 0, x: xTypoOffset }, typoTimeOffset)
+      .from(".a_1", { x: xTypoOffset, ease: "back.out(1.7)" }, typoTimeOffset)
       .addLabel("startText")
       .from(
         ".circle",
         {
-          opacity: 0,
           scale: 0.8,
           transformOrigin: "center center",
           duration: 0.6,
@@ -135,8 +130,8 @@ export const LogoAnarchy = (props: {}) => {
     <div class="w-full" onMouseEnter={run} onMouseLeave={stop}>
       <svg viewBox="0 0 962 721">
         <g class="all" style="transform-origin: 50% 50%; transform: scale(2)">
-          <polygon class="logo-main-color b_2" points={arrow2} />
           <polygon class="logo-main-color b_1" points={arrow1} />
+          <polygon class="logo-main-color b_2" points={arrow2} />
           <polygon class="logo-main-color b_3" points={arrow3} />
           <polygon class="logo-main-color a_1" points={pathA} />
           <path class="logo-main-color circle" d={circle} />

@@ -2,14 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-.logo-main-color {
-    fill: #dedddc;
+:root {
+    --color-3a-green: #3ef198;
+    --color-3a-red: #FF658A;
+    --color-3a-white: #dedddc;
+    --color-3a-paper: #888781;
+    --color-3a-gray: #3c3e39;
+    --color-3a-gray-darker: #181e1c;
+    --color-3a-gray-darkest: #131717;
+    --color-3a-black: #040505;
 }
 
-.logo-highlight-color {
-    fill: #3ef198;
+
+svg .logo-main-color {
+    fill: var(--color-3a-white);
 }
 
-svg * {
-    stroke-width: 0;
+svg .logo-highlight-color {
+    fill: var(--color-3a-green);
+}
+
+svg {
+    overflow: visible;
 }
