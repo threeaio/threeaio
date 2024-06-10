@@ -5,10 +5,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "cal-sans";
 import { LogoArrows } from "@3a/grid/ui";
-import { LogoAnarchy } from "../../ui/Logo-Anarchy";
-import { LandingPageColors } from "./components/Landing-Page-Colors";
-import { LandingPageHeadline } from "./components/Landing-Page-Headline";
-import { LandingPageHeadlineSubline } from "./components/Landing-Page-Headline-Subline";
+import { LogoAnarchy } from "./content/Logo-Anarchy";
+import { LandingPageColors } from "./content/Landing-Page-Colors";
+import { MainLogo } from "./components/Logo";
+import { Divider } from "./components/Divider";
 
 export const LandingPage: Component = () => {
   const [
@@ -73,33 +73,71 @@ export const LandingPage: Component = () => {
         setupContentResizeObserver(el);
       }}
     >
-      <div class="mx-auto max-w-[1400px] p-6">
-        <div class="py-12">
-          <LandingPageHeadline>Angular, Art and Anarchy</LandingPageHeadline>
-          <LandingPageHeadlineSubline>
-            Nikolaj Sokolowksis Creative Hub
-          </LandingPageHeadlineSubline>
+      <div>
+        <div class="h-screen flex px-6 md:px-0">
+          <div class="w-full  grid grid-cols-26">
+            {/*grid grid-cols-subgrid*/}
+            <div class="col-span-full md:col-span-11 md:col-start-3 2xl:col-span-6 2xl:col-start-5 ">
+              <div class="flex h-full flex-col self-end">
+                <div class="">
+                  <MainLogo />
+                </div>
+                <div class="flex-1 flex">
+                  <div class="self-end ">
+                    <div class="font-light text-3a-white py-16 md:pr-12 max-w-[400px]">
+                      <p>
+                        Hey, I'm Nikolaj! I'm trying to convince people that I'm
+                        an average-to-decent programmer and that design has not
+                        degenerated in my skillset.
+                        <br />
+                        Right now, I’m setting up this website.
+                        <br />
+                        <span class="text-3a-green">
+                          You can scroll for more.
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block col-span-full md:col-span-11 2xl:col-span-16 h-full bg-3a-green">
+              <div
+                style="background-image: url('src/assets/ich.jpeg')"
+                class="h-full w-full bg-cover bg-center mix-blend-multiply"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
-      {/*<Divider />*/}
-      <div class="mx-auto max-w-[1400px] p-6">
-        <h2 class="text-3a-green mb-2">Thinking about a Logo and Colors</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
-          <div class="p-8 bg-3a-gray-darkest flex items-center">
-            <LogoArrows />
-          </div>
-          <div class="p-8 bg-3a-gray-darkest flex items-center">
-            <LogoAnarchy />
-          </div>
-          <div class="p-8 bg-3a-gray-darkest flex items-center">
-            <LandingPageColors />
+
+      <Divider />
+
+      <div class="px-6 md:px-0">
+        <div class="grid grid-cols-26">
+          <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
+            <h2 class="text-3a-green mb-2">Thinking about a Logo and Colors</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+              <div class="p-8 bg-3a-gray-darker flex items-center">
+                <LogoArrows />
+              </div>
+              <div class="p-8 bg-3a-gray-darker flex items-center">
+                <LogoAnarchy />
+              </div>
+              <div class="p-8 md:col-span-2 lg:col-span-1 bg-3a-gray-darker flex items-center">
+                <LandingPageColors />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="mx-auto max-w-[1400px] p-6">
-        <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>
-        <img src="/src/assets/mood_1.jpeg" alt="mood for three-a" />
-      </div>
+
+      <Divider />
+
+      {/*<div class="mx-auto max-w-[1400px] p-6">*/}
+      {/*  <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>*/}
+      {/*  <img src="/src/assets/mood_1.jpeg" alt="mood for three-a" />*/}
+      {/*</div>*/}
     </div>
   );
 };

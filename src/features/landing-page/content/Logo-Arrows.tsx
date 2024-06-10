@@ -73,6 +73,7 @@ export const LogoArrows = (props: {}) => {
     const arrowTimeOffset = ">-0.17";
 
     tl1
+      .to(".w-full-arrows", { opacity: 1, duration: 0.5 })
       .from(".logo-text__t", {
         x: xTypoOffset,
       })
@@ -131,12 +132,12 @@ export const LogoArrows = (props: {}) => {
         },
         arrowTimeOffset,
       )
-      .from(".w-full", { opacity: 1, duration: 1 });
+      .from(".w-full-arrows", { opacity: 1, duration: 1 });
     tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full" onMouseEnter={run} onMouseLeave={stop}>
+    <div class="w-full w-full-arrows" onMouseEnter={run} onMouseLeave={stop}>
       <svg viewBox="-200 -20 1077.5 600">
         <g class="logo-text">
           <path

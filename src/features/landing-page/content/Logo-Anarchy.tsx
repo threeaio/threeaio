@@ -78,6 +78,7 @@ export const LogoAnarchy = (props: {}) => {
     const arrowTimeOffset = ">-0.2";
 
     tl1
+      .to(".w-full-anarchy", { opacity: 1, duration: 0.5 })
       .from(".b_1", {
         attr: {
           points: convertToArrowStart(arrow1),
@@ -121,13 +122,13 @@ export const LogoAnarchy = (props: {}) => {
         },
         circleTimeOffset,
       )
-      .from(".w-full", { opacity: 1, duration: 0.5 });
+      .from(".w-full-anarchy", { opacity: 1, duration: 0.5 });
 
     tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full" onMouseEnter={run} onMouseLeave={stop}>
+    <div class="w-full w-full-anarchy" onMouseEnter={run} onMouseLeave={stop}>
       <svg viewBox="0 0 962 721">
         <g class="all" style="transform-origin: 50% 50%; transform: scale(2)">
           <polygon class="logo-main-color b_1" points={arrow1} />

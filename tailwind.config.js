@@ -2,6 +2,37 @@
 
 const defaultTheme = require("tailwindcss/defaultTheme");
 
+const generateGrid = (size) => {
+  const gridColumn = {};
+  const gridTemplateColumns = {};
+  const gridRow = {};
+  const gridTemplateRows = {};
+  const gridRowStart = {};
+  const gridRowEnd = {};
+  const gridColumnStart = {};
+  const gridColumnEnd = {};
+  for (let i = 1; i <= size; i++) {
+    gridRow[`span-${i}`] = `span ${i} / span ${i}`;
+    gridColumn[`span-${i}`] = `span ${i} / span ${i}`;
+    gridTemplateColumns[i] = `repeat(${i}, minmax(0, 1fr))`;
+    gridTemplateRows[i] = `repeat(${i}, minmax(0, 1fr))`;
+    gridRowStart[i] = `${i}`;
+    gridRowEnd[i] = `${i}`;
+    gridColumnStart[i] = `${i}`;
+    gridColumnEnd[i] = `${i}`;
+  }
+  return {
+    gridColumn,
+    gridTemplateColumns,
+    gridRow,
+    gridTemplateRows,
+    gridRowStart,
+    gridRowEnd,
+    gridColumnStart,
+    gridColumnEnd,
+  };
+};
+
 module.exports = {
   // darkMode: "selector",
   content: [
@@ -21,9 +52,10 @@ module.exports = {
       "3a-black": "var(--color-3a-black)",
     },
     extend: {
+      ...generateGrid(26),
       fontFamily: {
         display: ['"Cal Sans"', ...defaultTheme.fontFamily.sans],
-        sans: ['"Fira Code"', ...defaultTheme.fontFamily.sans],
+        sans: ['"Trispace"', ...defaultTheme.fontFamily.sans],
       },
     },
   },
