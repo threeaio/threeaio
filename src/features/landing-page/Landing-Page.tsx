@@ -74,8 +74,22 @@ export const LandingPage: Component = () => {
       }}
     >
       <div>
-        <div class="h-screen flex px-6 md:px-0">
-          <div class="w-full  grid grid-cols-26">
+        <div class="h-screen px-6 md:px-0">
+          <div class="w-full hidden md:block">
+            <div class="grid grid-cols-26 relative z-20">
+              <div class="relative md:col-span-11 md:col-start-3 2xl:col-span-6 2xl:col-start-5 ">
+                <div class="absolute left-0 h-4 w-px bg-3a-white"></div>
+                <div class="absolute right-0 h-4 w-px bg-3a-white"></div>
+              </div>
+              <div class="relative md:col-span-11 2xl:col-span-6">
+                <div class="absolute right-0 h-4 w-px bg-3a-white"></div>
+              </div>
+              <div class="relative md:hidden 2xl:block 2xl:col-span-6">
+                <div class="absolute right-0 h-4 w-px bg-3a-white"></div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full h-full grid grid-cols-26">
             {/*grid grid-cols-subgrid*/}
             <div class="col-span-full md:col-span-11 md:col-start-3 2xl:col-span-6 2xl:col-start-5 ">
               <div class="flex h-full flex-col self-end">
@@ -101,7 +115,7 @@ export const LandingPage: Component = () => {
                 </div>
               </div>
             </div>
-            <div class="hidden md:block col-span-full md:col-span-11 2xl:col-span-16 h-full bg-3a-green">
+            <div class="hidden md:block col-span-full md:col-span-13 2xl:col-span-16 h-full bg-3a-green">
               <div
                 style="background-image: url('src/assets/ich.jpeg')"
                 class="h-full w-full bg-cover bg-center mix-blend-multiply"
@@ -116,7 +130,7 @@ export const LandingPage: Component = () => {
       <div class="px-6 md:px-0">
         <div class="grid grid-cols-26">
           <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-            <h2 class="text-3a-green mb-2">Thinking about a Logo and Colors</h2>
+            <h2 class="text-3a-green mb-4">Thinking about a Logo and Colors</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
               <div class="p-8 bg-3a-gray-darker flex items-center">
                 <LogoArrows />
