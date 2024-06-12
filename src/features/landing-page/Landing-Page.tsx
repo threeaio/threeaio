@@ -10,6 +10,8 @@ import { LandingPageColors } from "./content/Landing-Page-Colors";
 import { MainLogo } from "./components/Logo";
 import { Divider } from "./components/Divider";
 
+import mainImgUrl from "/src/assets/ich.jpeg";
+
 export const LandingPage: Component = () => {
   const [
     { landingPageState },
@@ -66,6 +68,8 @@ export const LandingPage: Component = () => {
     }).observe(el);
   };
 
+  const mainImgStyle = `background-image: url(${mainImgUrl})`;
+
   return (
     <div
       ref={(el) => {
@@ -117,7 +121,7 @@ export const LandingPage: Component = () => {
             </div>
             <div class="hidden md:block col-span-full md:col-span-13 2xl:col-span-16 h-full bg-3a-green">
               <div
-                style="background-image: url('src/assets/ich.jpeg')"
+                style={mainImgStyle}
                 class="h-full w-full bg-cover bg-center mix-blend-multiply"
               ></div>
             </div>
