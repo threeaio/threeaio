@@ -25,6 +25,9 @@ export const LandingPage: Component = () => {
     },
   ] = fromLandingPageState;
 
+  let imageContainer!: HTMLDivElement;
+  const mainImgStyle = `background-image: url(${mainImgUrl}); background-position: center bottom;`;
+
   // lenis
 
   gsap.registerPlugin(ScrollTrigger);
@@ -40,6 +43,16 @@ export const LandingPage: Component = () => {
       setVelocity(e.velocity);
       setProgress(e.progress);
       setScrollDirection(e.direction);
+
+      // const progressFull = e.progress * landingPageState.screenHeight;
+      // const clampedProgress = e.progress * landingPageState.screenHeight clamp(
+      //   0,
+      //   landingPageState.screenHeight,
+      //   e.progress,
+      // );
+      // console.log("clampedProgress", clampedProgress);
+
+      imageContainer.style.backgroundPosition = `center bottom ${e.progress * -200}px`;
     },
   );
 
@@ -67,8 +80,6 @@ export const LandingPage: Component = () => {
       setScreenHeight(cr.height);
     }).observe(el);
   };
-
-  const mainImgStyle = `background-image: url(${mainImgUrl})`;
 
   return (
     <div
@@ -111,7 +122,7 @@ export const LandingPage: Component = () => {
                         Right now, I’m setting up this website.
                         <br />
                         <span class="text-3a-green">
-                          You can scroll for more.
+                          You can scroll down for more.
                         </span>
                       </p>
                     </div>
@@ -121,8 +132,9 @@ export const LandingPage: Component = () => {
             </div>
             <div class="hidden md:block col-span-full md:col-span-13 2xl:col-span-16 h-full bg-3a-green">
               <div
+                ref={imageContainer}
                 style={mainImgStyle}
-                class="h-full w-full bg-cover bg-center mix-blend-multiply"
+                class="h-full w-full bg-cover mix-blend-multiply"
               ></div>
             </div>
           </div>
