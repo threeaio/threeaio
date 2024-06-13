@@ -2,6 +2,8 @@ import { gsap } from "gsap";
 import { onMount } from "solid-js";
 
 export const LogoAnarchy = (props: {}) => {
+  let element!: HTMLDivElement;
+
   const circle =
     "M471.75,213.5c-83.119,0-150.5,67.381-150.5,150.5s67.381,150.5,150.5,150.5,150.5-67.381,150.5-150.5-67.381-150.5-150.5-150.5ZM471.75,493c-71.245,0-129-57.755-129-129s57.755-129,129-129,129,57.755,129,129-57.755,129-129,129Z";
 
@@ -77,9 +79,11 @@ export const LogoAnarchy = (props: {}) => {
     const circleTimeOffset = "=.2";
     const arrowTimeOffset = ">-0.2";
 
+    const el = (_el: string) => element.querySelector(_el);
+
     tl1
-      .to(".w-full-anarchy", { opacity: 1, duration: 0.5 })
-      .from(".b_1", {
+      .to(element, { opacity: 1, duration: 0.5 })
+      .from(el(".b_1"), {
         attr: {
           points: convertToArrowStart(arrow1),
         },
@@ -89,7 +93,7 @@ export const LogoAnarchy = (props: {}) => {
       // .from(".b_2", { opacity: 0, duration: slowDuration }, "<")
       .addLabel("startArrow")
       .from(
-        ".b_2",
+        el(".b_2"),
         {
           attr: {
             points: convertToArrowStart(arrow2),
@@ -100,7 +104,7 @@ export const LogoAnarchy = (props: {}) => {
         arrowTimeOffset,
       )
       .from(
-        ".b_3",
+        el(".b_3"),
         {
           attr: {
             points: convertToArrowStart(arrow3),
@@ -110,10 +114,14 @@ export const LogoAnarchy = (props: {}) => {
         },
         arrowTimeOffset,
       )
-      .from(".a_1", { x: xTypoOffset, ease: "back.out(1.7)" }, typoTimeOffset)
+      .from(
+        el(".a_1"),
+        { x: xTypoOffset, ease: "back.out(1.7)" },
+        typoTimeOffset,
+      )
       .addLabel("startText")
       .from(
-        ".circle",
+        el(".circle"),
         {
           scale: 0.8,
           transformOrigin: "center center",
@@ -122,13 +130,18 @@ export const LogoAnarchy = (props: {}) => {
         },
         circleTimeOffset,
       )
-      .from(".w-full-anarchy", { opacity: 1, duration: 0.5 });
+      .from(element, { opacity: 1, duration: 0.5 });
 
     tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full w-full-anarchy" onMouseEnter={run} onMouseLeave={stop}>
+    <div
+      ref={element}
+      class="w-full w-full-anarchy"
+      onMouseEnter={run}
+      onMouseLeave={stop}
+    >
       <svg viewBox="0 0 962 721">
         <g class="all" style="transform-origin: 50% 50%; transform: scale(2)">
           <polygon class="logo-main-color b_1" points={arrow1} />

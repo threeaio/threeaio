@@ -2,6 +2,8 @@ import { gsap } from "gsap";
 import { onMount } from "solid-js";
 
 export const LogoArrows = (props: {}) => {
+  let element!: HTMLDivElement;
+
   const arrow1 =
     "32.146 377.785 35.624 381.379 415.21 14.053 415.855 32.759 415.855 32.759 420.852 32.587 419.933 5.926 393.272 5.007 393.1 10.004 411.548 10.64";
 
@@ -72,34 +74,36 @@ export const LogoArrows = (props: {}) => {
     const typoTimeOffset = "-=.19";
     const arrowTimeOffset = ">-0.17";
 
+    const el = (_el: string) => element.querySelector(_el);
+
     tl1
-      .to(".w-full-arrows", { opacity: 1, duration: 0.5 })
-      .from(".logo-text__t", {
+      .to(element, { opacity: 1, duration: 0.5 })
+      .from(el(".logo-text__t"), {
         x: xTypoOffset,
       })
       .addLabel("startText")
       .from(
-        ".logo-text__h",
+        el(".logo-text__h"),
         {
           x: xTypoOffset,
         },
         typoTimeOffset,
       )
-      .from(".logo-text__r", { x: xTypoOffset }, typoTimeOffset)
+      .from(el(".logo-text__r"), { x: xTypoOffset }, typoTimeOffset)
       .from(
-        ".logo-text__e1",
+        el(".logo-text__e1"),
         { x: xTypoOffset, delay: (0 * standardDuration) / 2 },
         typoTimeOffset,
       )
-      .from(".logo-text__e2", { x: xTypoOffset }, typoTimeOffset)
-      .from(".logo-text__a", { x: xTypoOffset }, typoTimeOffset)
+      .from(el(".logo-text__e2"), { x: xTypoOffset }, typoTimeOffset)
+      .from(el(".logo-text__a"), { x: xTypoOffset }, typoTimeOffset)
       .from(
-        ".logo-text__dot",
+        el(".logo-text__dot"),
         { x: xTypoOffset * -1.6, delay: 0.1, ease: "back.out(2.5)" },
         typoTimeOffset,
       )
       .from(
-        ".logo-arrows__left",
+        el(".logo-arrows__left"),
         {
           attr: {
             points: convertToArrowStart(arrow1),
@@ -111,7 +115,7 @@ export const LogoArrows = (props: {}) => {
       )
       .addLabel("startArrow")
       .from(
-        ".logo-arrows__middle",
+        el(".logo-arrows__middle"),
         {
           attr: {
             points: convertToArrowStart(arrow2),
@@ -122,7 +126,7 @@ export const LogoArrows = (props: {}) => {
         arrowTimeOffset,
       )
       .from(
-        ".logo-arrows__right",
+        el(".logo-arrows__right"),
         {
           attr: {
             points: convertToArrowStart(arrow3),
@@ -132,12 +136,17 @@ export const LogoArrows = (props: {}) => {
         },
         arrowTimeOffset,
       )
-      .from(".w-full-arrows", { opacity: 1, duration: 1 });
+      .from(element, { opacity: 1, duration: 1 });
     tl1.pause(tl1.endTime());
   });
 
   return (
-    <div class="w-full w-full-arrows" onMouseEnter={run} onMouseLeave={stop}>
+    <div
+      ref={element}
+      class="w-full w-full-arrows"
+      onMouseEnter={run}
+      onMouseLeave={stop}
+    >
       <svg viewBox="-200 -20 1077.5 600">
         <g class="logo-text">
           <path

@@ -81,33 +81,37 @@ export const LandingPage: Component = () => {
       },
     });
 
-    let tl = gsap.timeline({
-      // yes, we can add it to an entire timeline!
-      scrollTrigger: {
-        trigger: ".tile-container",
-        pin: false, // pin the trigger element while active
-        start: "bottom 90%", // when the top of the trigger hits the top of the viewport
-        end: "bottom 75%", // end after scrolling 500px beyond the start
-        scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-        snap: {
-          snapTo: "labels", // snap to the closest label in the timeline
-          duration: { min: 0.2, max: 3 }, // the snap animation should be at least 0.2 seconds, but no more than 3 seconds (determined by velocity)
-          delay: 0.2, // wait 0.2 seconds from the last scroll event before doing the snapping
-          ease: "power1.inOut", // the ease of the snap animation ("power3" by default)
-        },
-      },
-    });
+    const container: HTMLDivElement[] = gsap.utils.toArray(".tile-container");
 
-    // add animations and labels to the timeline
-    tl.addLabel("tiles-heading").from(".tile-heading", {
-      y: -100,
-      autoAlpha: 0,
-    });
-    tl.addLabel("tiles").from(".tile", {
-      stagger: 0.3,
-      scale: 0.8,
-      y: -60,
-      autoAlpha: 0,
+    container.forEach((container) => {
+      const headingHere = container.querySelector(".tile-heading");
+      const tilesHere = container.querySelectorAll(".tile");
+
+      let tl = gsap.timeline({
+        // yes, we can add it to an entire timeline!
+        scrollTrigger: {
+          trigger: container,
+          preventOverlaps: true,
+          pin: false, // pin the trigger element while active
+          start: "bottom 100%", // when the top of the trigger hits the top of the viewport
+          end: "bottom 80%", // end after scrolling 500px beyond the start
+          scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+        },
+      });
+
+      // add animations and labels to the timeline
+      tl.addLabel("tiles-heading").from(headingHere, {
+        y: -100,
+        autoAlpha: 0,
+        duration: 1,
+      });
+      tl.addLabel("tiles").from(tilesHere, {
+        stagger: 0.9,
+        scale: 0.8,
+        y: -60,
+        autoAlpha: 0,
+        duration: 2,
+      });
     });
   });
 
@@ -173,6 +177,7 @@ export const LandingPage: Component = () => {
 
       <Divider />
 
+      {/*Tile Start*/}
       <div class="px-6 md:px-0">
         <div class="tile-container  grid grid-cols-26">
           <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
@@ -193,8 +198,29 @@ export const LandingPage: Component = () => {
           </div>
         </div>
       </div>
-
+      {/*Tile End*/}
       <Divider />
+      <div class="px-6 md:px-0">
+        <div class="tile-container  grid grid-cols-26">
+          <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
+            <h2 class="tile-heading font-extralight text-sm text-3a-green mb-6">
+              Thinking about a Logo and Colors
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+              <div class="tile p-8 bg-3a-gray-darker flex items-center">
+                <LogoArrows />
+              </div>
+              <div class="tile p-8 bg-3a-gray-darker flex items-center">
+                <LogoAnarchy />
+              </div>
+              <div class="tile p-8 md:col-span-2 lg:col-span-1 bg-3a-gray-darker flex items-center">
+                <LandingPageColors />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/*Tile End*/}
 
       {/*<div class="mx-auto max-w-[1400px] p-6">*/}
       {/*  <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>*/}
