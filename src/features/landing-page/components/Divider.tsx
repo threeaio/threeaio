@@ -5,7 +5,7 @@ export const Divider = () => {
 
   return (
     <div class="overflow-x-hidden py-24">
-      <div class="h-2 bg-3a-green  w-[200%]" style={style}></div>
+      {/*<div class="h-2 bg-3a-green  w-[200%]" style={style}></div>*/}
     </div>
   );
 };
