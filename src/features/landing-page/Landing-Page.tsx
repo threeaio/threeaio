@@ -44,25 +44,17 @@ export const LandingPage: Component = () => {
       setProgress(e.progress);
       setScrollDirection(e.direction);
 
-      // const progressFull = e.progress * landingPageState.screenHeight;
-      // const clampedProgress = e.progress * landingPageState.screenHeight clamp(
-      //   0,
-      //   landingPageState.screenHeight,
-      //   e.progress,
-      // );
-      // console.log("clampedProgress", clampedProgress);
-
       imageContainer.style.backgroundPosition = `center bottom ${e.progress * -200}px`;
     },
   );
 
-  // lenis.on("scroll", ScrollTrigger.update);
-  //
-  // gsap.ticker.add((time) => {
-  //   lenis.raf(time * 1000);
-  // });
-  //
-  // gsap.ticker.lagSmoothing(0);
+  lenis.on("scroll", ScrollTrigger.update);
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
 
   // lenis end
 
@@ -89,7 +81,7 @@ export const LandingPage: Component = () => {
       }}
     >
       <div>
-        <div class="h-screen px-6 md:px-0">
+        <div class="h-svh px-6 md:px-0">
           <div class="w-full hidden md:block">
             <div class="grid grid-cols-26 relative z-20">
               <div class="relative md:col-span-11 md:col-start-3 2xl:col-span-6 2xl:col-start-5 ">
