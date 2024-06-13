@@ -56,13 +56,13 @@ export const LandingPage: Component = () => {
     },
   );
 
-  lenis.on("scroll", ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  gsap.ticker.lagSmoothing(0);
+  // lenis.on("scroll", ScrollTrigger.update);
+  //
+  // gsap.ticker.add((time) => {
+  //   lenis.raf(time * 1000);
+  // });
+  //
+  // gsap.ticker.lagSmoothing(0);
 
   // lenis end
 
@@ -113,7 +113,7 @@ export const LandingPage: Component = () => {
                 </div>
                 <div class="flex-1 flex">
                   <div class="self-end ">
-                    <div class="font-light text-3a-white py-16 md:pr-12 max-w-[400px]">
+                    <div class="font-extralight text-sm text-3a-white py-16 md:pr-12 max-w-[420px]">
                       <p>
                         Hey, I'm Nikolaj! I'm trying to convince people that I'm
                         an average-to-decent programmer and that design has not
