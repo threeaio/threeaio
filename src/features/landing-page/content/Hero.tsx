@@ -2,7 +2,6 @@ import { MainLogo } from "../components/Logo";
 import mainImgUrl from "/src/assets/ich.jpeg";
 import { onMount } from "solid-js";
 import { gsap } from "gsap";
-import { DrawAnimation } from "../animation/Animation";
 
 export const Hero = () => {
   onMount(() => {
@@ -68,7 +67,7 @@ export const Hero = () => {
               style={`background-image: url(${mainImgUrl}); background-position: center bottom;`}
               class="h-full w-full bg-cover mix-blend-multiply"
             >
-              <DrawAnimation />
+              {/*<DrawAnimation />*/}
             </div>
           </div>
         </div>
