@@ -1,3 +1,4 @@
+import "cal-sans";
 import { JSX, ParentComponent } from "solid-js";
 
 const App: ParentComponent = (props: { children?: JSX.Element }) => {

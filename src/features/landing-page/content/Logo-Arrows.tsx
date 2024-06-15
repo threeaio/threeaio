@@ -1,7 +1,10 @@
 import { gsap } from "gsap";
 import { onMount } from "solid-js";
+import { fromLandingPageState } from "../landing-page-state";
 
 export const LogoArrows = (props: {}) => {
+  const [{ landingPageState }] = fromLandingPageState;
+
   let element!: HTMLDivElement;
 
   const arrow1 =
@@ -63,6 +66,9 @@ export const LogoArrows = (props: {}) => {
   };
 
   const run = () => {
+    if (landingPageState.velocity) {
+      return;
+    }
     tl1.yoyo(true);
     tl1.repeat(100);
     tl1.play(0);

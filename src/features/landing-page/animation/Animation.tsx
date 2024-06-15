@@ -64,8 +64,9 @@ export const DrawAnimation: Component = () => {
 
     app.ticker.add((ticker) => {
       arrows.forEach((a, index) => {
-        // a.dir = landingPageState.scrollDirection;
-        const aw = Math.abs(landingPageState.velocity) * a.dir * rands[index];
+        a.dir = landingPageState.scrollDirection;
+        const aw =
+          Math.abs(landingPageState.velocity) * a.dir * rands[index] * 8;
         a.arrowWidth = aw;
         // a.rotation = 0.5 * Pi + 0.5 - Math.sin(landingPageState.velocity / 20);
 
@@ -85,7 +86,7 @@ export const DrawAnimation: Component = () => {
 
   return (
     <>
-      <div class="h-screen w-screen fixed" ref={(el) => createSketch(el)}></div>
+      <div class="h-full w-full" ref={(el) => createSketch(el)}></div>
     </>
   );
 };
