@@ -11,7 +11,7 @@ export const Neusta = () => {
         preventOverlaps: false,
         pin: container, // pin the trigger element while active
         start: "center center", // when the top of the trigger hits the top of the viewport
-        end: "85% -1000px", // end after scrolling 500px beyond the start
+        end: "85% -400px", // end after scrolling 500px beyond the start
         scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
         // markers: true,
       },
@@ -53,11 +53,11 @@ export const Neusta = () => {
       .to(
         ".contributed",
         {
-          delay: 0.4,
-          x: -600,
+          // delay: 0.4,
+          x: -20,
           // scale: 0.5,
-          width: 0,
-          height: 0,
+          // width: 0,
+          // height: 0,
           autoAlpha: 0,
         },
         "<",
@@ -65,13 +65,13 @@ export const Neusta = () => {
       .from(
         ".fixed-typos",
         {
-          x: -300,
+          x: -600,
           // scale: 0.8,
           height: 0,
           width: 0,
           autoAlpha: 0,
         },
-        "<",
+        "<.1",
       )
       .addLabel("final")
       .from(
@@ -81,22 +81,22 @@ export const Neusta = () => {
           scale: 0.8,
           autoAlpha: 0,
         },
-        "<+1",
+        ">.3s",
       )
-      .to(
-        ".explanation",
-        {
-          y: -100,
-        },
-        ">",
-      )
+      // .to(
+      //   ".explanation",
+      //   {
+      //     y: -100,
+      //   },
+      //   "<",
+      // )
       .to(
         ".headline",
         {
-          y: -100,
+          // y: -100,
           opacity: 0.1,
-          scale: 1.5,
-          blur: 10,
+          // scale: 1.5,
+          blur: 20,
           transformOrigin: "0% 100%",
         },
         "<",
