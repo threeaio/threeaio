@@ -1,16 +1,16 @@
-import {Component} from "solid-js";
-import {fromLandingPageState} from "./landing-page-state";
+import { Component } from "solid-js";
+import { fromLandingPageState } from "./landing-page-state";
 import Lenis from "@studio-freight/lenis";
-import {gsap} from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {Divider} from "./components/Divider";
-import {Triptichon} from "./content/Triptichon";
-import {Hero} from "./content/Hero";
-import {Neusta} from "./content/Neusta";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Divider } from "./components/Divider";
+import { Triptichon } from "./content/Triptichon";
+import { Hero } from "./content/Hero";
+import { Neusta } from "./content/Neusta";
 
 export const LandingPage: Component = () => {
   const [
-    {landingPageState},
+    { landingPageState },
     {
       setTotalContentHeight,
       setScreenHeight,
@@ -21,11 +21,10 @@ export const LandingPage: Component = () => {
     },
   ] = fromLandingPageState;
 
-  // lenis
-
   gsap.registerPlugin(ScrollTrigger);
 
-  const lenis = new Lenis({syncTouch: true});
+  // lenis
+  const lenis = new Lenis({ syncTouch: true });
 
   lenis.on(
     "scroll",
@@ -71,22 +70,22 @@ export const LandingPage: Component = () => {
         setupContentResizeObserver(el);
       }}
     >
-      <Hero/>
+      <Hero />
 
-      <Divider/>
+      <Divider />
 
-      <Triptichon/>
+      <Triptichon />
 
-      <Divider/>
+      <Divider />
 
-      <Neusta/>
+      <Neusta />
       {/*Section End*/}
 
       {/*<div class="mx-auto max-w-[1400px] p-6">*/}
       {/*  <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>*/}
       {/*  <img src="/src/assets/mood_1.jpeg" alt="mood for three-a" />*/}
       {/*</div>*/}
-
+      <div style="height: 1000px"></div>
     </div>
   );
 };
