@@ -15,7 +15,7 @@ export const Neusta = () => {
         start: "30% 50%", // when the top of the trigger hits the top of the viewport
         end: "85% 55%", // end after scrolling 500px beyond the start
         scrub: 3, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-        markers: true,
+        // markers: true,
       },
     });
 
