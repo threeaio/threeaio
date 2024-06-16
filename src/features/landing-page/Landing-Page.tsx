@@ -26,8 +26,9 @@ export const LandingPage: Component = () => {
   // lenis
   const lenis = new Lenis({
     syncTouch: true,
-    smoothWheel: true,
+    // smoothWheel: true,
     wheelMultiplier: 0.4,
+    touchMultiplier: 0.4,
   });
 
   lenis.on(
