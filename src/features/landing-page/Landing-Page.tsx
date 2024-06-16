@@ -24,7 +24,11 @@ export const LandingPage: Component = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   // lenis
-  const lenis = new Lenis({ syncTouch: true });
+  const lenis = new Lenis({
+    syncTouch: true,
+    smoothWheel: true,
+    wheelMultiplier: 0.4,
+  });
 
   lenis.on(
     "scroll",
