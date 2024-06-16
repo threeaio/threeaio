@@ -7,6 +7,7 @@ import { Divider } from "./components/Divider";
 import { Triptichon } from "./content/Triptichon";
 import { Hero } from "./content/Hero";
 import { Neusta } from "./content/Neusta";
+import { GsapBlur } from "./plugins/gsap-blur";
 
 export const LandingPage: Component = () => {
   const [
@@ -22,6 +23,8 @@ export const LandingPage: Component = () => {
   ] = fromLandingPageState;
 
   gsap.registerPlugin(ScrollTrigger);
+
+  GsapBlur();
 
   // lenis
   const lenis = new Lenis({

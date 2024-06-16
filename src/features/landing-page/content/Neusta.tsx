@@ -9,33 +9,63 @@ export const Neusta = () => {
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        preventOverlaps: true,
-
-        pin: false, // pin the trigger element while active
-        start: "30% 50%", // when the top of the trigger hits the top of the viewport
-        end: "85% 55%", // end after scrolling 500px beyond the start
+        preventOverlaps: false,
+        pin: container, // pin the trigger element while active
+        start: "center center", // when the top of the trigger hits the top of the viewport
+        end: "85% -30%", // end after scrolling 500px beyond the start
         scrub: 3, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+      },
+    });
+
+    let tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        preventOverlaps: false,
+        pin: false,
+        toggleActions: "play reverse play reverse",
+        start: "top 60%",
+        end: "bottom top ",
+        scrub: false,
         // markers: true,
       },
     });
 
-    // add animations and labels to the timeline
-
-    console.log("container", container);
+    tl2
+      .from(
+        container,
+        {
+          opacity: 0,
+          duration: 1.6,
+        },
+        "",
+      )
+      .from(
+        ".headline",
+        {
+          y: 100,
+          duration: 0.6,
+        },
+        "<+.2",
+      );
 
     tl.addLabel("start")
-      .to(".contributed", {
-        delay: 0.2,
-        x: 300,
-        scale: 0.5,
-        width: 0,
-        height: 0,
-        autoAlpha: 0,
-      })
+
+      .to(
+        ".contributed",
+        {
+          delay: 0.4,
+          x: 300,
+          scale: 0.5,
+          width: 0,
+          height: 0,
+          autoAlpha: 0,
+        },
+        "<",
+      )
       .from(
         ".fixed-typos",
         {
-          delay: 0.2,
+          delay: 0.4,
           x: -3000,
           scale: 0.8,
           height: 0,
@@ -45,21 +75,29 @@ export const Neusta = () => {
         "start-=.05s",
       )
       .addLabel("final")
-      .from(".explanation", {
-        delay: 0.5,
-        y: 120,
-        scale: 0.8,
-        autoAlpha: 0,
-      })
+      .from(
+        ".explanation",
+        {
+          delay: 2,
+          y: 120,
+          scale: 0.8,
+          autoAlpha: 0,
+        },
+        ">-0.5",
+      )
       .to(
         ".headline",
         {
-          delay: 0.5,
           opacity: 0.2,
+          blur: 8,
           transformOrigin: "0% 0%",
         },
-        "final+=0s",
-      );
+        "<+.1",
+      )
+      .to(".headline", {
+        opacity: 0.2,
+        delay: 0.5,
+      });
   });
 
   return (
@@ -95,16 +133,14 @@ export const Neusta = () => {
             <div class="col-span-3 md:col-span-2 2xl:col-span-1">
               <div class="explanation font-extralight text-sm text-3a-white py-8 md:pr-12 ">
                 <p class="mb-8">
-                  No &ndash; I didn´t even do that.
+                  Sorry &ndash; I didn´t even do that.
+                  <br />I just did my Job @ Neusta as a{" "}
+                  <span class="whitespace-nowrap">Senior UI-Developer.</span>
                   <br />
-                  I just did my Job @ Neusta as a Senior UI-Developer. During
-                  the last 1.5 Years I also led the Product-Team of a
-                  Ticketing-Software.
+                  During the last 1.5 Years I also led a nice Product-Team,
+                  developing a full-stack Event-Ticketing-Solution.
                   <br />
-                  <span class="text-3a-green">
-                    I have requested a Resume if you are intersted in that kind
-                    of Bullshit.
-                  </span>
+                  <span class="text-3a-green"></span>
                 </p>
               </div>
             </div>
