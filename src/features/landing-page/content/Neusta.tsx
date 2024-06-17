@@ -95,8 +95,8 @@ export const Neusta = () => {
         ".headline",
         {
           // y: -100,
-          opacity: 0.1,
-          // scale: 1.5,
+          opacity: 0.2,
+          // scale: 6,
           blur: 20,
           transformOrigin: "0% 100%",
         },
