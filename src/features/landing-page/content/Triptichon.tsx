@@ -50,7 +50,7 @@ export const Triptichon = () => {
       >
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
           <LandingPageSectionTitle>
-            Building this Website &ndash; Thinking about a Logo and Colors
+            Thinking about a Logo (pointer-enter them) and Colors
           </LandingPageSectionTitle>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
             <div class="tile p-8 bg-3a-gray-darker flex items-center">

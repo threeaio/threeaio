@@ -58,6 +58,7 @@ export const Neusta = () => {
           // scale: 0.5,
           // width: 0,
           // height: 0,
+          blur: 20,
           autoAlpha: 0,
         },
         "<",
@@ -139,7 +140,7 @@ export const Neusta = () => {
                   To be honest &ndash; I didn´t even do that.
                   <br />I just did my Job @ Neusta as a{" "}
                   <span class="whitespace-nowrap">
-                    Senior UI-Developer,
+                    Senior Frontend-Developer,
                   </span>{" "}
                   Coach and <span class="whitespace-nowrap">Product-Owner</span>
                   .
