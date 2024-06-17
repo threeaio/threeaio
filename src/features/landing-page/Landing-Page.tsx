@@ -8,6 +8,7 @@ import { Triptichon } from "./content/Triptichon";
 import { Hero } from "./content/Hero";
 import { Neusta } from "./content/Neusta";
 import { GsapBlur } from "./plugins/gsap-blur";
+import { Footer } from "./content/Footer";
 
 export const LandingPage: Component = () => {
   const [
@@ -86,13 +87,15 @@ export const LandingPage: Component = () => {
       <Divider />
 
       <Neusta />
+
+      <Divider />
+
+      <Footer />
       {/*Section End*/}
 
       {/*<div class="mx-auto max-w-[1400px] p-6">*/}
       {/*  <h2 class="text-3a-green mb-2">Sketching a Style for this Website</h2>*/}
       {/*  <img src="/src/assets/mood_1.jpeg" alt="mood for three-a" />*/}
-      {/*</div>*/}
-      <div style="height: 1000px"></div>
     </div>
   );
 };

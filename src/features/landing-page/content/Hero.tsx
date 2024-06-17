@@ -40,7 +40,7 @@ export const Hero = () => {
           <div class="col-span-full md:col-span-11 md:col-start-3 2xl:col-span-6 2xl:col-start-5 ">
             <div class="flex h-full flex-col self-end">
               <div id="main-logo">
-                <MainLogo />
+                <MainLogo size={"normal"} />
               </div>
               <div class="flex-1 flex">
                 <div class="self-end ">
