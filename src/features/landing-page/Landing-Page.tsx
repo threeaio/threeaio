@@ -84,7 +84,7 @@ export const LandingPage: Component = () => {
 
       <Triptichon />
 
-      <Divider />
+      {/*<Divider />*/}
 
       <Neusta />
 

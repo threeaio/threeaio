@@ -113,7 +113,7 @@ export const Neusta = () => {
       {/*style={`background-image: url(${mainImgUrl}); background-position: center bottom;`}*/}
       <div class="self-end pb-8 grid grid-cols-26">
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-          <h2 class="headline text-3a-white font-display uppercase text-4xl lg:text-8xl 2xl:text-[110px] leading-[.85em] xl:leading-[.85em] 2xl:leading-[.85em] mb-8">
+          <h2 class="headline text-3a-white font-display uppercase text-4xl lg:text-8xl 2xl:text-[110px] leading-[.85em] lg:leading-[.85em] 2xl:leading-[.85em] mb-8">
             <span class="inline-block overflow-visible whitespace-nowrap">
               <span class="fixed-typos inline-block  overflow-visible whitespace-nowrap">
                 Fixed Typos in the{" "}
@@ -137,7 +137,7 @@ export const Neusta = () => {
             <div class="col-span-3 md:col-span-2 2xl:col-span-1">
               <div class="explanation font-extralight text-sm text-3a-white py-8 md:pr-12 ">
                 <p class="mb-8">
-                  To be honest &ndash; I didn´t even do that.
+                  No, not even that.
                   <br />I just did my Job @ Neusta as a{" "}
                   <span class="whitespace-nowrap">
                     Senior Frontend-Developer,

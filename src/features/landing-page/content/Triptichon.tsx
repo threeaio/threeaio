@@ -21,7 +21,7 @@ export const Triptichon = () => {
         trigger: container,
         preventOverlaps: true,
         pin: false, // pin the trigger element while active
-        start: "top bottom", // when the top of the trigger hits the top of the viewport
+        start: "top 98%", // when the top of the trigger hits the top of the viewport
         end: "bottom 80%", // end after scrolling 500px beyond the start
         scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
       },
@@ -29,7 +29,7 @@ export const Triptichon = () => {
 
     // add animations and labels to the timeline
     tl.addLabel("tiles-heading").from(headingHere, {
-      y: -100,
+      y: 100,
       autoAlpha: 0,
       duration: 1,
     });
@@ -49,6 +49,12 @@ export const Triptichon = () => {
         ref={(el) => (container = el)}
       >
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
+          <h2 class="tile-heading mb-8 text-pretty text-3a-white font-display uppercase text-4xl lg:text-8xl 2xl:text-[110px] leading-[.85em] lg:leading-[.85em] 2xl:leading-[.85em]">
+            Defining a Brand{" "}
+            <span class="whitespace-nowrap">for this Thing</span>
+          </h2>
+        </div>
+        <div class="tile-heading col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
           <LandingPageSectionTitle>
             Thinking about a Logo (pointer-enter them) and Colors
           </LandingPageSectionTitle>
