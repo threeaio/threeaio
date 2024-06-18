@@ -55,7 +55,7 @@ export const Neusta = () => {
         ".contributed",
         {
           // x: -20,
-          x: "1200px",
+          x: 50,
           blur: 20,
           autoAlpha: 0,
         },
@@ -64,13 +64,13 @@ export const Neusta = () => {
       .from(
         ".fixed-typos",
         {
-          x: "-800px",
+          x: -50,
           // scale: 0.8,
           height: 0,
           width: 0,
           autoAlpha: 0,
         },
-        "<-.05",
+        "<.2",
       )
       .addLabel("final")
       .from(

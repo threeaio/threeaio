@@ -30,7 +30,8 @@ export const PrivateStuff = () => {
         <div class="grid grid-cols-26 gap-2 ">
           <div class="tile-heading col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
             <LandingPageSectionTitle>
-              Mainly Things from more then 10 years ago.
+              Mainly Things from 10&ndash;15 years ago. Now serving as
+              Color-Pallete-Inspiration.
             </LandingPageSectionTitle>
           </div>
         </div>
