@@ -4,6 +4,7 @@ import { LogoAnarchy } from "./Logo-Anarchy";
 import { LandingPageColors } from "./Landing-Page-Colors";
 import { onMount } from "solid-js";
 import { gsap } from "gsap";
+import { HugeText } from "../components/HugeText";
 
 export const Triptichon = () => {
   let container: HTMLDivElement;
@@ -49,10 +50,12 @@ export const Triptichon = () => {
         ref={(el) => (container = el)}
       >
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-          <h2 class="tile-heading mb-8 text-pretty text-3a-white font-display uppercase text-4xl lg:text-8xl 2xl:text-[110px] leading-[.85em] lg:leading-[.85em] 2xl:leading-[.85em]">
-            Defining a Brand{" "}
-            <span class="whitespace-nowrap">for this Thing</span>
-          </h2>
+          <HugeText>
+            <h2 class="tile-heading">
+              Defining a Look{" "}
+              <span class="whitespace-nowrap">for this Thing</span>
+            </h2>
+          </HugeText>
         </div>
         <div class="tile-heading col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
           <LandingPageSectionTitle>

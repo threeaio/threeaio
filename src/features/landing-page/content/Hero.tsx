@@ -3,6 +3,7 @@ import mainImgUrl from "/src/assets/ich.jpeg";
 import { onMount } from "solid-js";
 import { gsap } from "gsap";
 import { GridIndicator } from "../components/Grid-Indicator";
+import { SmallText } from "../components/SmallText";
 
 export const Hero = () => {
   onMount(() => {
@@ -43,8 +44,8 @@ export const Hero = () => {
                 <MainLogo size={"normal"} />
               </div>
               <div class="flex-1 flex">
-                <div class="self-end ">
-                  <div class="font-extralight text-sm text-3a-white py-16 md:pr-12 max-w-[420px]">
+                <div class="self-end py-16">
+                  <SmallText>
                     <p class="mb-4">
                       I am Nikolaj, Typescript programmer from Bremen with great
                       empathy for the user, enthusiasm for design and an
@@ -60,7 +61,7 @@ export const Hero = () => {
                         Scroll down for some nonsense.
                       </span>
                     </p>
-                  </div>
+                  </SmallText>
                 </div>
               </div>
             </div>

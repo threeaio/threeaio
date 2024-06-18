@@ -1,5 +1,7 @@
 import { onMount } from "solid-js";
 import { gsap } from "gsap";
+import { SmallText } from "../components/SmallText";
+import { HugeText } from "../components/HugeText";
 
 export const Neusta = () => {
   let container: HTMLDivElement;
@@ -22,7 +24,6 @@ export const Neusta = () => {
         trigger: container,
         preventOverlaps: false,
         pin: false,
-        // toggleActions: "play reverse restart reverse",
         start: "top center",
         end: "bottom -200px ",
         scrub: false,
@@ -53,11 +54,8 @@ export const Neusta = () => {
       .to(
         ".contributed",
         {
-          // delay: 0.4,
-          x: -20,
-          // scale: 0.5,
-          // width: 0,
-          // height: 0,
+          // x: -20,
+          x: "1200px",
           blur: 20,
           autoAlpha: 0,
         },
@@ -66,13 +64,13 @@ export const Neusta = () => {
       .from(
         ".fixed-typos",
         {
-          x: -600,
+          x: "-800px",
           // scale: 0.8,
           height: 0,
           width: 0,
           autoAlpha: 0,
         },
-        "<.1",
+        "<-.05",
       )
       .addLabel("final")
       .from(
@@ -84,17 +82,9 @@ export const Neusta = () => {
         },
         ">.3s",
       )
-      // .to(
-      //   ".explanation",
-      //   {
-      //     y: -100,
-      //   },
-      //   "<",
-      // )
       .to(
         ".headline",
         {
-          // y: -100,
           opacity: 0.2,
           // scale: 6,
           blur: 20,
@@ -113,40 +103,45 @@ export const Neusta = () => {
       {/*style={`background-image: url(${mainImgUrl}); background-position: center bottom;`}*/}
       <div class="self-end pb-8 grid grid-cols-26">
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-          <h2 class="headline text-3a-white font-display uppercase text-4xl lg:text-8xl 2xl:text-[110px] leading-[.85em] lg:leading-[.85em] 2xl:leading-[.85em] mb-8">
-            <span class="inline-block overflow-visible whitespace-nowrap">
-              <span class="fixed-typos inline-block  overflow-visible whitespace-nowrap">
-                Fixed Typos in the{" "}
+          <HugeText>
+            <h2 class="headline">
+              <span class="relative inline-block overflow-visible whitespace-nowrap">
+                <span class="fixed-typos inline-block  overflow-visible whitespace-nowrap">
+                  Fixed Typos in the{" "}
+                </span>
+                <span class="contributed absolute left-0 top-0  inline-block overflow-visible whitespace-nowrap">
+                  Contributed to the{" "}
+                </span>
               </span>
-              <span class="contributed inline-block overflow-visible whitespace-nowrap">
-                Contributed to the{" "}
-              </span>
-            </span>
-            <br />
-            <span class="inline-block  overflow-visible whitespace-nowrap">
-              <span class="text-3a-green">World leading</span>
-            </span>{" "}
-            <span class="inline-block  overflow-visible whitespace-nowrap">
+              <br />
               <span class="inline-block  overflow-visible whitespace-nowrap">
-                <span class="text-3a-green">Repositories</span>
+                <span class="text-3a-green">World leading</span>
+              </span>{" "}
+              <span class="inline-block  overflow-visible whitespace-nowrap">
+                <span class="inline-block  overflow-visible whitespace-nowrap">
+                  <span class="text-3a-green">Repositories</span>
+                </span>
+                .
               </span>
-              .
-            </span>
-          </h2>
+            </h2>
+          </HugeText>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
             <div class="col-span-3 md:col-span-2 2xl:col-span-1">
-              <div class="explanation font-extralight text-sm text-3a-white py-8 md:pr-12 ">
-                <p class="mb-8">
-                  No, not even that.
-                  <br />I just did my Job @ Neusta as a{" "}
-                  <span class="whitespace-nowrap">
-                    Senior Frontend-Developer,
-                  </span>{" "}
-                  Coach and <span class="whitespace-nowrap">Product-Owner</span>
-                  .
-                  <br />
-                  <span class="text-3a-green">More Details follow soon.</span>
-                </p>
+              <div class="explanation">
+                <SmallText>
+                  <p class="mb-8">
+                    No, not even that.
+                    <br />I just did my Job @ Neusta as a{" "}
+                    <span class="whitespace-nowrap">
+                      Senior Frontend-Developer,
+                    </span>{" "}
+                    Coach and{" "}
+                    <span class="whitespace-nowrap">Product-Owner</span>
+                    .
+                    <br />
+                    <span class="text-3a-green">More Details follow soon.</span>
+                  </p>
+                </SmallText>
               </div>
             </div>
             <div class="flex justify-end"></div>

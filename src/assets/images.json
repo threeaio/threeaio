@@ -1,0 +1,873 @@
+[
+  {
+    "file": "doppelflyer_januar_2.jpeg",
+    "colors": [
+      "#52ae9a",
+      "#c5beb8",
+      "#849c9c",
+      "#184c41"
+    ],
+    "from": "#184c41",
+    "to": "#c5beb8",
+    "white": "#c5beb8",
+    "black": "#184c41"
+  },
+  {
+    "file": "19-5.jpeg",
+    "colors": [
+      "#27d39a",
+      "#dfe1d0",
+      "#8c9194",
+      "#252f33"
+    ],
+    "from": "#252f33",
+    "to": "#dfe1d0",
+    "white": "#dfe1d0",
+    "black": "#252f33"
+  },
+  {
+    "file": "threea-tag.jpeg",
+    "colors": [
+      "#0ee18a",
+      "#0b5b2b",
+      "#457760",
+      "#040404"
+    ],
+    "from": "#040404",
+    "to": "#0ee18a",
+    "white": "#457760",
+    "black": "#040404"
+  },
+  {
+    "file": "a6_april_3_2.jpeg",
+    "colors": [
+      "#f2e717",
+      "#e5efef",
+      "#0a3345",
+      "#697064"
+    ],
+    "from": "#0a3345",
+    "to": "#f2e717",
+    "white": "#e5efef",
+    "black": "#0a3345"
+  },
+  {
+    "file": "sportziel_1.jpeg",
+    "colors": [
+      "#d3cac1",
+      "#8e8045",
+      "#ac382c",
+      "#2c2b24"
+    ],
+    "from": "#2c2b24",
+    "to": "#d3cac1",
+    "white": "#d3cac1",
+    "black": "#2c2b24"
+  },
+  {
+    "file": "sport-therapie_brief.jpeg",
+    "colors": [
+      "#fafbfb",
+      "#3579b0",
+      "#969ca2",
+      "#8a94a2"
+    ],
+    "from": "#3579b0",
+    "to": "#fafbfb",
+    "white": "#fafbfb",
+    "black": "#3579b0"
+  },
+  {
+    "file": "Bildschirmfoto 2011-08-24 um 08.01.17.jpeg",
+    "colors": [
+      "#164c61",
+      "#77939d",
+      "#050b12",
+      "#354450"
+    ],
+    "from": "#050b12",
+    "to": "#77939d",
+    "white": "#77939d",
+    "black": "#050b12"
+  },
+  {
+    "file": "theme_02.jpeg",
+    "colors": [
+      "#efefef",
+      "#d4411c",
+      "#a8846d",
+      "#3f3d3c"
+    ],
+    "from": "#3f3d3c",
+    "to": "#efefef",
+    "white": "#efefef",
+    "black": "#3f3d3c"
+  },
+  {
+    "file": "minimal_start_08_DIN.jpeg",
+    "colors": [
+      "#dce4e4",
+      "#e13f61",
+      "#968c39",
+      "#23231e"
+    ],
+    "from": "#23231e",
+    "to": "#dce4e4",
+    "white": "#dce4e4",
+    "black": "#23231e"
+  },
+  {
+    "file": "sporttherapie_vika-beide-seiten_2.jpeg",
+    "colors": [
+      "#fafafb",
+      "#3172a6",
+      "#8c9f9c",
+      "#808e9e"
+    ],
+    "from": "#3172a6",
+    "to": "#fafafb",
+    "white": "#fafafb",
+    "black": "#3172a6"
+  },
+  {
+    "file": "theme_03.jpeg",
+    "colors": [
+      "#f3f3f0",
+      "#5c7c88",
+      "#2f4e56",
+      "#6c707c"
+    ],
+    "from": "#2f4e56",
+    "to": "#f3f3f0",
+    "white": "#f3f3f0",
+    "black": "#2f4e56"
+  },
+  {
+    "file": "06_1_drucken.jpeg",
+    "colors": [
+      "#f4ea0d",
+      "#f4f3f2",
+      "#a41a33",
+      "#947484"
+    ],
+    "from": "#a41a33",
+    "to": "#f4ea0d",
+    "white": "#f4f3f2",
+    "black": "#947484"
+  },
+  {
+    "file": "a6_lang_01_demo_4_3.jpeg",
+    "colors": [
+      "#f0f3f3",
+      "#95d5c7",
+      "#3e8e7b",
+      "#040807"
+    ],
+    "from": "#040807",
+    "to": "#f0f3f3",
+    "white": "#f0f3f3",
+    "black": "#040807"
+  },
+  {
+    "file": "objektagentur_2.jpeg",
+    "colors": [
+      "#d4d5d4",
+      "#838a50",
+      "#6e5e50",
+      "#454b33"
+    ],
+    "from": "#454b33",
+    "to": "#d4d5d4",
+    "white": "#d4d5d4",
+    "black": "#454b33"
+  },
+  {
+    "file": "screens_sampler.jpeg",
+    "colors": [
+      "#e0e1d9",
+      "#83925d",
+      "#7d554d",
+      "#28372a"
+    ],
+    "from": "#28372a",
+    "to": "#e0e1d9",
+    "white": "#e0e1d9",
+    "black": "#28372a"
+  },
+  {
+    "file": "doppel_flyer.jpeg",
+    "colors": [
+      "#c7d6dc",
+      "#3b90b3",
+      "#76b0c8",
+      "#263b45"
+    ],
+    "from": "#263b45",
+    "to": "#c7d6dc",
+    "white": "#c7d6dc",
+    "black": "#263b45"
+  },
+  {
+    "file": "made_in_bremen_02.jpeg",
+    "colors": [
+      "#d7c9bc",
+      "#c0a8a1",
+      "#a54140",
+      "#413733"
+    ],
+    "from": "#413733",
+    "to": "#d7c9bc",
+    "white": "#d7c9bc",
+    "black": "#413733"
+  },
+  {
+    "file": "theme_simpler_01.jpeg",
+    "colors": [
+      "#cfe2df",
+      "#4ad098",
+      "#9699a0",
+      "#272e33"
+    ],
+    "from": "#272e33",
+    "to": "#cfe2df",
+    "white": "#cfe2df",
+    "black": "#272e33"
+  },
+  {
+    "file": "doppel_flyer_2.jpeg",
+    "colors": [
+      "#7ac0d8",
+      "#459ac0",
+      "#cad8de",
+      "#243d48"
+    ],
+    "from": "#243d48",
+    "to": "#cad8de",
+    "white": "#cad8de",
+    "black": "#243d48"
+  },
+  {
+    "file": "neos_themes_01.jpeg",
+    "colors": [
+      "#07e39d",
+      "#e2e2da",
+      "#8c8c8c",
+      "#1a2121"
+    ],
+    "from": "#1a2121",
+    "to": "#e2e2da",
+    "white": "#e2e2da",
+    "black": "#1a2121"
+  },
+  {
+    "file": "sport_therapie.jpeg",
+    "colors": [
+      "#e0e6ea",
+      "#24689f",
+      "#8a7f6c",
+      "#7c6860"
+    ],
+    "from": "#24689f",
+    "to": "#e0e6ea",
+    "white": "#e0e6ea",
+    "black": "#7c6860"
+  },
+  {
+    "file": "sokolowski_01.jpeg",
+    "colors": [
+      "#dde0ce",
+      "#db8ca0",
+      "#946c40",
+      "#903a5f"
+    ],
+    "from": "#903a5f",
+    "to": "#dde0ce",
+    "white": "#dde0ce",
+    "black": "#903a5f"
+  },
+  {
+    "file": "arcadas_plakat_A2.jpeg",
+    "colors": [
+      "#d0dae0",
+      "#3b8cb1",
+      "#63a8c4",
+      "#223036"
+    ],
+    "from": "#223036",
+    "to": "#d0dae0",
+    "white": "#d0dae0",
+    "black": "#223036"
+  },
+  {
+    "file": "a6_lang_01_demo_4_4.jpeg",
+    "colors": [
+      "#71d1cc",
+      "#69b9bd",
+      "#cad5d5",
+      "#1b6f67"
+    ],
+    "from": "#1b6f67",
+    "to": "#cad5d5",
+    "white": "#cad5d5",
+    "black": "#1b6f67"
+  },
+  {
+    "file": "vorne_2_col_var.jpeg",
+    "colors": [
+      "#dae2dc",
+      "#51b1ad",
+      "#59939c",
+      "#293833"
+    ],
+    "from": "#293833",
+    "to": "#dae2dc",
+    "white": "#dae2dc",
+    "black": "#293833"
+  },
+  {
+    "file": "a6_lang_01_demo_4.jpeg",
+    "colors": [
+      "#e9e9e9",
+      "#81847c",
+      "#737472",
+      "#393b3a"
+    ],
+    "from": "#393b3a",
+    "to": "#e9e9e9",
+    "white": "#e9e9e9",
+    "black": "#393b3a"
+  },
+  {
+    "file": "2009.jpeg",
+    "colors": [
+      "#d7dedf",
+      "#7e7c38",
+      "#745c47",
+      "#47372c"
+    ],
+    "from": "#47372c",
+    "to": "#d7dedf",
+    "white": "#d7dedf",
+    "black": "#47372c"
+  },
+  {
+    "file": "lp_stojan.jpeg",
+    "colors": [
+      "#eff0f1",
+      "#61aab4",
+      "#6e8cad",
+      "#312c43"
+    ],
+    "from": "#312c43",
+    "to": "#eff0f1",
+    "white": "#eff0f1",
+    "black": "#312c43"
+  },
+  {
+    "file": "2009_site.jpeg",
+    "colors": [
+      "#dae2e3",
+      "#bb5c3d",
+      "#957865",
+      "#37231d"
+    ],
+    "from": "#37231d",
+    "to": "#dae2e3",
+    "white": "#dae2e3",
+    "black": "#37231d"
+  },
+  {
+    "file": "eq3_real.jpeg",
+    "colors": [
+      "#d46520",
+      "#d6884b",
+      "#d8dbda",
+      "#444642"
+    ],
+    "from": "#444642",
+    "to": "#d8dbda",
+    "white": "#d8dbda",
+    "black": "#444642"
+  },
+  {
+    "file": "a6_lang_01_demo_4_2.jpeg",
+    "colors": [
+      "#e7f6f5",
+      "#59af9f",
+      "#265c4c",
+      "#142e2a"
+    ],
+    "from": "#142e2a",
+    "to": "#e7f6f5",
+    "white": "#e7f6f5",
+    "black": "#142e2a"
+  },
+  {
+    "file": "06.jpeg",
+    "colors": [
+      "#18a1dc",
+      "#dbddd0",
+      "#59bf8e",
+      "#2e3834"
+    ],
+    "from": "#2e3834",
+    "to": "#dbddd0",
+    "white": "#dbddd0",
+    "black": "#2e3834"
+  },
+  {
+    "file": "sokolowski_02.jpeg",
+    "colors": [
+      "#e9da06",
+      "#e7e7e0",
+      "#0e252d",
+      "#785f65"
+    ],
+    "from": "#0e252d",
+    "to": "#e9da06",
+    "white": "#e7e7e0",
+    "black": "#0e252d"
+  },
+  {
+    "file": "helvetica_punk.jpeg",
+    "colors": [
+      "#d83490",
+      "#dde2db",
+      "#7ad660",
+      "#2b3e29"
+    ],
+    "from": "#7ad660",
+    "to": "#d83490",
+    "white": "#dde2db",
+    "black": "#2b3e29"
+  },
+  {
+    "file": "yokumi_display.jpeg",
+    "colors": [
+      "#d0cfcf",
+      "#8d7a4f",
+      "#745d3c",
+      "#3e362d"
+    ],
+    "from": "#3e362d",
+    "to": "#d0cfcf",
+    "white": "#d0cfcf",
+    "black": "#3e362d"
+  },
+  {
+    "file": "neos_themes_02.jpeg",
+    "colors": [
+      "#e1e1d9",
+      "#74746c",
+      "#746c6a",
+      "#243c36"
+    ],
+    "from": "#243c36",
+    "to": "#e1e1d9",
+    "white": "#e1e1d9",
+    "black": "#243c36"
+  },
+  {
+    "file": "21-06.jpeg",
+    "colors": [
+      "#f1f1f1",
+      "#1e7763",
+      "#7c7080",
+      "#7e7d7c"
+    ],
+    "from": "#1e7763",
+    "to": "#f1f1f1",
+    "white": "#f1f1f1",
+    "black": "#7c7080"
+  },
+  {
+    "file": "plakat_a2_lang.jpeg",
+    "colors": [
+      "#e2b1a1",
+      "#7fa09d",
+      "#6d8c96",
+      "#1f2f2f"
+    ],
+    "from": "#1f2f2f",
+    "to": "#e2b1a1",
+    "white": "#e2b1a1",
+    "black": "#1f2f2f"
+  },
+  {
+    "file": "umse_A1_2.jpeg",
+    "colors": [
+      "#cdd8dd",
+      "#4e9fc1",
+      "#3d83a6",
+      "#1d262b"
+    ],
+    "from": "#1d262b",
+    "to": "#cdd8dd",
+    "white": "#cdd8dd",
+    "black": "#1d262b"
+  },
+  {
+    "file": "objektagentur.jpeg",
+    "colors": [
+      "#c2a83f",
+      "#e9e9e9",
+      "#b3b4b1",
+      "#6c6563"
+    ],
+    "from": "#6c6563",
+    "to": "#e9e9e9",
+    "white": "#e9e9e9",
+    "black": "#6c6563"
+  },
+  {
+    "file": "lp_bader.jpeg",
+    "colors": [
+      "#b5b33a",
+      "#d3cac5",
+      "#1f6b7c",
+      "#8b2c55"
+    ],
+    "from": "#8b2c55",
+    "to": "#b5b33a",
+    "white": "#d3cac5",
+    "black": "#1f6b7c"
+  },
+  {
+    "file": "sportziel_2.jpeg",
+    "colors": [
+      "#d9d0c5",
+      "#9b8c43",
+      "#a93f35",
+      "#2f2c27"
+    ],
+    "from": "#2f2c27",
+    "to": "#d9d0c5",
+    "white": "#d9d0c5",
+    "black": "#2f2c27"
+  },
+  {
+    "file": "andri_A1.jpeg",
+    "colors": [
+      "#dccfc2",
+      "#9db550",
+      "#81374a",
+      "#412730"
+    ],
+    "from": "#412730",
+    "to": "#dccfc2",
+    "white": "#dccfc2",
+    "black": "#412730"
+  },
+  {
+    "file": "baustelle_08.jpeg",
+    "colors": [
+      "#2ddba4",
+      "#e6f8f7",
+      "#046c4c",
+      "#07110c"
+    ],
+    "from": "#07110c",
+    "to": "#e6f8f7",
+    "white": "#e6f8f7",
+    "black": "#07110c"
+  },
+  {
+    "file": "schumacher_a1.jpeg",
+    "colors": [
+      "#d2c091",
+      "#b8ae84",
+      "#aca4b4",
+      "#584c45"
+    ],
+    "from": "#584c45",
+    "to": "#d2c091",
+    "white": "#aca4b4",
+    "black": "#584c45"
+  },
+  {
+    "file": "edo_g_A1.jpeg",
+    "colors": [
+      "#269dc4",
+      "#d4dce0",
+      "#3c82a3",
+      "#212c32"
+    ],
+    "from": "#212c32",
+    "to": "#d4dce0",
+    "white": "#d4dce0",
+    "black": "#212c32"
+  },
+  {
+    "file": "19-7-theme-detail-5.jpeg",
+    "colors": [
+      "#25d39b",
+      "#edece0",
+      "#898c9c",
+      "#2a3238"
+    ],
+    "from": "#2a3238",
+    "to": "#edece0",
+    "white": "#edece0",
+    "black": "#2a3238"
+  },
+  {
+    "file": "a6_lang_01_demo_4_6.jpeg",
+    "colors": [
+      "#ccdada",
+      "#229088",
+      "#0c463a",
+      "#070f0f"
+    ],
+    "from": "#070f0f",
+    "to": "#ccdada",
+    "white": "#ccdada",
+    "black": "#070f0f"
+  },
+  {
+    "file": "sporttherapie_vika-beide-seiten.jpeg",
+    "colors": [
+      "#f9fafb",
+      "#2c72aa",
+      "#909fac",
+      "#7f8da1"
+    ],
+    "from": "#2c72aa",
+    "to": "#f9fafb",
+    "white": "#f9fafb",
+    "black": "#2c72aa"
+  },
+  {
+    "file": "a6_april_3.jpeg",
+    "colors": [
+      "#c7bd3a",
+      "#a29c15",
+      "#46410a",
+      "#8f8c85"
+    ],
+    "from": "#46410a",
+    "to": "#c7bd3a",
+    "white": "#8f8c85",
+    "black": "#46410a"
+  },
+  {
+    "file": "baustelle_07.jpeg",
+    "colors": [
+      "#e32354",
+      "#ae062c",
+      "#8f233d",
+      "#200a0c"
+    ],
+    "from": "#200a0c",
+    "to": "#e32354",
+    "white": "#8f233d",
+    "black": "#200a0c"
+  },
+  {
+    "file": "19-6-theme-list-7.jpeg",
+    "colors": [
+      "#07d39b",
+      "#f5efe0",
+      "#9d9492",
+      "#2f363d"
+    ],
+    "from": "#2f363d",
+    "to": "#f5efe0",
+    "white": "#f5efe0",
+    "black": "#2f363d"
+  },
+  {
+    "file": "doppelflyer_januar.jpeg",
+    "colors": [
+      "#f7f5e5",
+      "#cfa566",
+      "#af303d",
+      "#341e15"
+    ],
+    "from": "#341e15",
+    "to": "#f7f5e5",
+    "white": "#f7f5e5",
+    "black": "#341e15"
+  },
+  {
+    "file": "tagtraeumer.jpeg",
+    "colors": [
+      "#ddbfc3",
+      "#47a896",
+      "#0e5543",
+      "#092c25"
+    ],
+    "from": "#092c25",
+    "to": "#ddbfc3",
+    "white": "#ddbfc3",
+    "black": "#092c25"
+  },
+  {
+    "file": "arcadas_flyer.jpeg",
+    "colors": [
+      "#0a9ecb",
+      "#dbe2e4",
+      "#247c9a",
+      "#0d1318"
+    ],
+    "from": "#0d1318",
+    "to": "#dbe2e4",
+    "white": "#dbe2e4",
+    "black": "#0d1318"
+  },
+  {
+    "file": "22-06-theme-dtail.jpeg",
+    "colors": [
+      "#e9ede2",
+      "#7f935e",
+      "#5e644c",
+      "#283a3e"
+    ],
+    "from": "#283a3e",
+    "to": "#e9ede2",
+    "white": "#e9ede2",
+    "black": "#283a3e"
+  },
+  {
+    "file": "nadje_esposito.jpeg",
+    "colors": [
+      "#108bc0",
+      "#c7d2d9",
+      "#93bfd1",
+      "#395e69"
+    ],
+    "from": "#395e69",
+    "to": "#c7d2d9",
+    "white": "#c7d2d9",
+    "black": "#395e69"
+  },
+  {
+    "file": "doetlingen_website.jpeg",
+    "colors": [
+      "#dbbc55",
+      "#e5ddd8",
+      "#c33633",
+      "#396e6a"
+    ],
+    "from": "#c33633",
+    "to": "#dbbc55",
+    "white": "#e5ddd8",
+    "black": "#396e6a"
+  },
+  {
+    "file": "objektagentur_unterseite.jpeg",
+    "colors": [
+      "#f1f1f1",
+      "#8c8380",
+      "#7d8082",
+      "#595856"
+    ],
+    "from": "#595856",
+    "to": "#f1f1f1",
+    "white": "#f1f1f1",
+    "black": "#595856"
+  },
+  {
+    "file": "theme_01.jpeg",
+    "colors": [
+      "#bcb43b",
+      "#edeae4",
+      "#ea4d53",
+      "#445943"
+    ],
+    "from": "#ea4d53",
+    "to": "#bcb43b",
+    "white": "#edeae4",
+    "black": "#445943"
+  },
+  {
+    "file": "09.jpeg",
+    "colors": [
+      "#dadf81",
+      "#7eae57",
+      "#88998d",
+      "#2d451f"
+    ],
+    "from": "#2d451f",
+    "to": "#dadf81",
+    "white": "#88998d",
+    "black": "#2d451f"
+  },
+  {
+    "file": "doetlingen_logo.jpeg",
+    "colors": [
+      "#26c0e0",
+      "#e99028",
+      "#f3f3f3",
+      "#8c807f"
+    ],
+    "from": "#e99028",
+    "to": "#26c0e0",
+    "white": "#f3f3f3",
+    "black": "#8c807f"
+  },
+  {
+    "file": "19-6.jpeg",
+    "colors": [
+      "#27d39a",
+      "#dfe1d0",
+      "#8c9194",
+      "#252f33"
+    ],
+    "from": "#252f33",
+    "to": "#dfe1d0",
+    "white": "#dfe1d0",
+    "black": "#252f33"
+  },
+  {
+    "file": "raw_free_a1.jpeg",
+    "colors": [
+      "#1f9cc3",
+      "#ccd7dd",
+      "#3585aa",
+      "#1a1f23"
+    ],
+    "from": "#1a1f23",
+    "to": "#ccd7dd",
+    "white": "#ccd7dd",
+    "black": "#1a1f23"
+  },
+  {
+    "file": "yokumi_website.jpeg",
+    "colors": [
+      "#f4f3ef",
+      "#98855e",
+      "#885d49",
+      "#5c4840"
+    ],
+    "from": "#5c4840",
+    "to": "#f4f3ef",
+    "white": "#f4f3ef",
+    "black": "#5c4840"
+  },
+  {
+    "file": "stylewarz_plakat_minimal_2.jpeg",
+    "colors": [
+      "#119ac4",
+      "#1885ac",
+      "#cdd7db",
+      "#0d191e"
+    ],
+    "from": "#0d191e",
+    "to": "#cdd7db",
+    "white": "#cdd7db",
+    "black": "#0d191e"
+  },
+  {
+    "file": "eq3.jpeg",
+    "colors": [
+      "#e16917",
+      "#e2e4e4",
+      "#d49656",
+      "#1f3a6b"
+    ],
+    "from": "#1f3a6b",
+    "to": "#e2e4e4",
+    "white": "#e2e4e4",
+    "black": "#1f3a6b"
+  }
+]
