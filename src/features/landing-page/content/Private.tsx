@@ -13,7 +13,9 @@ type ImageData = {
 };
 
 export const PrivateStuff = () => {
+  const [activeImage, setActiveImage] = createSignal<ImageData | null>(null);
   const [images] = createSignal(imageData as ImageData[]);
+
   return (
     <div id="private-stuff">
       <div class="px-6 md:px-0">
@@ -31,33 +33,19 @@ export const PrivateStuff = () => {
           <div class="tile-heading col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
             <LandingPageSectionTitle>
               Mainly Things from 10&ndash;15 years ago. Now serving as
-              Color-Pallete-Inspiration.
+              Color-Swatches.
             </LandingPageSectionTitle>
           </div>
         </div>
+        
+        <div></div>
         <div class="px-6 grid grid-cols-26 gap-2 ">
-          {/*<div class="col-span-4">*/}
-          {/*  <div class="grid grid-cols-1 gap-2 ">*/}
-          {/*    <div class="aspect-square rounded overflow-hidden">*/}
-          {/*      <div*/}
-          {/*        class="w-full h-full bg-cover bg-center"*/}
-          {/*        style={`background-image: url(${swissImage})`}*/}
-          {/*      ></div>*/}
-          {/*    </div>*/}
-          {/*    <div class="aspect-square rounded overflow-hidden">*/}
-          {/*      <div*/}
-          {/*        class="w-full h-full e bg-cover bg-center"*/}
-          {/*        style={`background-image: url(${baderImage})`}*/}
-          {/*      ></div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
           <For each={images()}>
             {(image, i) => (
               <div
+                onClick={() => setActiveImage(image)}
                 class={
-                  "col-span-2 aspect-square rounded overflow-hidden " +
+                  "col-span-2 aspect-square rounded overflow-hidden group" +
                   (i() === 0 ? "col-start-1" : "")
                 }
               >
@@ -65,7 +53,7 @@ export const PrivateStuff = () => {
                   class="w-full h-full bg-cover bg-center"
                   style={`background-image: url('/images/thumbnails/${image.file}')`}
                 >
-                  <div class="h-full w-[50%] grid grid-cols-3 ">
+                  <div class="h-full w-[100%] grid grid-cols-3 opacity-80 group-hover:opacity-0 transition-opacity">
                     <div class="h-full grid grid-rows-2 ">
                       <div style={`background-color: ${image.black}`}></div>
                       <div style={`background-color: ${image.white}`}></div>
