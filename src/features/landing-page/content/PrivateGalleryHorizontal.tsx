@@ -1,5 +1,5 @@
 import imageData from "/src/assets/images.json";
-import { createSignal, For, onMount } from "solid-js";
+import { createSignal, For, onMount, Show } from "solid-js";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 // import "@interactjs/inertia";
@@ -14,7 +14,7 @@ type ImageData = {
 };
 
 export const PrivateGalleryHorizontal = () => {
-  const [activeImage, setActiveImage] = createSignal<ImageData | null>(null);
+  const [activeImage, setActiveImage] = createSignal<number | null>(null);
   const [images] = createSignal(imageData as ImageData[]);
 
   let parallax = []; // we'll store the animations in here.
@@ -28,17 +28,17 @@ export const PrivateGalleryHorizontal = () => {
       parallax[i] = gsap.to(".img_" + i, {
         width: SIZE_L,
         height: SIZE_L,
-        ease: "none",
+        ease: "linear",
         paused: true,
       });
     }
 
     const clamp = gsap.utils.clamp(0, 1);
 
-    let snap = gsap.utils.pipe(
-      gsap.utils.snap(SIZE * DISTANCE),
-      gsap.utils.clamp(images.length * -(SIZE * DISTANCE), 0),
-    );
+    // let snap = gsap.utils.pipe(
+    //   gsap.utils.snap(SIZE * DISTANCE),
+    //   gsap.utils.clamp(images.length * -(SIZE * DISTANCE), 0),
+    // );
 
     const updateAnimation = () => {
       parallax.forEach((animation, i) => {
@@ -50,7 +50,11 @@ export const PrivateGalleryHorizontal = () => {
         const normalize = gsap.utils.mapRange(0, window.innerWidth / 3, 1, 0);
 
         const nv = normalize(Math.abs(Pos));
-        return animation.progress(clamp(nv));
+        const clamped = clamp(nv);
+        if (clamped > 0.8) {
+          setActiveImage(i);
+        }
+        return animation.progress(clamped);
       });
     };
 
@@ -58,38 +62,105 @@ export const PrivateGalleryHorizontal = () => {
 
     Draggable.create("#slides", {
       type: "x",
-      bounds: { left: window.innerWidth / 2, width: 100 },
-      zIndexBoost: false,
+      bounds: { left: window.innerWidth / 2 - SIZE_L / 2, width: 1 },
+      zIndexBoost: true,
+      allowEventDefault: true,
       onDrag: updateAnimation,
       inertia: false,
-      throwResistance: 8000,
+      throwResistance: 0,
       onRelease: function () {},
       onThrowUpdate: updateAnimation,
-      snap: snap,
+      // snap: snap,
+    });
+
+    window.addEventListener("resize", () => {
+      Draggable.get("#slides").applyBounds({ left: innerWidth / 2, width: 1 });
+      updateAnimation();
     });
   });
 
   return (
-    <div style={`height:${SIZE_L}px`}>
-      <div
-        style={`height:${SIZE_L}px`}
-        id="slides"
-        class="absolute left-1/2 -translate-x-1/2 w-auto flex items-center gap-2 "
-      >
-        <For each={images()}>
-          {(image, i) => (
-            // <div
-            //   class={"bg-cover bg-center absolute " + "img_" + i()}
-            //   style={`background-image: url('/images/thumbnails/${image.file}'); width: ${SIZE}px; height: ${SIZE}px; left:${i() * (SIZE + DISTANCE)}px`}
-            // ></div>
-            <div>
-              <div
-                class={"bg-cover rounded w-16 h-16 bg-center " + "img_" + i()}
-                style={`background-image: url('/images/thumbnails/${image.file}')`}
-              ></div>
+    <div>
+      <div style={`height:${SIZE_L}px`}>
+        <div
+          style={`height:${SIZE_L}px`}
+          id="slides"
+          class="absolute  w-auto flex items-center gap-2 "
+        >
+          <For each={images()}>
+            {(image, i) => (
+              <div onClick={() => console.log("click", image)}>
+                <div
+                  class={"bg-cover rounded w-16 h-16 bg-center " + "img_" + i()}
+                  style={`background-image: url('/images/thumbnails/${image.file}')`}
+                ></div>
+              </div>
+            )}
+          </For>
+        </div>
+      </div>
+      <div>
+        <div class="relative max-h-screen h-72 mt-16">
+          <div class="h-full grid grid-cols-26 gap-2 ">
+            <div class="h-full col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
+              <Show when={activeImage() !== null}>
+                {(imageIndex) => (
+                  <div class="w-full h-full grid grid-cols-7 rounded overflow-hidden">
+                    <div
+                      class="p-8 col-span-4 transition-['background-color']"
+                      style={`background-color: ${images()[activeImage()].black}`}
+                    >
+                      <div
+                        class="text-5xl font-display mb-4 transition-['color']"
+                        style={`color: ${images()[activeImage()].white}`}
+                      >
+                        Type-Test
+                      </div>
+                      <p
+                        class="text-sm font-extralight transition-['color']"
+                        style={`color: ${images()[activeImage()].white}`}
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Ad adipisci aperiam debitis et incidunt ipsa odio
+                        quia ratione suscipit unde?
+                      </p>
+                    </div>
+                    <div class="h-full grid grid-rows-2 ">
+                      <div
+                        class="transition-['background-color']"
+                        style={`background-color: ${images()[activeImage()].black}`}
+                      ></div>
+                      <div
+                        class="transition-['background-color']"
+                        style={`background-color: ${images()[activeImage()].white}`}
+                      ></div>
+                    </div>
+                    <div class="h-full grid grid-rows-2 ">
+                      <div
+                        class="transition-['background-color']"
+                        style={`background-color: ${images()[activeImage()].from}`}
+                      ></div>
+                      <div
+                        class="transition-['background-color']"
+                        style={`background-color: ${images()[activeImage()].to}`}
+                      ></div>
+                    </div>
+                    <div class="h-full grid grid-rows-4 ">
+                      <For each={images()[activeImage()].colors}>
+                        {(color, j) => (
+                          <div
+                            class="transition-['background-color']"
+                            style={`background-color: ${color}`}
+                          ></div>
+                        )}
+                      </For>
+                    </div>
+                  </div>
+                )}
+              </Show>
             </div>
-          )}
-        </For>
+          </div>
+        </div>
       </div>
     </div>
   );

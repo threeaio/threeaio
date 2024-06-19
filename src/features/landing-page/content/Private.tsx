@@ -11,7 +11,9 @@ export const PrivateStuff = () => {
             <HugeText>
               <h2>
                 Some things I did for the food.{" "}
-                <span class="text-3a-green">Some Things I do for the fun.</span>
+                <span class="text-3a-green">
+                  Some Things I did for the fun.
+                </span>
               </h2>
             </HugeText>
           </div>
