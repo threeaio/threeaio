@@ -19,6 +19,7 @@
     "vite-plugin-solid": "^2.10.2"
   },
   "dependencies": {
+    "@interactjs/inertia": "^1.10.27",
     "@solid-primitives/scheduled": "^1.4.3",
     "@solid-primitives/scroll": "^2.0.23",
     "@solid-primitives/workers": "^0.2.7",

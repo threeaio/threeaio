@@ -3,6 +3,7 @@ import { fromLandingPageState } from "./landing-page-state";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Draggable } from "gsap/Draggable";
 import { Divider } from "./components/Divider";
 import { Triptichon } from "./content/Triptichon";
 import { Hero } from "./content/Hero";
@@ -25,6 +26,7 @@ export const LandingPage: Component = () => {
   ] = fromLandingPageState;
 
   gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(Draggable);
 
   GsapBlur();
 

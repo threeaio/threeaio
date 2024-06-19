@@ -1,21 +1,8 @@
 import { HugeText } from "../components/HugeText";
-import imageData from "/src/assets/images.json";
-import { createSignal, For } from "solid-js";
 import { LandingPageSectionTitle } from "../components/Landing-Page-Section-Title";
-
-type ImageData = {
-  file: string;
-  from: string;
-  to: string;
-  black: string;
-  white: string;
-  colors: string[];
-};
+import { PrivateGalleryHorizontal } from "./PrivateGalleryHorizontal";
 
 export const PrivateStuff = () => {
-  const [activeImage, setActiveImage] = createSignal<ImageData | null>(null);
-  const [images] = createSignal(imageData as ImageData[]);
-
   return (
     <div id="private-stuff">
       <div class="px-6 md:px-0">
@@ -37,44 +24,8 @@ export const PrivateStuff = () => {
             </LandingPageSectionTitle>
           </div>
         </div>
-        
-        <div></div>
-        <div class="px-6 grid grid-cols-26 gap-2 ">
-          <For each={images()}>
-            {(image, i) => (
-              <div
-                onClick={() => setActiveImage(image)}
-                class={
-                  "col-span-2 aspect-square rounded overflow-hidden group" +
-                  (i() === 0 ? "col-start-1" : "")
-                }
-              >
-                <div
-                  class="w-full h-full bg-cover bg-center"
-                  style={`background-image: url('/images/thumbnails/${image.file}')`}
-                >
-                  <div class="h-full w-[100%] grid grid-cols-3 opacity-80 group-hover:opacity-0 transition-opacity">
-                    <div class="h-full grid grid-rows-2 ">
-                      <div style={`background-color: ${image.black}`}></div>
-                      <div style={`background-color: ${image.white}`}></div>
-                    </div>
-                    <div class="h-full grid grid-rows-2 ">
-                      <div style={`background-color: ${image.from}`}></div>
-                      <div style={`background-color: ${image.to}`}></div>
-                    </div>
-                    <div class="h-full grid grid-rows-4 ">
-                      <For each={image.colors}>
-                        {(color, j) => (
-                          <div style={`background-color: ${color}`}></div>
-                        )}
-                      </For>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </For>
-        </div>
+
+        <PrivateGalleryHorizontal />
       </div>
     </div>
   );
