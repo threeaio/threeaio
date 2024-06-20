@@ -94,7 +94,7 @@ export const Neusta = () => {
 
   return (
     <div
-      class="h-vh w-full px-6 md:px-0 bg-cover flex "
+      class="h-screen w-full px-6 md:px-0 bg-cover flex "
       id="neusta-start"
       ref={(el) => (container = el)}
     >

@@ -1,4 +1,4 @@
-import { Component } from "solid-js";
+import { Component, onMount } from "solid-js";
 import { fromLandingPageState } from "./landing-page-state";
 import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
@@ -29,39 +29,43 @@ export const LandingPage: Component = () => {
 
   GsapBlur();
 
-  // lenis
-  const lenis = new Lenis({
-    syncTouch: true,
-    autoResize: true,
-    wheelMultiplier: 0.6,
-    // touchMultiplier: 0.6,
-    // smoothWheel: true,
-    // orientation: "vertical",
-    // gestureOrientation: "vertical",
-    // // smoothTouch: false,
+  onMount(() => {
+    setTimeout(() => {
+      // lenis
+      const lenis = new Lenis({
+        syncTouch: true,
+        autoResize: true,
+        wheelMultiplier: 0.6,
+        // touchMultiplier: 0.6,
+        // smoothWheel: true,
+        // orientation: "vertical",
+        // gestureOrientation: "vertical",
+        // // smoothTouch: false,
 
-    // touchMultiplier: 0.6,
+        // touchMultiplier: 0.6,
+      });
+
+      lenis.on(
+        "scroll",
+        (e: { velocity: number; progress: number; direction: -1 | 1 }) => {
+          // console.log("Lenis progress", e.progress);
+          // console.log("Lenis velocity", e.velocity);
+          // console.log("Lenis direction", e.direction);
+          setVelocity(e.velocity);
+          setProgress(e.progress);
+          setScrollDirection(e.direction);
+        },
+      );
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+    });
   });
-
-  lenis.on(
-    "scroll",
-    (e: { velocity: number; progress: number; direction: -1 | 1 }) => {
-      // console.log("Lenis progress", e.progress);
-      // console.log("Lenis velocity", e.velocity);
-      // console.log("Lenis direction", e.direction);
-      setVelocity(e.velocity);
-      setProgress(e.progress);
-      setScrollDirection(e.direction);
-    },
-  );
-
-  lenis.on("scroll", ScrollTrigger.update);
-
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
-
-  gsap.ticker.lagSmoothing(0);
 
   // lenis end
 
