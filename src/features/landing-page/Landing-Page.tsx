@@ -10,7 +10,6 @@ import { Hero } from "./content/Hero";
 import { GsapBlur } from "./plugins/gsap-blur";
 import { Footer } from "./content/Footer";
 import { Neusta } from "./content/Neusta";
-import { PrivateStuff } from "./content/Private";
 
 export const LandingPage: Component = () => {
   const [
@@ -82,9 +81,9 @@ export const LandingPage: Component = () => {
 
       <Divider />
 
-      <PrivateStuff />
+      {/*<PrivateStuff />*/}
 
-      <Divider />
+      {/*<Divider />*/}
 
       <Footer />
     </div>
