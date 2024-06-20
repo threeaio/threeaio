@@ -58,8 +58,6 @@ export const Neusta = () => {
         ".contributed",
         {
           // x: -20,
-          x: 50,
-          blur: 20,
           x: 800,
           blur: 10,
           autoAlpha: 0,
@@ -69,7 +67,6 @@ export const Neusta = () => {
       .from(
         ".fixed-typos",
         {
-          x: -50,
           // scale: 0.8,
           x: -200,
           height: 0,
