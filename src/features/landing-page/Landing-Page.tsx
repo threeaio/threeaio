@@ -38,12 +38,8 @@ export const LandingPage: Component = () => {
         autoResize: true,
         wheelMultiplier: 0.6,
         touchMultiplier: 0.6,
-        // smoothWheel: true,
         orientation: "vertical",
         gestureOrientation: "vertical",
-        // // smoothTouch: false,
-
-        // touchMultiplier: 0.6,
       });
 
       lenis.on(
@@ -80,7 +76,7 @@ export const LandingPage: Component = () => {
 
       <Neusta />
 
-      {/*<Divider />*/}
+      <Divider />
 
       <PrivateStuff />
 
