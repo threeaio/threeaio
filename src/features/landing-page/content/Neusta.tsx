@@ -16,8 +16,8 @@ export const Neusta = () => {
         end: "85% -400px", // end after scrolling 500px beyond the start
         scrub: 2,
         anticipatePin: 1,
-        // invalidateOnRefresh: true,
-        // immediateRender: false,
+        invalidateOnRefresh: false,
+        immediateRender: true,
         // markers: true,
       },
     });
@@ -99,7 +99,7 @@ export const Neusta = () => {
 
   return (
     <div
-      class="h-[600px] w-full px-6 md:px-0 bg-cover flex "
+      class="h-[600px] w-full overflow-hidden px-6 md:px-0 bg-cover flex "
       id="neusta-start"
       ref={(el) => (container = el)}
     >
@@ -107,7 +107,7 @@ export const Neusta = () => {
       <div class="self-end pb-8 grid grid-cols-26">
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
           <HugeText>
-            <h2 class="headline">
+            <h2 class="headline ">
               <span class="relative inline-block overflow-visible whitespace-nowrap">
                 <span class="fixed-typos inline-block  overflow-visible whitespace-nowrap">
                   Fixed Typos in the{" "}
