@@ -43,7 +43,7 @@ export const Triptichon = () => {
   });
 
   return (
-    <div class="px-6 md:px-0">
+    <div class="px-6 md:px-0 pb-16">
       <div
         class="tile-container grid grid-cols-26"
         ref={(el) => (container = el)}

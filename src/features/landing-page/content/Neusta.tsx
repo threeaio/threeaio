@@ -15,42 +15,12 @@ export const Neusta = () => {
         start: "center center", // when the top of the trigger hits the top of the viewport
         end: "85% -400px", // end after scrolling 500px beyond the start
         scrub: 2,
-        anticipatePin: 1,
+        anticipatePin: 0.5,
         invalidateOnRefresh: false,
         immediateRender: true,
         // markers: true,
       },
     });
-
-    // let tl2 = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     preventOverlaps: false,
-    //     pin: false,
-    //     start: "top center",
-    //     end: "bottom -200px ",
-    //     scrub: false,
-    //   },
-    // });
-
-    // tl2
-    //   .from(
-    //     container,
-    //     {
-    //       opacity: 0,
-    //       duration: 1.6,
-    //     },
-    //     "",
-    //   )
-    //   .from(
-    //     ".headline",
-    //     {
-    //       opacity: 0,
-    //       y: 200,
-    //       duration: 0.6,
-    //     },
-    //     "<+.2",
-    //   );
 
     tl.addLabel("start")
 
@@ -69,7 +39,6 @@ export const Neusta = () => {
         {
           // scale: 0.8,
           x: -200,
-          height: 0,
           width: 0,
           autoAlpha: 0,
         },
