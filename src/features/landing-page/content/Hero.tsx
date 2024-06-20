@@ -20,7 +20,7 @@ export const Hero = () => {
     });
 
     gsap.to("#main-logo", {
-      y: 200,
+      y: 400,
       force3D: true,
       ease: "power2",
       scrollTrigger: {

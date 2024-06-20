@@ -33,8 +33,8 @@ export const LandingPage: Component = () => {
   const lenis = new Lenis({
     syncTouch: true,
     autoResize: true,
-    touchMultiplier: 0.6,
     wheelMultiplier: 0.6,
+    // touchMultiplier: 0.6,
     // smoothWheel: true,
     // orientation: "vertical",
     // gestureOrientation: "vertical",
