@@ -9,6 +9,7 @@ import { Triptichon } from "./content/Triptichon";
 import { Hero } from "./content/Hero";
 import { GsapBlur } from "./plugins/gsap-blur";
 import { Footer } from "./content/Footer";
+import { Neusta } from "./content/Neusta";
 
 export const LandingPage: Component = () => {
   const [
@@ -32,12 +33,12 @@ export const LandingPage: Component = () => {
   const lenis = new Lenis({
     syncTouch: true,
     autoResize: true,
-    // wheelMultiplier: 0.6,
+    touchMultiplier: 0.6,
+    wheelMultiplier: 0.6,
     // smoothWheel: true,
     // orientation: "vertical",
     // gestureOrientation: "vertical",
     // // smoothTouch: false,
-    // // touchMultiplier: 0.6,
 
     // touchMultiplier: 0.6,
   });
@@ -72,9 +73,9 @@ export const LandingPage: Component = () => {
 
       <Triptichon />
 
-      {/*<Neusta />*/}
+      <Neusta />
 
-      {/*<Divider />*/}
+      <Divider />
 
       {/*<PrivateStuff />*/}
 
