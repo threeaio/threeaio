@@ -50,14 +50,16 @@ export const Triptichon = () => {
         ref={(el) => (container = el)}
       >
         <div class="col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-          <HugeText>
-            <h2 class="tile-heading">
-              Defining a Look{" "}
-              <span class="whitespace-nowrap">for this Thing</span>
-            </h2>
-          </HugeText>
+          <div class="tile-heading">
+            <HugeText>
+              <h2 class="tile-heading">
+                Defining a Look{" "}
+                <span class="whitespace-nowrap">for this Thing</span>
+              </h2>
+            </HugeText>
+          </div>
         </div>
-        <div class="tile-heading col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
+        <div class=" col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
           <LandingPageSectionTitle>
             Thinking about a Logo (pointer-enter them) and Colors
           </LandingPageSectionTitle>

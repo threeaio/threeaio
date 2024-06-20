@@ -60,8 +60,6 @@ export const PrivateGalleryHorizontal = () => {
     Draggable.create("#slides", {
       type: "x",
       bounds: { left: window.innerWidth / 2 - SIZE_L / 2, width: 1 },
-      zIndexBoost: true,
-      allowEventDefault: true,
       onDrag: updateAnimation,
       inertia: false,
       throwResistance: 0,
@@ -78,11 +76,11 @@ export const PrivateGalleryHorizontal = () => {
 
   return (
     <div>
-      <div style={`height:${SIZE_L}px`} class="w-screen overflow-hidden">
+      <div style={`height:${SIZE_L}px`} class="w-full overflow-hidden">
         <div
           style={`height:${SIZE_L}px`}
           id="slides"
-          class="absolute  w-auto flex items-center gap-2"
+          class="absolute  flex items-center gap-2"
         >
           <For each={images()}>
             {(image, i) => (
