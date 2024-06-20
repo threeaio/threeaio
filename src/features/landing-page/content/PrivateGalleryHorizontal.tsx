@@ -57,31 +57,51 @@ export const PrivateGalleryHorizontal = () => {
 
     updateAnimation();
 
+    let curTry = 200;
+
+    const testSelected = () => {
+      gsap.set("#slides", {
+        x: curTry,
+      });
+
+      updateAnimation();
+      if (activeImage() === null) {
+        curTry -= 10;
+        requestAnimationFrame(() => testSelected());
+      }
+    };
+
+    testSelected();
+
     Draggable.create("#slides", {
       type: "x",
+      lockAxis: true,
       bounds: { left: window.innerWidth / 2 - SIZE_L / 2, width: 1 },
+      allowNativeTouchScrolling: false,
       onDrag: updateAnimation,
       inertia: false,
-      throwResistance: 0.8,
-      dragResistance: 0.7,
+      resistance: 0.8,
       onRelease: function () {},
       onThrowUpdate: updateAnimation,
       // snap: snap,
     });
 
     window.addEventListener("resize", () => {
-      Draggable.get("#slides").applyBounds({ left: innerWidth / 2, width: 1 });
+      Draggable.get("#slides").applyBounds({
+        left: innerWidth / 2 - SIZE_L / 2,
+        width: 1,
+      });
       updateAnimation();
     });
   });
 
   return (
     <div>
-      <div style={`height:${SIZE_L}px`} class="w-full overflow-hidden">
+      <div style={`height:${SIZE_L}px`} class="w-full relative overflow-hidden">
         <div
           style={`height:${SIZE_L}px`}
           id="slides"
-          class="absolute  flex items-center gap-2"
+          class="absolute left-0 top-0 flex items-center gap-2"
         >
           <For each={images()}>
             {(image, i) => (
@@ -100,7 +120,7 @@ export const PrivateGalleryHorizontal = () => {
         </div>
       </div>
       <div>
-        <div class="relative max-h-screen h-72 mt-16">
+        <div class="relative max-h-screen h-64 my-16">
           <div class="h-full grid grid-cols-26 gap-2 ">
             <div class="h-full col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
               <Show when={activeImage() !== null}>
@@ -114,8 +134,9 @@ export const PrivateGalleryHorizontal = () => {
                         class="text-5xl font-display mb-4 transition-['color']"
                         style={`color: ${images()[activeImage()].white}`}
                       >
-                        Type-Test
+                        Typo
                       </div>
+
                       <p
                         class="text-sm font-extralight transition-['color']"
                         style={`color: ${images()[activeImage()].white}`}
