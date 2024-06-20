@@ -10,6 +10,7 @@ import { Hero } from "./content/Hero";
 import { GsapBlur } from "./plugins/gsap-blur";
 import { Footer } from "./content/Footer";
 import { Neusta } from "./content/Neusta";
+import { PrivateStuff } from "./content/Private";
 
 export const LandingPage: Component = () => {
   const [
@@ -36,10 +37,10 @@ export const LandingPage: Component = () => {
         syncTouch: true,
         autoResize: true,
         wheelMultiplier: 0.6,
-        // touchMultiplier: 0.6,
+        touchMultiplier: 0.6,
         // smoothWheel: true,
-        // orientation: "vertical",
-        // gestureOrientation: "vertical",
+        orientation: "vertical",
+        gestureOrientation: "vertical",
         // // smoothTouch: false,
 
         // touchMultiplier: 0.6,
@@ -81,9 +82,9 @@ export const LandingPage: Component = () => {
 
       <Divider />
 
-      {/*<PrivateStuff />*/}
+      <PrivateStuff />
 
-      {/*<Divider />*/}
+      <Divider />
 
       <Footer />
     </div>
