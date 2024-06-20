@@ -33,7 +33,7 @@ export const Hero = () => {
   });
 
   return (
-    <div id="hero-start">
+    <div id="hero-start" class="h-svh">
       <div class="h-svh px-6 md:px-0">
         <GridIndicator />
         <div class="w-full h-full grid grid-cols-26">

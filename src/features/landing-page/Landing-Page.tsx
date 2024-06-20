@@ -37,7 +37,7 @@ export const LandingPage: Component = () => {
         syncTouch: true,
         autoResize: true,
         wheelMultiplier: 0.6,
-        touchMultiplier: 0.6,
+        // touchMultiplier: 0.8,
         orientation: "vertical",
         gestureOrientation: "vertical",
       });
