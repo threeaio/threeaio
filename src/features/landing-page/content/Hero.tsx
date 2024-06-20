@@ -7,29 +7,29 @@ import { SmallText } from "../components/SmallText";
 
 export const Hero = () => {
   onMount(() => {
-    let tl = gsap.timeline({
+    gsap.to("#hero-graphic", {
+      backgroundPosition: "center bottom -300px",
+      force3D: true,
+      ease: "power2",
       scrollTrigger: {
-        trigger: "#hero-start",
-        preventOverlaps: true,
-        start: "bottom bottom",
-        end: "bottom center",
+        start: "top",
+        end: "bottom",
         invalidateOnRefresh: true,
-        scrub: 1,
+        scrub: 0,
       },
     });
 
-    tl.to("#hero-graphic", {
-      backgroundPosition: "center bottom -100px",
-    });
-
-    tl.to(
-      "#main-logo",
-      {
-        y: 200,
-        opacity: 0,
+    gsap.to("#main-logo", {
+      y: 400,
+      force3D: true,
+      ease: "power2",
+      scrollTrigger: {
+        start: "top",
+        end: "bottom",
+        invalidateOnRefresh: true,
+        scrub: 0,
       },
-      "<",
-    );
+    });
   });
 
   return (
