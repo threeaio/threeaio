@@ -80,7 +80,7 @@ export const LandingPage: Component = () => {
 
       <Neusta />
 
-      <Divider />
+      {/*<Divider />*/}
 
       <PrivateStuff />
 
