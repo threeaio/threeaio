@@ -33,8 +33,14 @@ export const LandingPage: Component = () => {
   // lenis
   const lenis = new Lenis({
     syncTouch: true,
-    wheelMultiplier: 0.6,
-    touchMultiplier: 0.6,
+    // wheelMultiplier: 0.6,
+    // smoothWheel: true,
+    // orientation: "vertical",
+    // gestureOrientation: "vertical",
+    // // smoothTouch: false,
+    // // touchMultiplier: 0.6,
+    // autoResize: true,
+    // touchMultiplier: 0.6,
   });
 
   lenis.on(
@@ -59,28 +65,23 @@ export const LandingPage: Component = () => {
 
   // lenis end
 
-  const setupContentResizeObserver = (el: HTMLElement) => {
-    new ResizeObserver((args) => {
-      const cr = args[0].contentRect;
-      setTotalContentHeight(cr.height);
-      setTotalWidth(cr.width);
-    }).observe(el);
-  };
-
-  const setupScreenResizeObserver = (el: HTMLElement) => {
-    new ResizeObserver((args) => {
-      const cr = args[0].contentRect;
-      setScreenHeight(cr.height);
-    }).observe(el);
-  };
+  // const setupContentResizeObserver = (el: HTMLElement) => {
+  //   new ResizeObserver((args) => {
+  //     const cr = args[0].contentRect;
+  //     setTotalContentHeight(cr.height);
+  //     setTotalWidth(cr.width);
+  //   }).observe(el);
+  // };
+  //
+  // const setupScreenResizeObserver = (el: HTMLElement) => {
+  //   new ResizeObserver((args) => {
+  //     const cr = args[0].contentRect;
+  //     setScreenHeight(cr.height);
+  //   }).observe(el);
+  // };
 
   return (
-    <div
-      ref={(el) => {
-        setupScreenResizeObserver(el);
-        setupContentResizeObserver(el);
-      }}
-    >
+    <div ref={(el) => {}}>
       <Hero />
 
       <Divider />

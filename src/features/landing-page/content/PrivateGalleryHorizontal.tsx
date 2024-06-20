@@ -28,6 +28,7 @@ export const PrivateGalleryHorizontal = () => {
       parallax[i] = gsap.to(".img_" + i, {
         width: SIZE_L,
         height: SIZE_L,
+        opacity: 1,
         ease: "linear",
         paused: true,
       });
@@ -35,22 +36,18 @@ export const PrivateGalleryHorizontal = () => {
 
     const clamp = gsap.utils.clamp(0, 1);
 
-    // let snap = gsap.utils.pipe(
-    //   gsap.utils.snap(SIZE * DISTANCE),
-    //   gsap.utils.clamp(images.length * -(SIZE * DISTANCE), 0),
-    // );
-
     const updateAnimation = () => {
       parallax.forEach((animation, i) => {
-        // @ts-ignore
-        const box = document.querySelector(".img_" + i).getBoundingClientRect();
+        const box = document
+          .querySelector(".img_" + i)!
+          .getBoundingClientRect();
         const centerX = box.x + box.width / 2;
 
         const Pos = window.innerWidth / 2 - centerX;
         const normalize = gsap.utils.mapRange(0, window.innerWidth / 3, 1, 0);
-
         const nv = normalize(Math.abs(Pos));
         const clamped = clamp(nv);
+
         if (clamped > 0.8) {
           setActiveImage(i);
         }
@@ -81,17 +78,21 @@ export const PrivateGalleryHorizontal = () => {
 
   return (
     <div>
-      <div style={`height:${SIZE_L}px`}>
+      <div style={`height:${SIZE_L}px`} class="w-screen overflow-hidden">
         <div
           style={`height:${SIZE_L}px`}
           id="slides"
-          class="absolute  w-auto flex items-center gap-2 "
+          class="absolute  w-auto flex items-center gap-2"
         >
           <For each={images()}>
             {(image, i) => (
               <div onClick={() => console.log("click", image)}>
                 <div
-                  class={"bg-cover rounded w-16 h-16 bg-center " + "img_" + i()}
+                  class={
+                    "bg-cover rounded w-16 h-16 bg-center  opacity-10 " +
+                    "img_" +
+                    i()
+                  }
                   style={`background-image: url('/images/thumbnails/${image.file}')`}
                 ></div>
               </div>

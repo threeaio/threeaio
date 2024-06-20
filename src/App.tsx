@@ -3,7 +3,7 @@ import { JSX, ParentComponent } from "solid-js";
 
 const App: ParentComponent = (props: { children?: JSX.Element }) => {
   return (
-    <div class="h-screen">
+    <div class="">
       <header class="fixed text-3a-paper top-0 z-10">
         {/*<ul class="hidden md:flex md:space-x-4 list-none">*/}
         {/*  <li>*/}
