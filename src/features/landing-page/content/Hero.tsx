@@ -24,8 +24,8 @@ export const Hero = () => {
       force3D: true,
       ease: "power2",
       scrollTrigger: {
-        start: "top",
-        end: "bottom",
+        start: "top 0px",
+        end: "bottom 1000px",
         invalidateOnRefresh: true,
         scrub: 0,
       },

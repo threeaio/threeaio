@@ -13,7 +13,7 @@ export const Triptichon = () => {
     if (!container) {
       return;
     }
-    const headingHere = container.querySelector(".tile-heading");
+    const headingsHere = container.querySelectorAll(".tile-heading");
     const tilesHere = container.querySelectorAll(".tile");
 
     let tl = gsap.timeline({
@@ -29,17 +29,16 @@ export const Triptichon = () => {
     });
 
     // add animations and labels to the timeline
-    tl.addLabel("tiles-heading").from(headingHere, {
-      y: 100,
+    tl.addLabel("tiles-heading").from(headingsHere, {
+      y: 40,
+      stagger: 0.1,
       autoAlpha: 0,
-      duration: 1,
     });
     tl.addLabel("tiles").from(tilesHere, {
       stagger: 0.9,
       scale: 0.8,
       y: -60,
       autoAlpha: 0,
-      duration: 2,
     });
   });
 
@@ -60,9 +59,11 @@ export const Triptichon = () => {
           </div>
         </div>
         <div class=" col-span-full md:col-span-22 md:col-start-3 2xl:col-span-18 2xl:col-start-5">
-          <LandingPageSectionTitle>
-            Thinking about a Logo (pointer-enter them) and Colors
-          </LandingPageSectionTitle>
+          <div class="tile-heading">
+            <LandingPageSectionTitle>
+              Thinking about a Logo (pointer-enter them) and Colors
+            </LandingPageSectionTitle>
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
             <div class="tile p-8 bg-3a-gray-darker flex items-center">
               <LogoArrows />
