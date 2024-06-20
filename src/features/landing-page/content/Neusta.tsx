@@ -14,46 +14,52 @@ export const Neusta = () => {
         pin: container, // pin the trigger element while active
         start: "center center", // when the top of the trigger hits the top of the viewport
         end: "85% -400px", // end after scrolling 500px beyond the start
-        scrub: 2, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+        scrub: 2,
+        anticipatePin: 1,
+        // invalidateOnRefresh: true,
+        // immediateRender: false,
         // markers: true,
       },
     });
 
-    let tl2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        preventOverlaps: false,
-        pin: false,
-        start: "top center",
-        end: "bottom -200px ",
-        scrub: false,
-      },
-    });
+    // let tl2 = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: container,
+    //     preventOverlaps: false,
+    //     pin: false,
+    //     start: "top center",
+    //     end: "bottom -200px ",
+    //     scrub: false,
+    //   },
+    // });
 
-    tl2
-      .from(
-        container,
-        {
-          opacity: 0,
-          duration: 1.6,
-        },
-        "",
-      )
-      .from(
-        ".headline",
-        {
-          opacity: 0,
-          y: 200,
-          duration: 0.6,
-        },
-        "<+.2",
-      );
+    // tl2
+    //   .from(
+    //     container,
+    //     {
+    //       opacity: 0,
+    //       duration: 1.6,
+    //     },
+    //     "",
+    //   )
+    //   .from(
+    //     ".headline",
+    //     {
+    //       opacity: 0,
+    //       y: 200,
+    //       duration: 0.6,
+    //     },
+    //     "<+.2",
+    //   );
 
     tl.addLabel("start")
 
       .to(
         ".contributed",
         {
+          // x: -20,
+          x: 50,
+          blur: 20,
           x: 800,
           blur: 10,
           autoAlpha: 0,
@@ -63,6 +69,8 @@ export const Neusta = () => {
       .from(
         ".fixed-typos",
         {
+          x: -50,
+          // scale: 0.8,
           x: -200,
           height: 0,
           width: 0,
@@ -75,7 +83,7 @@ export const Neusta = () => {
         ".explanation",
         {
           y: 120,
-          scale: 0.8,
+          // scale: 0.8,
           autoAlpha: 0,
         },
         ">.3s",
@@ -94,7 +102,7 @@ export const Neusta = () => {
 
   return (
     <div
-      class="h-[500px] w-full px-6 md:px-0 bg-cover flex "
+      class="h-[600px] w-full px-6 md:px-0 bg-cover flex "
       id="neusta-start"
       ref={(el) => (container = el)}
     >
@@ -125,9 +133,9 @@ export const Neusta = () => {
           </HugeText>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
             <div class="col-span-3 md:col-span-2 2xl:col-span-1">
-              <div class="explanation">
+              <div class="">
                 <SmallText>
-                  <p class="mb-8">
+                  <p class="mb-8 explanation">
                     No, not even that.
                     <br />I just did my Job @ Neusta as a{" "}
                     <span class="whitespace-nowrap">
